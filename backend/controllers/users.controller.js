@@ -1,6 +1,9 @@
 const User = require('../models/users.schema');
-const bcrypt = require('bcrypt-nodejs')
+const bcrypt = require('bcrypt-nodejs');
+const jwt = require('../services/jwt');
+const mongoosePaginate = require('mongoose-pagination');
 
+// Funciones de prueba
 function home(req, res) {
     res.status(200).send({
         message: 'Hola mundo home'
@@ -13,6 +16,7 @@ function pruebas(req, res) {
     })
 }
 
+// Registro
 function saveUser(req, res) {
     var params = req.body;
     var user = new User();
@@ -31,7 +35,7 @@ function saveUser(req, res) {
         // Comprobar usuarios duplicados
         User.find({
             $or: [{
-                    email: user.email.toLowerCase()
+                email: user.email.toLowerCase()
                 },
                 {
                     nick: user.nickname.toLowerCase()
@@ -82,6 +86,7 @@ function saveUser(req, res) {
     }
 }
 
+// Login
 function loginUser(req, res) {
     var params = req.body;
 
@@ -100,9 +105,16 @@ function loginUser(req, res) {
         if (user) {
             bcrypt.compare(password, user.password, (err, check) => {
                 if (check) {
-                    return res.status(200).send({
-                        user
-                    })
+                    if (params.gettoken) {
+                        // Generar y devolver el token
+                        return res.status(200).send({
+                            token: jwt.createToken(user)
+                        })
+                    } else {
+                        // Devolver datos del usuario
+                        user.password = undefined;
+                        return res.status(200).send({user});
+                    }
                 } else {
                     return res.status(404).send({
                         message: "El usuario no se ha podido identificar"
@@ -117,9 +129,46 @@ function loginUser(req, res) {
     })
 }
 
+// Obtener un usuario
+function getUser(req, res) {
+    var userId = req.params.id;
+
+    User.findById(userId, (err, user) => {
+        if (err) return res.status(500).send({message: "Error en la petición"});
+
+        if (!user) return res.status(404).send({message: "El usuario no existe"});
+
+        return res.status(200).send({user});
+    })
+}
+
+// Devolver listado de usuarios
+function getUsers(req, res) {
+    var page = 1;
+    if (req.params.page) {
+        page = req.params.page;
+    }
+
+    var itemsPerPage = 5;
+
+    User.find().sort('_id').paginate(page, itemsPerPage, (err, users, total) => {
+        if (err) return res.status(500).send({message: "Error en la petición"});
+
+        if (!users) return res.status(404).send({message: "No hay usuarios disponibles"});
+
+        return res.status(200).send({
+            users,
+            total,
+            pages: Math.ceil(total/itemsPerPage)
+        })
+    })
+}
+
 module.exports = {
     home,
     pruebas,
     saveUser,
-    loginUser
+    loginUser,
+    getUser,
+    getUsers
 }
