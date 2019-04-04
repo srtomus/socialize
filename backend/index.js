@@ -1,28 +1,28 @@
+// Requires and cont definition
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const mongoURI = "mongodb://localhost:27017/db";
+const mongoURI = "mongodb://localhost:27017/proyecto_daw";
 
 // Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-// CORS
-app.use(cors());
-
-
 // Routes
+const user_routes = require('./routes/user.routes');
+app.use('/api', user_routes);
 
-
-
-
-
+// Database
+mongoose.Promise = global.Promise;
 mongoose.connect(mongoURI, { useNewUrlParser: true })
-        .then(() => console.log("DB connected"))
-        .catch(err => console.log(err));
+        .then(() => {
+          console.log("BD conectada");
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
-});
+          // Creación del servidor
+          app.listen(3000, () => {
+            console.log("Servidor conectado");
+          })
+        })
+        .catch(err => console.log(err));
