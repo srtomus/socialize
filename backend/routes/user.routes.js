@@ -9,5 +9,6 @@ router.post('/register', UserController.saveUser);
 router.post('/login', UserController.loginUser);
 router.post('/getuser/:id', md_auth.ensureAuth, UserController.getUser);
 router.post('/getusers/:page', md_auth.ensureAuth, UserController.getUsers);
+router.post('/updateuser/:id', md_auth.ensureAuth, UserController.updateUser);
 
 module.exports = router;

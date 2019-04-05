@@ -16,6 +16,7 @@ app.use('/api', user_routes);
 
 // Database
 mongoose.Promise = global.Promise;
+mongoose.set('useFindAndModify', false);
 mongoose.connect(mongoURI, { useNewUrlParser: true })
   .then(() => {
     console.log("BD conectada");
