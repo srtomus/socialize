@@ -2,6 +2,8 @@ const User = require('../models/users.schema');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
 const mongoosePaginate = require('mongoose-pagination');
+const fs = require('fs');
+const path = require('path');
 
 // Funciones de prueba
 function home(req, res) {
@@ -21,11 +23,10 @@ function saveUser(req, res) {
     var params = req.body;
     var user = new User();
 
-    if (params.name && params.surname && params.nickname &&
+    if (params.name && params.nickname &&
         params.email && params.password) {
 
         user.name = params.name;
-        user.surname = params.surname;
         user.nickname = params.nickname;
         user.email = params.email;
         user.password = params.password;
@@ -35,10 +36,10 @@ function saveUser(req, res) {
         // Comprobar usuarios duplicados
         User.find({
             $or: [{
-                email: user.email.toLowerCase()
+                    email: user.email.toLowerCase()
                 },
                 {
-                    nick: user.nickname.toLowerCase()
+                    nickname: user.nickname.toLowerCase()
                 }
             ]
         }).exec((err, users) => {
@@ -113,7 +114,9 @@ function loginUser(req, res) {
                     } else {
                         // Devolver datos del usuario
                         user.password = undefined;
-                        return res.status(200).send({user});
+                        return res.status(200).send({
+                            user
+                        });
                     }
                 } else {
                     return res.status(404).send({
@@ -134,11 +137,17 @@ function getUser(req, res) {
     var userId = req.params.id;
 
     User.findById(userId, (err, user) => {
-        if (err) return res.status(500).send({message: "Error en la petición"});
+        if (err) return res.status(500).send({
+            message: "Error en la petición"
+        });
 
-        if (!user) return res.status(404).send({message: "El usuario no existe"});
+        if (!user) return res.status(404).send({
+            message: "El usuario no existe"
+        });
 
-        return res.status(200).send({user});
+        return res.status(200).send({
+            user
+        });
     })
 }
 
@@ -152,14 +161,18 @@ function getUsers(req, res) {
     var itemsPerPage = 5;
 
     User.find().sort('_id').paginate(page, itemsPerPage, (err, users, total) => {
-        if (err) return res.status(500).send({message: "Error en la petición"});
+        if (err) return res.status(500).send({
+            message: "Error en la petición"
+        });
 
-        if (!users) return res.status(404).send({message: "No hay usuarios disponibles"});
+        if (!users) return res.status(404).send({
+            message: "No hay usuarios disponibles"
+        });
 
         return res.status(200).send({
             users,
             total,
-            pages: Math.ceil(total/itemsPerPage)
+            pages: Math.ceil(total / itemsPerPage)
         })
     })
 }
@@ -173,15 +186,93 @@ function updateUser(req, res) {
     delete update.password;
 
     if (userId != req.user.sub) {
-        return res.status(500).send({message: 'No tienes permiso para actualizar los datos del usuario'});
+        return res.status(500).send({
+            message: 'No tienes permiso para actualizar los datos del usuario'
+        });
     }
 
-    User.findByIdAndUpdate(userId, update, {new: true}, (err, userUpdated) => {
-        if (err) return res.status(500).send({message: 'Error en la petición'});
+    User.findByIdAndUpdate(userId, update, {
+        new: true
+    }, (err, userUpdated) => {
+        if (err) return res.status(500).send({
+            message: 'Error en la petición'
+        });
 
-        if (!userUpdated) return res.status(404).send({message: 'No se ha podido actualizar el usuario'});
+        if (!userUpdated) return res.status(404).send({
+            message: 'No se ha podido actualizar el usuario'
+        });
 
-        return res.status(200).send({user: userUpdated});
+        return res.status(200).send({
+            user: userUpdated
+        });
+    })
+}
+
+// Subir foto de perfil
+function uploadImage(req, res) {
+    var userId = req.params.id;
+
+    if (req.files) {
+        var file_path = req.files.image.path;
+
+        var file_split = file_path.split('\\');
+
+        var file_name = file_split[2];
+
+        var ext_split = file_name.split('\.');
+
+        var file_ext = ext_split[1];
+
+        if (userId != req.user.sub) {
+            return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
+        }
+
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif') {
+            User.findByIdAndUpdate(userId, {
+                image: file_name
+            }, {
+                new: true
+            }, (err, userUpdated) => {
+                if (err) return res.status(500).send({
+                    message: 'Error en la petición'
+                });
+
+                if (!userUpdated) return res.status(404).send({
+                    message: 'No se ha podido actualizar el usuario'
+                });
+
+                return res.status(200).send({
+                    user: userUpdated
+                });
+            })
+        } else {
+            return removeFilesOfUploads(res, file_path, 'Extensión no válida');
+        }
+    } else {
+        return res.status(200).send({
+            message: 'No se han subido imagenes'
+        });
+    }
+}
+
+function getUserImg (req, res) {
+    var imageFile = req.params.imageFile;
+    var pathFile = './uploads/users/' + imageFile;
+
+    fs.exists(pathFile, (exists) => {
+        if (exists) {
+            res.sendFile(path.resolve(pathFile));
+        } else {
+            res.status(200).send({message: 'No existe la imagen...'});
+        }
+    });
+}
+
+function removeFilesOfUploads(res, file_path, message) {
+    fs.unlink(file_path, (err) => {
+        return res.status(200).send({
+            message: message
+        });
     })
 }
 
@@ -192,5 +283,7 @@ module.exports = {
     loginUser,
     getUser,
     getUsers,
-    updateUser
+    updateUser,
+    uploadImage,
+    getUserImg
 }

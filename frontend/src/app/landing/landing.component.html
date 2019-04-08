@@ -6,9 +6,21 @@
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <a href="#" id="logo">Logo</a>
-    <form class="form-inline ml-auto">
-      <input class="form-control mr-sm-2" type="search" placeholder="Nombre">
-      <input class="form-control mr-sm-2" type="search" placeholder="Contraseña">
+    <form class="form-inline ml-auto" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <p>
+        <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required />
+        <span *ngIf="!email.valid && email.touched">
+          El correo no es válido!
+        </span>
+      </p>
+      <p>
+        <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control" placeholder="Password"
+          required />
+        <span *ngIf="!password.valid && password.touched">
+          La contraseña es obligatoria!
+        </span>
+      </p>
       <button class="btn my-2 my-sm-0" type="submit" id="nav-btn">Login</button>
     </form>
   </div>
