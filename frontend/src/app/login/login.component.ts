@@ -65,6 +65,8 @@ export class LoginComponent implements OnInit {
           this.status = 'error';
         } else {
           localStorage.setItem('token', this.token);
+
+          this.getCounters();
           
           this._router.navigate(['/home']);
         }
@@ -75,6 +77,17 @@ export class LoginComponent implements OnInit {
         if (errorMessage!= null) {
           this.status = 'error';
         }
+      }
+    )
+  }
+
+  getCounters() {
+    this._userService.getCounters().subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
       }
     )
   }
