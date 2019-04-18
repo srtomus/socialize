@@ -21,7 +21,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes
 const user_routes = require('./routes/user.routes');
+const follow_routes = require('./routes/follow.routes');
+const group_routes = require('./routes/groups.routes');
 app.use('/api', user_routes);
+app.use('/api', follow_routes);
+app.use('/api', group_routes);
 
 // Database
 mongoose.Promise = global.Promise;

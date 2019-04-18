@@ -8,6 +8,7 @@ export class UserService{
     public url:string;
     public identity;
     public token;
+    stats: any;
 
     constructor(public _http: HttpClient) {
         this.url = "http://localhost:3000/api/";

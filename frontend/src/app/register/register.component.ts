@@ -26,6 +26,11 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    let identity = this._userService.getIdentity();
+
+    if (identity) {
+      this._router.navigate(['/home']);
+    }
   }
 
   onSubmit() {

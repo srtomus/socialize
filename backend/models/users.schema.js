@@ -5,17 +5,14 @@ const UserSchema = new Schema({
     name: {
         type: String,
         required: true,
-        trim: true,
-        required: true
+        trim: true
     },
     nickname: {
         type: String,
         lowercase: true,
         required: true,
         trim: true,
-        unique: true,
-        minlength: 5,
-        maxlength: 15
+        unique: true
     },
     email: {
         type: String,

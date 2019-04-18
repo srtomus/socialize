@@ -26,6 +26,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    let identity = this._userService.getIdentity();
+
+    if (identity) {
+      this._router.navigate(['/home']);
+    }
   }
 
   onSubmit() {
@@ -38,7 +43,7 @@ export class LoginComponent implements OnInit {
         } else {
           localStorage.setItem('identity', JSON.stringify(this.identity));
 
-          this.gettoken();
+          this.getToken();
         }
       },
       error => {
@@ -51,7 +56,7 @@ export class LoginComponent implements OnInit {
     )
   }
 
-  gettoken() {
+  getToken() {
     this._userService.signin(this.user, 'true').subscribe(
       response => {
         this.token = response.token;
@@ -60,6 +65,7 @@ export class LoginComponent implements OnInit {
           this.status = 'error';
         } else {
           localStorage.setItem('token', this.token);
+          
           this._router.navigate(['/home']);
         }
       },
