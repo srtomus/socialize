@@ -31,6 +31,8 @@ function saveUser(req, res) {
         user.name = params.name;
         user.nickname = params.nickname;
         user.email = params.email;
+        user.age = params.age;
+        user.gender = params.gender;
         user.password = params.password;
         user.role = 'ROLE_USER';
         user.image = null;
@@ -386,7 +388,7 @@ function uploadImage(req, res) {
             return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
         }
 
-        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif') {
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif' || file_ext == 'JGP') {
             User.findByIdAndUpdate(userId, {
                 image: file_name
             }, {

@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit {
     private _userService: UserService
   ) { 
     this.title = 'Iniciar sesión';
-    this.user = new User("", "", "", "", "", "", "", [""]);
+    this.user = new User("", "", "", "", null, "", "", "", "",  [""]);
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class LandingComponent implements OnInit {
         } else {
           localStorage.setItem('identity', JSON.stringify(this.identity));
 
-          this.gettoken();
+          this.getToken();
         }
       },
       error => {
@@ -56,7 +56,7 @@ export class LandingComponent implements OnInit {
     )
   }
 
-  gettoken() {
+  getToken() {
     this._userService.signin(this.user, 'true').subscribe(
       response => {
         this.token = response.token;
@@ -65,6 +65,9 @@ export class LandingComponent implements OnInit {
           this.status = 'error';
         } else {
           localStorage.setItem('token', this.token);
+
+          this.getCounters();
+          
           this._router.navigate(['/home']);
         }
       },
@@ -74,6 +77,18 @@ export class LandingComponent implements OnInit {
         if (errorMessage!= null) {
           this.status = 'error';
         }
+      }
+    )
+  }
+
+  getCounters() {
+    this._userService.getCounters().subscribe(
+      response => {
+        localStorage.setItem('stats', JSON.stringify(response));
+        this.status = 'success';
+      },
+      error => {
+        this.status = 'error';
       }
     )
   }

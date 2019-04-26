@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { InterestsComponent } from './interests/interests.component';
 import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings.component';
 
 // Importar servicios
 import { UserGuard } from './services/user.guard';
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'interests', component: InterestsComponent},
     {path: 'home', component: HomeComponent, canActivate:[UserGuard]},
+    {path: 'settings', component: SettingsComponent, canActivate:[UserGuard]},
     {path: '**', component: NotFoundComponent}
 ];
 

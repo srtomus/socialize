@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 // Services
 import { UserService } from './services/user.service';
 import { UserGuard } from './services/user.guard';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UserGuard } from './services/user.guard';
     AnonNavbarComponent,
     LoggedNavbarComponent,
     InterestsComponent,
-    HomeComponent
+    HomeComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

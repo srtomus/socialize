@@ -20,6 +20,20 @@
       </span>
     </p>
     <p>
+      <label>Edad</label>
+      <input type="number" name="age" #age="ngModel" [(ngModel)]="user.age" class="form-control" required/>
+      <span *ngIf="!age.valid && age.touched">
+        La edad no es válida!
+      </span>
+    </p>
+    <p>
+      <label>Género</label>
+      <select name="gender" #gender="ngModel" [(ngModel)]="user.gender" class="form-control">
+        <option>Masculino</option>
+        <option>Femenino</option>
+      </select>
+    </p>
+    <p>
       <label>Email</label>
       <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
       <span *ngIf="!email.valid && email.touched">

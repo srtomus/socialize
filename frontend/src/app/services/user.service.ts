@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user.model';
 
 @Injectable()
-export class UserService{
-    public url:string;
+export class UserService {
+    public url: string;
     public identity;
     public token;
     stats: any;
@@ -18,7 +18,7 @@ export class UserService{
         var params = JSON.stringify(user);
         var headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-        return this._http.post(this.url + 'register', params, {headers: headers});
+        return this._http.post(this.url + 'register', params, { headers: headers });
     }
 
     signin(user: User, gettoken = null): Observable<any> {
@@ -29,12 +29,12 @@ export class UserService{
         let params = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-        return this._http.post(this.url+'login', params, {headers: headers});
+        return this._http.post(this.url + 'login', params, { headers: headers });
     }
 
     getIdentity() {
         let identity = JSON.parse(localStorage.getItem('identity'));
-        if(identity != "undefined") {
+        if (identity != "undefined") {
             this.identity = identity;
         } else {
             this.identity = null;
@@ -46,7 +46,7 @@ export class UserService{
     getToken() {
         let token = localStorage.getItem('token');
 
-        if(token != "undefined") {
+        if (token != "undefined") {
             this.token = token;
         } else {
             this.token = null;
@@ -58,7 +58,7 @@ export class UserService{
     getStats() {
         let stats = JSON.parse(localStorage.getItems('stats'));
 
-        if(stats != "undefined") {
+        if (stats != "undefined") {
             this.stats = stats;
         } else {
             this.stats = null;
@@ -70,10 +70,17 @@ export class UserService{
     getCounters(userId = null): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
 
-        if(userId != null) {
-            return this._http.get(this.url+'counters/'+userId, {headers: headers});
+        if (userId != null) {
+            return this._http.get(this.url + 'counters/' + userId, { headers: headers });
         } else {
-            return this._http.get(this.url+'counters', {headers: headers});
+            return this._http.get(this.url + 'counters', { headers: headers });
         }
+    }
+
+    updateUser(user: User): Observable<any> {
+        let params = JSON.stringify(user);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+
+        return this._http.put(this.url+'updateuser/'+ user._id, params, {headers: headers});
     }
 }

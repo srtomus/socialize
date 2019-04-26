@@ -1,0 +1,99 @@
+<app-logged-navbar></app-logged-navbar>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false">Actualizar datos</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+          aria-controls="v-pills-messages" aria-selected="false">Intereses</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+          aria-controls="v-pills-settings" aria-selected="false">Cerrar sesión</a>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div class="alert alert-success" *ngIf="status == 'success'">
+            Se han actualizado tus datos correctamente!
+          </div>
+
+          <div class="alert alert-danger" *ngIf="status == 'error'">
+            Ha ocurrido un error al actualizar los datos
+          </div>
+          <form #userEditForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="card border border-info mb-4">
+              <div class="card-header bg-info ">
+                Nombre
+              </div>
+              <div class="card-body">
+                <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required>
+              </div>
+            </div>
+            <div class="card border border-info mb-4">
+              <div class="card-header bg-info ">
+                Edad
+              </div>
+              <div class="card-body">
+                <input type="number" name="age" #age="ngModel" [(ngModel)]="user.age" required>
+              </div>
+            </div>
+            <div class="card border border-info mb-4">
+              <div class="card-header bg-info ">
+                Género
+              </div>
+              <div class="card-body">
+                <select name="gender" #gender="ngModel" [(ngModel)]="user.gender" class="form-control">
+                  <option>Masculino</option>
+                  <option>Femenino</option>
+                </select>
+              </div>
+            </div>
+            <div class="card border border-info mb-4">
+              <div class="card-header bg-info ">
+                Email
+              </div>
+              <div class="card-body">
+                <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required>
+              </div>
+            </div>
+            <div *ngIf="user.image">
+              <img src="{{ url + 'getimageuser/' + user.image }}" width="200" />
+            </div>
+            <div class="card border border-info mb-4">
+              <div class="card-header bg-info ">
+                Imagen de perfil
+              </div>
+              <div class="card-body">
+                <input type="file" name="file" (change)="fileChangeEvent($event)" placeholder="Subir imagen">
+              </div>
+            </div>
+            <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!userEditForm.form.valid">
+          </form>
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+          <div class="card border border-info mb-4">
+            <div class="card-header bg-info ">
+              Intereses
+            </div>
+            <div class="card-body">
+              <p class="card-text">[Intereses]</p>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          <div class="card border border-info mb-4">
+            <div class="card-header bg-info ">
+              Confirmar cierre de sesión
+            </div>
+            <div class="card-body">
+              <label>¿Seguro que quieres cerrar sesión?</label><br>
+              <button class="btn btn-danger">Si</button>
+              <button class="btn btn-primary">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

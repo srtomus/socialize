@@ -1,22 +1,11 @@
-nav {
-    background-color: #A1C181;
+img {
+    border-radius: 100%;
 }
 
-input {
-    border-color: rgb(98, 117, 98);
+.desplegable {
+    margin-right: 100px;
 }
 
-#logo {
-    text-decoration: none;
-    font-size: 28px;
-}
-
-.landing-buttons {
-    text-decoration: none;
-    color: #fff;
-}
-
-#nav-btn {
-    background-color: #FCCA46;
-    border-color: rgb(199, 160, 54);
+.nav-elements {
+    margin-top: 5px;
 }
