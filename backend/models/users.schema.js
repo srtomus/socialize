@@ -7,6 +7,15 @@ const UserSchema = new Schema({
         required: true,
         trim: true
     },
+    lastname: {
+        type: String,
+        trim: true
+    },
+    description: {
+        type: String,
+        trim: true,
+        required: true
+    },
     nickname: {
         type: String,
         lowercase: true,

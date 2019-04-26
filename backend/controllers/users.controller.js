@@ -29,6 +29,8 @@ function saveUser(req, res) {
         params.email && params.password) {
 
         user.name = params.name;
+        user.lastname = params.lastname;
+        user.description = params.description;
         user.nickname = params.nickname;
         user.email = params.email;
         user.age = params.age;

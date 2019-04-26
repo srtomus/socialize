@@ -22,7 +22,7 @@ function saveFollow(req, res) {
 }
 
 function unFollow(req, res) {
-    var followId = req.body.id;
+    var followId = req.params.id;
     var userId = req.user.sub;
 
     Follow.find({'user': userId, 'followed': followId}).remove(err=> {

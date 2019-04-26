@@ -4,12 +4,10 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <img src="{{ url + 'getimageuser/' + image }}" width="200" />
-                    <div class="h5">@LeeCross</div>
-                    <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
-                    <div class="h7">Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-                        etc.
-                    </div>
+                    <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="200" />
+                    <div class="h5">{{ identity.nickname }}</div>
+                    <div class="h7 text-muted">Nombre : {{ identity.name }}</div>
+                    <div class="h7">Descripción: {{ identity.description }}</div>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">

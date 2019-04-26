@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { InterestsComponent } from './interests/interests.component';
 import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
+import { UsersComponent } from './users/users.component';
 
 // Importar servicios
 import { UserGuard } from './services/user.guard';
@@ -21,6 +22,8 @@ const appRoutes: Routes = [
     {path: 'interests', component: InterestsComponent},
     {path: 'home', component: HomeComponent, canActivate:[UserGuard]},
     {path: 'settings', component: SettingsComponent, canActivate:[UserGuard]},
+    {path: 'discover/:page', component: UsersComponent, canActivate:[UserGuard]},
+    {path: 'discover', component: UsersComponent, canActivate:[UserGuard]},
     {path: '**', component: NotFoundComponent}
 ];
 

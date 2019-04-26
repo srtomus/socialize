@@ -18,6 +18,8 @@ import { HomeComponent } from './home/home.component';
 import { UserService } from './services/user.service';
 import { UserGuard } from './services/user.guard';
 import { SettingsComponent } from './settings/settings.component';
+import { UsersComponent } from './users/users.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { SettingsComponent } from './settings/settings.component';
     LoggedNavbarComponent,
     InterestsComponent,
     HomeComponent,
-    SettingsComponent
+    SettingsComponent,
+    UsersComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,17 @@
       </span>
     </p>
     <p>
+      <label>Apellido</label>
+      <input type="text" name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" class="form-control"/>
+    </p>
+    <p>
+      <label>Descripción</label>
+      <textarea type="text" name="description" #description="ngModel" [(ngModel)]="user.description" class="form-control" required></textarea>
+      <span *ngIf="!name.valid && name.touched">
+        La descripción es obligatoria!
+      </span>
+    </p>
+    <p>
       <label>Nickname</label>
       <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="user.nickname" class="form-control" required/>
       <span *ngIf="!nickname.valid && nickname.touched">

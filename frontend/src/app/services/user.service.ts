@@ -83,4 +83,16 @@ export class UserService {
 
         return this._http.put(this.url+'updateuser/'+ user._id, params, {headers: headers});
     }
+
+    getUsers(page = null): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+    
+        return this._http.get(this.url+'getusers/'+page, {headers: headers});
+    }
+
+    getUser(id): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+    
+        return this._http.get(this.url+'getuser/'+id, {headers: headers});
+    }
 }
