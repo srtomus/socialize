@@ -20,6 +20,9 @@ import { UserGuard } from './services/user.guard';
 import { SettingsComponent } from './settings/settings.component';
 import { UsersComponent } from './users/users.component';
 import { MessageComponent } from './message/message.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { ProfileComponent } from './profile/profile.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { MessageComponent } from './message/message.component';
     HomeComponent,
     SettingsComponent,
     UsersComponent,
-    MessageComponent
+    MessageComponent,
+    SidebarComponent,
+    ProfileComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

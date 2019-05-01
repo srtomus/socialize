@@ -77,6 +77,8 @@ export class RegisterComponent implements OnInit {
           this.status = 'error';
         } else {
           localStorage.setItem('token', this.token);
+
+          this.getCounters();          
         }
       },
       error => {
@@ -85,6 +87,18 @@ export class RegisterComponent implements OnInit {
         if (errorMessage != null) {
           this.status = 'error';
         }
+      }
+    )
+  }
+
+  getCounters() {
+    this._userService.getCounters().subscribe(
+      response => {
+        localStorage.setItem('stats', JSON.stringify(response));
+        this.status = 'success';
+      },
+      error => {
+        this.status = 'error';
       }
     )
   }

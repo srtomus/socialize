@@ -1,0 +1,8 @@
+.container-fluid {
+    display: flex;
+}
+
+.container {
+    width: 900px;
+    margin-left: 0;
+}

@@ -1,6 +1,7 @@
 const User = require('../models/users.schema');
 const Follow = require('../models/follows.schema');
 const Group = require('../models/groups.schema');
+const Publication = require('../models/publications.schema');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
 const mongoosePaginate = require('mongoose-pagination');
@@ -332,10 +333,22 @@ async function getCountFollow(user_id) {
             return handleError(err);
         });
 
+    var publications = await Publication.countDocuments({
+            user: user_id
+        })
+        .exec()
+        .then((count) => {
+            return count;
+        })
+        .catch((err) => {
+            return handleError(err);
+        });
+
     return {
         following: following,
         followed: followed,
-        group: groups
+        group: groups,
+        publication: publications
     }
 
 }
@@ -390,7 +403,7 @@ function uploadImage(req, res) {
             return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
         }
 
-        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif' || file_ext == 'JGP') {
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif' || file_ext == 'JGP' || file_ext == 'PNG' || file_ext == 'JPEG') {
             User.findByIdAndUpdate(userId, {
                 image: file_name
             }, {

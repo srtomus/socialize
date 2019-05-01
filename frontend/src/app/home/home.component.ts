@@ -28,10 +28,5 @@ export class HomeComponent implements OnInit {
     this.identity = this._userService.getIdentity();
   }
 
-  logout() {
-    localStorage.clear();
-    this.identity = null;
-    this._router.navigate(['/']);
-  }
 
 }

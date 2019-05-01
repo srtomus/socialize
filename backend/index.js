@@ -1,4 +1,4 @@
-// Requires and cont definition
+// Requires and const definition
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -23,9 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const user_routes = require('./routes/user.routes');
 const follow_routes = require('./routes/follow.routes');
 const group_routes = require('./routes/groups.routes');
+const publication_routes = require('./routes/publication.route');
 app.use('/api', user_routes);
 app.use('/api', follow_routes);
 app.use('/api', group_routes);
+app.use('/api', publication_routes);
 
 // Database
 mongoose.Promise = global.Promise;
@@ -35,8 +37,10 @@ mongoose.connect(mongoURI, { useNewUrlParser: true })
     console.log("BD conectada");
 
     // Creación del servidor
-    app.listen(3000, () => {
-      console.log("Servidor conectado");
+    app.set('port', process.env.PORT || 3000);
+
+    app.listen(app.get('port'), () => {
+      console.log("Puerto " + app.get('port'));
     })
   })
   .catch(err => console.log(err));

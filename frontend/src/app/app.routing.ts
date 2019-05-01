@@ -10,6 +10,9 @@ import { InterestsComponent } from './interests/interests.component';
 import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UsersComponent } from './users/users.component';
+import { MessageComponent } from './message/message.component';
+import { ProfileComponent } from './profile/profile.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 // Importar servicios
 import { UserGuard } from './services/user.guard';
@@ -23,7 +26,10 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent, canActivate:[UserGuard]},
     {path: 'settings', component: SettingsComponent, canActivate:[UserGuard]},
     {path: 'discover/:page', component: UsersComponent, canActivate:[UserGuard]},
+    {path: 'chat', component: MessageComponent, canActivate:[UserGuard]},
     {path: 'discover', component: UsersComponent, canActivate:[UserGuard]},
+    {path: 'profile/:id', component: ProfileComponent, canActivate:[UserGuard]},
+    {path: 'timeline', component: TimelineComponent, canActivate:[UserGuard]},
     {path: '**', component: NotFoundComponent}
 ];
 

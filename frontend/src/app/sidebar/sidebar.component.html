@@ -1,0 +1,56 @@
+  <div class="col-md">
+    <div class="card">
+      <div class="card-body">
+        <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="200" />
+        <div class="h5">{{ identity.nickname }}</div>
+        <div class="h7 text-muted">Nombre : {{ identity.name + " " + identity.lastname }}</div>
+        <div class="h7">Descripción: {{ identity.description }}</div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="h6 text-muted">Seguidores</div>
+          <div class="h5" *ngIf="stats.followed">{{ stats.followed }}</div>
+          <div class="h5" *ngIf="!stats.followed">0</div>
+        </li>
+        <li class="list-group-item">
+          <div class="h6 text-muted">Siguiendo</div>
+          <div class="h5" *ngIf="stats.following">{{ stats.following }}</div>
+          <div class="h5" *ngIf="!stats.following">0</div>
+        </li>
+        <li class="list-group-item">
+          <div class="h6 text-muted">Publicaciones</div>
+          <div class="h5" *ngIf="stats.publication">{{ stats.publication }}</div>
+          <div class="h5" *ngIf="!stats.publication">0</div>
+          <div class="h5"> </div>
+        </li>
+        <li class="list-group-item">
+          <div class="h6 text-muted">Grupos</div>
+          <div class="h5" *ngIf="stats.groups">{{ stats.groups }}</div>
+          <div class="h5" *ngIf="!stats.groups">0</div>
+        </li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md card card-body">
+    <div class="alert alert-success" *ngIf="status == 'success'">
+      Se ha creado correctamente la publicación
+    </div>
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+      Ha ocurrido un error al crear la publicación
+    </div>
+    <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm)">
+      <p>
+        <label>¿Que estas pensando hoy?</label>
+        <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required></textarea>
+        <span *ngIf="!text.valid && text.touched">
+          El texto es obligatorio
+        </span>
+      </p>
+      <p>
+        <label>Sube tu foto</label><br>
+        <input type="file" placeholder="Subir imagen">
+      </p>
+      <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!newPubForm.form.valid">
+    </form>
+  </div>

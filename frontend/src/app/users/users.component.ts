@@ -110,6 +110,7 @@ export class UsersComponent implements OnInit {
         } else {
           this.status = 'success';
           this.follows.push(followed);
+          this.getCounters();
         }
       },
       error => {
@@ -128,6 +129,7 @@ export class UsersComponent implements OnInit {
         var search = this.follows.indexOf(followed);
         if(search != -1) {
           this.follows.splice(search, 1);
+          this.getCounters();
         }
       }, error => {
         var errorMessage = <any>error;
@@ -137,6 +139,18 @@ export class UsersComponent implements OnInit {
         }
       }
 
+    )
+  }
+
+  getCounters() {
+    this._userService.getCounters().subscribe(
+      response => {
+        localStorage.setItem('stats', JSON.stringify(response));
+        this.status = 'success';
+      },
+      error => {
+        this.status = 'error';
+      }
     )
   }
 }
