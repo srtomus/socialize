@@ -6,3 +6,4 @@ Proyecto de 2º DAW de Vlad Tomus.
 <p>Webs de interés: </p>
 http://tutorio.frontendmatter.com/demos.html <br>
 https://preview.themeforest.net/item/olympus-html-social-network-toolkit/full_screen_preview/19755363?ref=cirvitis
+Para todos los iconos: https://fontawesome.com/
