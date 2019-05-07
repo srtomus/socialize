@@ -22,7 +22,6 @@ import { UsersComponent } from './users/users.component';
 import { MessageComponent } from './message/message.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +38,7 @@ import { TimelineComponent } from './timeline/timeline.component';
     UsersComponent,
     MessageComponent,
     SidebarComponent,
-    ProfileComponent,
-    TimelineComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

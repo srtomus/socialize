@@ -61,7 +61,7 @@ function getPublications(req, res) {
             }
         }).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
             if (err) return res.status(500).send({
-                message: 'Error la publicación el grupo'
+                message: 'Error en la publicación del grupo'
             });
 
             if (!publications) return res.status(404).send({

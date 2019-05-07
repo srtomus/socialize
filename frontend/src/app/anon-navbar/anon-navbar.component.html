@@ -1,12 +1,16 @@
-<nav class="navbar navbar-expand-sm p-3 navbar-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md navbar-dark d-block d-flex justify-content-around">
+  <a class="navbar-brand" href="#">Logo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-    <a href="#" id="logo">Logo</a>
-    <button class="btn btn-success d-block m-auto"><a routerLink="/register" class="landing-buttons">Unirse a Every Meeting</a></button>
-    <button class="btn btn-success d-block m-auto"><a routerLink="/login" class="landing-buttons">Conectarse</a></button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <form class="form-inline my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control mr-2"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Correo electrónico" required />      
+      <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control mr-2" placeholder="Contraseña"
+      required />      
+      <button class="btn btn-primary my-2 my-sm-0" type="submit">Enviar</button>
+    </form>
   </div>
 </nav>

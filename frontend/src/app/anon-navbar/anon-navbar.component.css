@@ -1,22 +1,7 @@
+#navbarNavDropdown {
+    flex-grow: 0;
+}
+
 nav {
-    background-color: #A1C181;
-}
-
-input {
-    border-color: rgb(98, 117, 98);
-}
-
-#logo {
-    text-decoration: none;
-    font-size: 28px;
-}
-
-.landing-buttons {
-    text-decoration: none;
-    color: #fff;
-}
-
-#nav-btn {
-    background-color: #FCCA46;
-    border-color: rgb(199, 160, 54);
+    background-color: #446191;
 }

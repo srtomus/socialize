@@ -9,15 +9,14 @@
       <a class="nav-link nav-elements" routerLink="/crear-grupo">Crear un nuevo grupo</a>
       <a class="nav-link nav-elements" routerLink="/discover">Gente</a>
       <a class="nav-link nav-elements" routerLink="/chat">Mensajes</a>
-      <a class="nav-link nav-elements" routerLink="/timeline">Timeline</a>
-      <a routerLink="/profile/ + {{ identity._id }}"> <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="50"
+      <a routerLink="/profile/{{ identity._id }}"> <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="50"
           height="50" />
       </a>
 
       <li class="nav-item dropdown desplegable">
         <a class="nav-link active dropdown-toggle nav-elements" href="#" data-toggle="dropdown"> {{ nickname }} </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" routerLink="/profile/ + {{ identity._id }}">Mi perfil</a></li>
+          <li><a class="dropdown-item" routerLink="/profile/{{ identity._id }}">Mi perfil</a></li>
           <li><a class="dropdown-item" routerLink="/settings">Configuración</a></li>
           <li><button class="dropdown-item" (click)="logout()">Cerrar sesión</button></li>
         </ul>

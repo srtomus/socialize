@@ -12,7 +12,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { UsersComponent } from './users/users.component';
 import { MessageComponent } from './message/message.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TimelineComponent } from './timeline/timeline.component';
 
 // Importar servicios
 import { UserGuard } from './services/user.guard';
@@ -29,7 +28,6 @@ const appRoutes: Routes = [
     {path: 'chat', component: MessageComponent, canActivate:[UserGuard]},
     {path: 'discover', component: UsersComponent, canActivate:[UserGuard]},
     {path: 'profile/:id', component: ProfileComponent, canActivate:[UserGuard]},
-    {path: 'timeline', component: TimelineComponent, canActivate:[UserGuard]},
     {path: '**', component: NotFoundComponent}
 ];
 

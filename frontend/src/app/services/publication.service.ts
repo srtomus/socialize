@@ -20,4 +20,16 @@ export class PublicationService {
 
         return this._http.post(this.url+'savepublication',params, {headers: headers});
     }
+
+    getPublications(token, page = 1):Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+        return this._http.get(this.url+'getpublications/'+page, {headers: headers});
+    }
+
+    deletePublication(token, id):Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+        return this._http.delete(this.url+'deletepublication/'+id, {headers: headers});
+    }
 }
