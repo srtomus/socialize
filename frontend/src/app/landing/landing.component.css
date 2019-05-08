@@ -1,4 +1,3 @@
-
 #logo {
     text-decoration: none;
     font-size: 28px;
@@ -37,4 +36,18 @@ footer hr {
 
 footer .list-inline-item {
     width: 35px;
+}
+
+.interes:hover {
+	text-decoration: none;
+  	color: #9eb2d6;
+}
+
+.fab {
+	font-size: 28px;
+}
+
+.fab:hover {
+	text-decoration: none;
+  	color: #9eb2d6;
 }

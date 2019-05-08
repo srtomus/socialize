@@ -1,11 +1,7 @@
-img {
-    border-radius: 100%;
+#navbarNavDropdown {
+    flex-grow: 0;
 }
 
-.desplegable {
-    margin-right: 100px;
-}
-
-.nav-elements {
-    margin-top: 5px;
+nav {
+    background-color: #446191;
 }
