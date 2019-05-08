@@ -7,29 +7,27 @@ import { Publication } from '../models/publication.model';
 export class PublicationService {
     public url: string;
     public identity;
-    public token;
-    stats: any;
 
     constructor(public _http: HttpClient) {
         this.url = "http://localhost:3000/api/";
     }
 
-    addPublication(token, publication):Observable<any> {
+    addPublication(token, publication: Publication): Observable<any> {
         let params = JSON.stringify(publication);
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 
-        return this._http.post(this.url+'savepublication',params, {headers: headers});
+        return this._http.post(this.url + 'savepublication', params, { headers: headers });
     }
 
-    getPublications(token, page = 1):Observable<any> {
+    getPublications(token, page = 1): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 
-        return this._http.get(this.url+'getpublications/'+page, {headers: headers});
+        return this._http.get(this.url + 'getpublications/' + page, { headers: headers });
     }
 
-    deletePublication(token, id):Observable<any> {
+    deletePublication(token, id): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 
-        return this._http.delete(this.url+'deletepublication/'+id, {headers: headers});
+        return this._http.delete(this.url + 'deletepublication/' + id, { headers: headers });
     }
 }

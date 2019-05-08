@@ -13,7 +13,7 @@ const PublicationSchema = new Schema({
     created_at: {
         type: String
     },
-    user: { type: Schema.ObjectId, ref: 'User' }
+    user: { type: Schema.ObjectId, ref: 'users' }
 });
 
 module.exports = mongoose.model('publication', PublicationSchema);
