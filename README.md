@@ -7,3 +7,5 @@ Proyecto de 2º DAW de Vlad Tomus.
 http://tutorio.frontendmatter.com/demos.html
 https://preview.themeforest.net/item/olympus-html-social-network-toolkit/full_screen_preview/19755363?ref=cirvitis <br>
 Para todos los iconos: https://fontawesome.com/
+
+Error: AL crear publicación pasa lo mismo que pasaba con los follows, hay que cerrar sesión y volver a entrar para que se actualice en los stats de localstorage. Cambiarlo de la misma forma que se cambió el error en follows
