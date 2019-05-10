@@ -24,8 +24,21 @@
     </div>
     <div class="col-md-6 gedf-main">
 
+      <div class="publications">
+        <div *ngFor="let publication of publications" class="item-publication">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4></h4>
+            </div>
+            <div class="publication-text pull-left">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!--- \\\\\\\Post-->
-      <div class="card gedf-card">
+      <div class="card gedf-card mb-4">
         <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm)">
           <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
@@ -73,16 +86,21 @@
       <!-- Post /////-->
 
       <!--- \\\\\\\Post-->
-      <div class="card gedf-card">
+      <div class="card gedf-card mb-4" *ngFor="let publication of publications">
         <div class="card-header">
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex justify-content-between align-items-center">
               <div class="mr-2">
-                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                <a href="#">
+                  <img src="{{ url + 'getimageuser/' + publication.user.image }}" *ngIf="publication.user.image"
+                    width="100" height="100" alt="">
+                  <img src="../../assets/default-user.png" *ngIf="!publication.user.image" width="100" height="100"
+                    alt="">
+                </a>
               </div>
               <div class="ml-2">
-                <div class="h5 m-0">PRUEBA</div>
-                <div class="h7 text-muted">PRUEBA</div>
+                <div class="h5 m-0"> {{ publication.user.nickname }} </div>
+                <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.surname }}</div>
               </div>
             </div>
             <div>
@@ -109,9 +127,7 @@
           </a>
 
           <p class="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse
-            magnam nemo dolor
-            sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
+            {{ publication.text }}
           </p>
         </div>
         <div class="card-footer">
@@ -120,8 +136,8 @@
           <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
         </div>
       </div>
+      <button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore && total > 0">Ver más publicaciones</button>
       <!-- Post /////-->
-
     </div>
     <div class="col-md-3">
       <div class="card gedf-card">

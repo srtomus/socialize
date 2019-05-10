@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Publication } from '../models/publication.model';
 import { PublicationService } from '../services/publication.service';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,10 @@ export class HomeComponent implements OnInit {
   public status;
   public publication: Publication;
   public page;
+  public total;
+  public pages;
+  public items_per_page;
+  public publications: Publication;
 
   constructor(
     private _router: Router,
@@ -64,10 +69,29 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  getPublications(page) {
+  getPublications(page, adding = false) {
     this._publicationService.getPublications(this.token, page).subscribe(
       response => {
-        console.log(response);
+        if (response.publications) {
+          this.total = response.total_items;
+          this.pages = response.pages;
+          this.items_per_page = response.items_per_page;
+
+          if (!adding) {
+            this.publications = response.publications;
+          } else {
+            var arrayA = this.publications;
+            var arrayB = response.publications;
+            this.publications = arrayA.concat(arrayB);
+          }
+
+          if (page > this.pages) {
+            this._router.navigate(['/home']);
+          }
+          console.log(response);
+        } else {
+          this.status = "error";
+        }
       },
       error => {
         var errorMessage = <any>error;
@@ -77,5 +101,15 @@ export class HomeComponent implements OnInit {
         }
       }
     )
+  }
+
+  public noMore = false;
+  viewMore() {
+    this.page += 1;
+    if (this.page == this.pages || this.items_per_page >= this.total) {
+      this.noMore = true;
+    } 
+
+    this.getPublications(this.page, true);
   }
 }

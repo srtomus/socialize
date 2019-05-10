@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark d-block d-sm-flex justify-content-sm-around">
-  <a class="navbar-brand" href="#">Logo</a>
+  <a class="navbar-brand" routerLink="/home">Logo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -15,8 +15,9 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/chat">Mensajes</a>
       </li>
-      <a routerLink="/profile/{{ identity._id }}"> <img src="{{ url + 'getimageuser/' + identity.image }}"
-          *ngIf="identity.image" width="40" height="40" />
+      <a routerLink="/profile/{{ identity._id }}"> 
+        <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="40" height="40" />
+        <img src="../../assets/default-user.png" *ngIf="!identity.image" width="40" height="40">
       </a>
       <li class="nav-item dropdown">
         <a class="nav-link active dropdown-toggle nav-elements" href="#" data-toggle="dropdown"> {{ nickname }} </a>
