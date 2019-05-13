@@ -47,6 +47,8 @@ export class RegisterComponent implements OnInit {
                 localStorage.setItem('identity', JSON.stringify(this.identity));
 
                 this.gettoken();
+                this._router.navigate(['/interests']);
+
               }
             },
             error => {
@@ -57,7 +59,6 @@ export class RegisterComponent implements OnInit {
               }
             }
           )
-          this._router.navigate(['/interests']);
         } else {
           this.status = 'error';
         }

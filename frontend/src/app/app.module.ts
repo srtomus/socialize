@@ -11,7 +11,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AnonNavbarComponent } from './anon-navbar/anon-navbar.component';
 import { LoggedNavbarComponent } from './logged-navbar/logged-navbar.component';
-import { InterestsComponent } from './interests/interests.component';
 import { HomeComponent } from './home/home.component';
 
 // Services
@@ -22,6 +21,7 @@ import { UsersComponent } from './users/users.component';
 import { MessageComponent } from './message/message.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { InterestsComponent } from './interests/interests.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +32,13 @@ import { ProfileComponent } from './profile/profile.component';
     RegisterComponent,
     AnonNavbarComponent,
     LoggedNavbarComponent,
-    InterestsComponent,
     HomeComponent,
     SettingsComponent,
     UsersComponent,
     MessageComponent,
     SidebarComponent,
-    ProfileComponent
+    ProfileComponent,
+    InterestsComponent
   ],
   imports: [
     BrowserModule,

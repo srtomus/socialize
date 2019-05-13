@@ -5,6 +5,7 @@
       <div class="card">
         <div class="card-body">
           <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="200" />
+          <img src="../../assets/default-user.png" *ngIf="!identity.image" width="40" height="40">
           <div class="h5">{{ identity.nickname }}</div>
           <div class="h7 text-muted">Nombre : {{ identity.name }}</div>
           <div class="h7">Descripción: {{ identity.description }}</div>
@@ -100,7 +101,7 @@
               </div>
               <div class="ml-2">
                 <div class="h5 m-0"> {{ publication.user.nickname }} </div>
-                <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.surname }}</div>
+                <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.lastname }}</div>
               </div>
             </div>
             <div>
@@ -122,9 +123,6 @@
         </div>
         <div class="card-body">
           <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
-          <a class="card-link" href="#">
-            <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
-          </a>
 
           <p class="card-text">
             {{ publication.text }}
@@ -136,7 +134,7 @@
           <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
         </div>
       </div>
-      <button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore && total > 0">Ver más publicaciones</button>
+      <button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore && total > items_per_page">Ver más publicaciones</button>
       <!-- Post /////-->
     </div>
     <div class="col-md-3">
