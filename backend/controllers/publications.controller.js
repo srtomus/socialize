@@ -54,6 +54,7 @@ function getPublications(req, res) {
         follows.forEach((follow) => {
             follows_clean.push(follow.followed);
         });
+        follows_clean.push(req.user.sub);
 
         Publication.find({
             user: {

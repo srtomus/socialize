@@ -37,7 +37,6 @@
         </div>
       </div>
 
-      <!--- \\\\\\\Post-->
       <div class="card gedf-card mb-4">
         <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm)">
           <div class="card-header">
@@ -83,9 +82,7 @@
           </div>
         </form>
       </div>
-      <!-- Post /////-->
 
-      <!--- \\\\\\\Post-->
       <div class="card gedf-card mb-4" *ngFor="let publication of publications">
         <div class="card-header">
           <div class="d-flex justify-content-between align-items-center">
@@ -100,7 +97,7 @@
               </div>
               <div class="ml-2">
                 <div class="h5 m-0"> {{ publication.user.nickname }} </div>
-                <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.surname }}</div>
+                <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.lastname }}</div>
               </div>
             </div>
             <div>
@@ -121,10 +118,7 @@
 
         </div>
         <div class="card-body">
-          <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
-          <a class="card-link" href="#">
-            <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
-          </a>
+          <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </div>
 
           <p class="card-text">
             {{ publication.text }}
@@ -136,8 +130,8 @@
           <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
         </div>
       </div>
-      <button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore && total > 0">Ver más publicaciones</button>
-      <!-- Post /////-->
+      <button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore && total > items_per_page">Ver más publicaciones</button>
+
     </div>
     <div class="col-md-3">
       <div class="card gedf-card">
