@@ -54,6 +54,7 @@ function getPublications(req, res) {
         follows.forEach((follow) => {
             follows_clean.push(follow.followed);
         });
+        follows_clean.push(req.user.sub);
 
         Publication.find({
             user: {
@@ -76,6 +77,58 @@ function getPublications(req, res) {
                 publications
             })
         });
+    });
+}
+
+function getPublication(req, res) {
+    var publicationId = req.params.id;
+
+    Publication.findById(publicationId, (err, publication) => {
+        if (err) return res.status(500).send({
+            message: 'Error al devolver la publicación'
+        });
+
+        if (!publication) return res.status(404).send({
+            message: 'No existe la publicación'
+        });
+
+        return res.status(200).send({
+            publication
+        });
+    })
+}
+
+function getPublicationsUser(req, res) {
+    var page = 1;
+    if (req.params.page) {
+        page = req.params.page;
+    }
+
+    var itemsPerPage = 4;
+
+    var user_id = req.user.sub;
+    if(req.params.user_id) {
+        user_id = req.params.user_id;
+    }
+
+    Publication.find({
+        user: user_id
+    }).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
+        if (err) return res.status(500).send({
+            message: 'Error en la publicación del grupo'
+        });
+
+        if (!publications) return res.status(404).send({
+            message: 'No hay grupos'
+        });
+
+        return res.status(200).send({
+            total_items: total,
+            pages: Math.ceil(total / itemsPerPage),
+            page: page,
+            items_per_page: itemsPerPage,
+            publications
+        })
     });
 }
 
@@ -195,5 +248,6 @@ module.exports = {
     getPublication,
     deletePublication,
     publicationImage,
-    getPublicationImg
+    getPublicationImg,
+    getPublicationsUser
 }

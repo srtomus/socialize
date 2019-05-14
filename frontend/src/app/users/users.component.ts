@@ -76,7 +76,7 @@ export class UsersComponent implements OnInit {
           this.users = response.users;
           this.pages = response.pages;
           this.follows = response.users_following;
-
+          console.log(response);
           if(page > this.pages) {
             this._router.navigate(['/discover', 1]);
           }

@@ -239,8 +239,6 @@ async function followUserIds(user_id) {
 
         });
 
-        console.log(follows_clean);
-
         return follows_clean;
 
     }).catch((err) => {
@@ -273,9 +271,6 @@ async function followUserIds(user_id) {
         return handleerror(err);
 
     });
-
-
-    console.log(following);
 
     return {
 

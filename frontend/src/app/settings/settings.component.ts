@@ -70,4 +70,10 @@ export class SettingsComponent implements OnInit {
     console.log(this.filesToUpload);
   }
 
+  logout() {
+    localStorage.clear();
+    this.identity = null;
+    this._router.navigate(['/']);
+  }
+
 }

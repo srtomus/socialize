@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   public stats;
   public url;
   public follow;
+  public followed;
+  public following;
 
   constructor(
     private _route: ActivatedRoute,
@@ -30,6 +32,8 @@ export class ProfileComponent implements OnInit {
     this.url = "http://localhost:3000/api/";
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.followed = false;
+    this.following = false;
   }
 
   ngOnInit() {
@@ -71,4 +75,36 @@ export class ProfileComponent implements OnInit {
     )
   }
 
+  followUser(followed) {
+    var follow = new Follow('', this.identity._id, followed);
+
+    this._followService.addFollow(this.token, follow).subscribe(
+      response => {
+        this.following = true;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  unfollowUser(followed) {
+    this._followService.deleteFollow(this.token, followed).subscribe(
+      repsonse => {
+        this.following = false;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  public followUserOver;
+  mouseEnter(user_id) {
+    this.followUserOver = user_id;
+  }
+
+  mouseLeave() {
+    this.followUserOver = 0;
+  }
 }

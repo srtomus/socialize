@@ -1,8 +1,61 @@
 <app-logged-navbar></app-logged-navbar>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="user">
   <div class="container">
     <h2>Perfil</h2>
     <hr>
+    <div class="row">
+      <div class="col-12 col-md-3 card-img-top">
+        <img src="{{ url + 'getimageuser/' + user.image }}" *ngIf="user.image" width="200" height="200" alt="">
+        <img src="../../assets/default-user.png" *ngIf="!user.image" width="200" height="200" alt="">
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="badge badge-secondary" *ngIf="followed">
+          Te sigue
+        </div>
+        <div class="card-title">
+          <h1>{{ user.nickname }}</h1>
+          <h5>{{ user.name }} {{ user.lastname }}</h5>
+        </div>
+        <div class="card-text"> {{ user.description }} </div>
+      </div>
+      <div class="col-12 col-md-2">
+        <button class="btn btn-success" *ngIf="!following" (click)="followUser(user._id)">Seguir</button>
+        <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(user._id)" (mouseleave)="mouseLeave()"
+          (mouseenter)="mouseEnter(user._id)" [class.btn-danger]="user._id == followUserOver"><span
+            *ngIf="user._id == followUserOver; else following">Dejar de seguir</span>
+          <ng-template #following>
+            Siguiendo
+          </ng-template>
+        </button>
+      </div>
+      <div class="col-12 col-md-12">
+          <ul class="list-group list-group-flush card w-25 text-center">
+              <li class="list-group-item">
+                <div class="h6 text-muted">Seguidores</div>
+                <div class="h5" *ngIf="stats.followed">{{ stats.followed }}</div>
+                <div class="h5" *ngIf="!stats.followed">0</div>
+              </li>
+              <li class="list-group-item">
+                <div class="h6 text-muted">Siguiendo</div>
+                <div class="h5" *ngIf="stats.following">{{ stats.following }}</div>
+                <div class="h5" *ngIf="!stats.following">0</div>
+              </li>
+              <li class="list-group-item">
+                <div class="h6 text-muted">Publicaciones</div>
+                <div class="h5" *ngIf="stats.publication">{{ stats.publication }}</div>
+                <div class="h5" *ngIf="!stats.publication">0</div>
+                <div class="h5"> </div>
+              </li>
+              <li class="list-group-item">
+                <div class="h6 text-muted">Grupos</div>
+                <div class="h5" *ngIf="stats.groups">{{ stats.groups }}</div>
+                <div class="h5" *ngIf="!stats.groups">0</div>
+              </li>
+            </ul>
+      </div>
+    </div>
+
+
   </div>
   <app-sidebar></app-sidebar>
 </div>

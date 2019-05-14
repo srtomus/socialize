@@ -12,5 +12,7 @@ router.get('/getpublication/:id', md_auth.ensureAuth, PublicationController.getP
 router.delete('/deletepublication/:id', md_auth.ensureAuth, PublicationController.deletePublication);
 router.post('/publicationimg/:id', [md_auth.ensureAuth, md_upload], PublicationController.publicationImage);
 router.get('/getpublicationimg/:imageFile', PublicationController.getPublicationImg);
+router.get('/getPublicationsuser/:user/:page?', md_auth.ensureAuth, PublicationController.getPublicationsUser);
+
 
 module.exports = router;

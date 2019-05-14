@@ -57,6 +57,14 @@
                 <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required>
               </div>
             </div>
+            <div class="card border border-info mb-4">
+              <div class="card-header bg-info ">
+                Descripción
+              </div>
+              <div class="card-body">
+                <textarea type="text" name="description" #description="ngModel" [(ngModel)]="user.description" required></textarea>
+              </div>
+            </div>
             <div *ngIf="user.image">
               <img src="{{ url + 'getimageuser/' + user.image }}" width="200" />
             </div>
@@ -88,8 +96,8 @@
             </div>
             <div class="card-body">
               <label>¿Seguro que quieres cerrar sesión?</label><br>
-              <button class="btn btn-danger">Si</button>
-              <button class="btn btn-primary">No</button>
+              <button class="btn btn-danger" (click)="logout()">Si</button>
+              <button class="btn btn-primary" routerLink="/">No</button>
             </div>
           </div>
         </div>
