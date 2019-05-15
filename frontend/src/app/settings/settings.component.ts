@@ -41,7 +41,7 @@ export class SettingsComponent implements OnInit {
           this.status = 'error';
         } else {
           this.status = 'success';
-          localStorage.setItem('identity', JSON.stringify(this.user));
+          sessionStorage.setItem('identity', JSON.stringify(this.user));
           this.identity = this.user;
 
           this._uploadService.makeFileRequest(this.url+'uploadimage/'+this.user._id, [], this.filesToUpload, this.token, 'image')
@@ -49,7 +49,7 @@ export class SettingsComponent implements OnInit {
             console.log(result);
             console.log(result.user);
             this.user.image = result.user.image;
-            localStorage.setItem('identity', JSON.stringify(this.user));
+            sessionStorage.setItem('identity', JSON.stringify(this.user));
           })
         }
       },
@@ -71,7 +71,7 @@ export class SettingsComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.identity = null;
     this._router.navigate(['/']);
   }

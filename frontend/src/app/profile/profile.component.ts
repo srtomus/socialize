@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
     this.url = "http://localhost:3000/api/";
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.stats = this._userService.getStats();
     this.followed = false;
     this.following = false;
   }
@@ -51,10 +52,24 @@ export class ProfileComponent implements OnInit {
   getUser(id) {
     this._userService.getUser(id).subscribe(
       response => {
-        if(response.user) {
+        console.log(response);
+        if (response.user) {
           this.user = response.user;
         } else {
           this.status = 'error';
+        }
+
+        if (response.value.following != null) {
+          this.following = true;
+        } else {
+          this.following = false;
+        }
+
+
+        if (response.value.followed != null) {
+          this.followed = true;
+        } else {
+          this.followed = false;
         }
       },
       error => {

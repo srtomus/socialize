@@ -145,7 +145,7 @@ export class UsersComponent implements OnInit {
   getCounters() {
     this._userService.getCounters().subscribe(
       response => {
-        localStorage.setItem('stats', JSON.stringify(response));
+        sessionStorage.setItem('stats', JSON.stringify(response));
         this.status = 'success';
       },
       error => {

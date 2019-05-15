@@ -31,7 +31,7 @@ export class LoggedNavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.identity = null;
     this._router.navigate(['/']);
   }
