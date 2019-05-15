@@ -9,7 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UsersComponent } from './users/users.component';
-import { MessageComponent } from './message/message.component';
+import { ChatComponent } from './chat/chat.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InterestsComponent } from './interests/interests.component';
 
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent, canActivate:[UserGuard]},
     {path: 'settings', component: SettingsComponent, canActivate:[UserGuard]},
     {path: 'discover/:page', component: UsersComponent, canActivate:[UserGuard]},
-    {path: 'chat', component: MessageComponent, canActivate:[UserGuard]},
+    {path: 'chat', component: ChatComponent, canActivate:[UserGuard]},
     {path: 'discover', component: UsersComponent, canActivate:[UserGuard]},
     {path: 'interests', component: InterestsComponent, canActivate:[UserGuard]},
     {path: 'profile/:id', component: ProfileComponent, canActivate:[UserGuard]},

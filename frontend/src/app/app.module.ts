@@ -19,10 +19,10 @@ import { UserService } from './services/user.service';
 import { UserGuard } from './services/user.guard';
 import { SettingsComponent } from './settings/settings.component';
 import { UsersComponent } from './users/users.component';
-import { MessageComponent } from './message/message.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InterestsComponent } from './interests/interests.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +36,10 @@ import { InterestsComponent } from './interests/interests.component';
     HomeComponent,
     SettingsComponent,
     UsersComponent,
-    MessageComponent,
     SidebarComponent,
     ProfileComponent,
-    InterestsComponent
+    InterestsComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
