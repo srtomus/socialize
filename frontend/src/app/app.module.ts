@@ -23,6 +23,7 @@ import { MessageComponent } from './message/message.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InterestsComponent } from './interests/interests.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { InterestsComponent } from './interests/interests.component';
     MessageComponent,
     SidebarComponent,
     ProfileComponent,
-    InterestsComponent
+    InterestsComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

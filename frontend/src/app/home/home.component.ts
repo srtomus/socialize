@@ -40,11 +40,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.identity = this._userService.getIdentity();
+    this.stats = this._userService.getStats();
     this.getPublications(this.page);
   }
 
   ngDoCheck() {
     this.identity = this._userService.getIdentity();
+    this.stats = this._userService.getStats();
   }
 
   onSubmit(form) {
