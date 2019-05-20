@@ -1,6 +1,6 @@
 Proyecto de 2º DAW de Vlad Tomus.
 
-<h1>Every Meeting / Meet'n Go / Meet and Go / Socialize / Socialite</h1>
+<h1>Socialite</h1>
 
 
 <p>Webs de interés: </p>
