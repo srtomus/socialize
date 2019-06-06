@@ -23,6 +23,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InterestsComponent } from './interests/interests.component';
 import { ChatComponent } from './chat/chat.component';
+import { NewGroupComponent } from './new-group/new-group.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ChatComponent } from './chat/chat.component';
     ProfileComponent,
     InterestsComponent,
     ChatComponent,
+    NewGroupComponent
   ],
   imports: [
     BrowserModule,
