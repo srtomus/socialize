@@ -4,8 +4,6 @@ const Schema = mongoose.Schema;
 const GroupsSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        trim: true
     },
     author: {
         type: Schema.ObjectId,
@@ -13,10 +11,10 @@ const GroupsSchema = new Schema({
         trim: true
     },
     description: {
-        type: String,
-        lowercase: true,
-        required: true,
-        trim: true
+        type: String
+    },
+    category: {
+        type: String
     },
     nr_members: {
         type: Number
@@ -24,12 +22,15 @@ const GroupsSchema = new Schema({
     created_at: {
         type: String
     },
-    image: {
+    date_at: {
         type: String
     },
-    date_at: {
+    lat: {
+        type: String
+    },
+    lng: {
         type: String
     }
 });
 
-module.exports = mongoose.model('groups', GroupsSchema);
+module.exports = mongoose.model('group', GroupsSchema);

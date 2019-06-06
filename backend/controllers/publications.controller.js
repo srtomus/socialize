@@ -66,7 +66,7 @@ function getPublications(req, res) {
             });
 
             if (!publications) return res.status(404).send({
-                message: 'No hay grupos'
+                message: 'No hay publicaciones'
             });
 
             return res.status(200).send({

@@ -18,9 +18,11 @@ function saveGroup(req, res) {
     group.name = params.name;
     group.author = req.user.sub;
     group.nr_members = params.nr_members;
-    group.image = 'null';
+    group.category = params.category;
     group.created_at = moment().unix();
     group.date_at = params.date_at;
+    group.lat = params.lat;
+    group.lng = params.lng;
 
     group.save((err, groupStored) => {
         if (err) return res.status(500).send({
@@ -57,6 +59,7 @@ function getGroups(req, res) {
         follows.forEach((follow) => {
             follows_clean.push(follow.followed);
         });
+        follows_clean.push(req.user.sub);
 
         Group.find({
             user: {
@@ -75,6 +78,7 @@ function getGroups(req, res) {
                 total_items: total,
                 pages: Math.ceil(total / itemsPerPage),
                 page: page,
+                items_per_page: itemsPerPage,
                 groups
             })
         });

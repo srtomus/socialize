@@ -4,14 +4,14 @@
   <form #groupForm="ngForm" (ngSubmit)="onSubmit(groupForm)">
     <p>
       <label>Nombre</label>
-      <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required />
+      <input type="text" name="name" #name="ngModel" [(ngModel)]="group.name" class="form-control" required />
       <span *ngIf="!name.valid && name.touched">
         El nombre es obligatorio!
       </span>
     </p>
     <p>
       <label>Descripción</label>
-      <textarea type="text" name="description" #description="ngModel" [(ngModel)]="user.description"
+      <textarea type="text" name="description" #description="ngModel" [(ngModel)]="group.description"
         class="form-control" required></textarea>
       <span *ngIf="!description.valid && description.touched">
         La descripción es obligatoria!
@@ -19,22 +19,28 @@
     </p>
     <p>
       <label>Categoría</label>
-      <select name="category" #gender="ngModel" [(ngModel)]="user.gender" class="form-control">
+      <select name="category" #gender="ngModel" [(ngModel)]="group.category" class="form-control">
         <option>Masculino</option>
         <option>Femenino</option>
       </select>
     </p>
     <p>
       <label>Número de miembros</label>
-      <input type="number" name="nr_members" #nr_members="ngModel" [(ngModel)]="user.nr_members" class="form-control"
+      <input type="number" name="nr_members" #nr_members="ngModel" [(ngModel)]="group.nr_members" class="form-control"
+        required />
+      <span *ngIf="!nr_members.valid && nr_members.touched">
+        El nombre es obligatorio!
+      </span>
+    </p>
+    <p>
+      <label>Fecha</label>
+      <input type="number" name="nr_members" #nr_members="ngModel" [(ngModel)]="group.date_at" class="form-control"
         required />
       <span *ngIf="!nr_members.valid && nr_members.touched">
         El nombre es obligatorio!
       </span>
     </p>
     <div id="map"></div>
-    <button (click)="setLocation()">Submit Location</button>
-
-    <input type="submit" value="Enviar" class="btn btn-primary" [disabled]="!groupForm.form.valid" />
+    <input type="submit" value="Enviar" class="btn btn-primary" (click)="setLocation()" [disabled]="!groupForm.form.valid" />
   </form>
 </div>
