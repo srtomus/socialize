@@ -36,7 +36,13 @@ export class NewGroupComponent implements OnInit {
 }
 
   ngOnInit() {
-    this.lp = new LocationPicker('map');
+    this.lp = new LocationPicker('map',{
+      setCurrentPosition: true, // You can omit this, defaults to true
+  }, {
+      zoom: 15,
+      center: {lat:39.47018073020985, lng: -0.3770092068236952}
+  });
+  
   }
 
   setLocation() {
@@ -51,7 +57,7 @@ export class NewGroupComponent implements OnInit {
     this._groupService.addGroup(this.token, this.group).subscribe(
       response => {
           this.group = response.group;
-          console.log(response.group);
+          console.log(response);
           form.reset();
       },
       error => {

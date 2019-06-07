@@ -19,7 +19,7 @@
     </p>
     <p>
       <label>Categoría</label>
-      <select name="category" #gender="ngModel" [(ngModel)]="group.category" class="form-control">
+      <select name="category" #category="ngModel" [(ngModel)]="group.category" class="form-control">
         <option>Masculino</option>
         <option>Femenino</option>
       </select>
@@ -34,13 +34,14 @@
     </p>
     <p>
       <label>Fecha</label>
-      <input type="number" name="nr_members" #nr_members="ngModel" [(ngModel)]="group.date_at" class="form-control"
+      <input type="number" name="date_at" #date_at="ngModel" [(ngModel)]="group.date_at" class="form-control"
         required />
-      <span *ngIf="!nr_members.valid && nr_members.touched">
+      <span *ngIf="!date_at.valid && date_at.touched">
         El nombre es obligatorio!
       </span>
     </p>
     <div id="map"></div>
-    <input type="submit" value="Enviar" class="btn btn-primary" (click)="setLocation()" [disabled]="!groupForm.form.valid" />
+    <input type="submit" value="Enviar" class="btn btn-primary" (click)="setLocation()"
+      [disabled]="!groupForm.form.valid" />
   </form>
 </div>

@@ -25,19 +25,6 @@
     </div>
     <div class="col-md-6 gedf-main">
 
-      <div class="publications">
-        <div *ngFor="let publication of publications" class="item-publication">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <h4></h4>
-            </div>
-            <div class="publication-text pull-left">
-
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="card gedf-card mb-4">
         <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm)">
           <div class="card-header">
@@ -129,6 +116,30 @@
         </div>
       </div>
       <button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore && total > items_per_page">Ver más publicaciones</button>
+    </div>
+
+    <div class="col-md-6 gedf-main">
+      <div class="card gedf-card mb-4" *ngFor="let group of groups">
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="ml-2">
+                <div class="h5 m-0"> {{ group.name }} </div>
+                <div class="h7 text-muted">{{ group.author.nickname }}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{ (group.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </div>
+
+          <p class="card-text">
+            {{ group.description }}
+          </p>
+          <div id="map"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

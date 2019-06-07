@@ -5,11 +5,7 @@ const GroupsSchema = new Schema({
     name: {
         type: String,
     },
-    author: {
-        type: Schema.ObjectId,
-        ref: 'users',
-        trim: true
-    },
+    author: { type: Schema.ObjectId, ref: 'users' },
     description: {
         type: String
     },
@@ -33,4 +29,4 @@ const GroupsSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('group', GroupsSchema);
+module.exports = mongoose.model('groups', GroupsSchema);

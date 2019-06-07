@@ -62,10 +62,10 @@ function getGroups(req, res) {
         follows_clean.push(req.user.sub);
 
         Group.find({
-            user: {
+            author: {
                 "$in": follows_clean
             }
-        }).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, groups, total) => {
+        }).sort('-created_at').populate('author').paginate(page, itemsPerPage, (err, groups, total) => {
             if (err) return res.status(500).send({
                 message: 'Error al devolver el grupo'
             });

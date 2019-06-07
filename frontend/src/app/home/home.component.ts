@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.stats = this._userService.getStats();
     this.getPublications(this.page);
+    this.getGroups(this.page);
   }
 
   ngDoCheck() {
@@ -140,6 +141,7 @@ export class HomeComponent implements OnInit {
             this._router.navigate(['/home']);
           }
           console.log(response);
+
         } else {
           this.status = "error";
         }
