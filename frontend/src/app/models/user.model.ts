@@ -10,6 +10,6 @@ export class User{
         public password: string,
         public role: string,
         public image: string,
-        public interests: string[]
+        public interests: Array<String>
     ) {}
 }

@@ -1,1 +1,13 @@
-<p>Interests works</p>
+<app-logged-navbar></app-logged-navbar>
+<form #interestsForm="ngForm" (ngSubmit)="onSubmit(interestsForm)">
+  <p>
+    <label>Selecciona tus intereses</label>
+    <input type="checkbox" name="Arte" #Arte="ngModel" [(ngModel)]="interests['arte']">
+    <label class="form-check-label">Arte</label>
+    <input type="checkbox" name="Tecnologia" #Tecnologia="ngModel" [(ngModel)]="interests['tecnologia']">
+    <label class="form-check-label">Tecnología</label>
+    <input type="checkbox" name="Naturaleza" #Naturaleza="ngModel" [(ngModel)]="interests['naturaleza']">
+    <label class="form-check-label">Naturaleza</label>
+  </p>
+  <input type="submit" value="Enviar" class="btn btn-success" (click)="getInterests()">
+</form>
