@@ -61,7 +61,6 @@ export class UsersComponent implements OnInit {
         }
       }
 
-      // devolver listado
       this.getUsers(page);
     });
   }

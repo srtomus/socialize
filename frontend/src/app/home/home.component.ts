@@ -5,6 +5,7 @@ import { Publication } from '../models/publication.model';
 import { PublicationService } from '../services/publication.service';
 import { Group } from '../models/group.model';
 import { GroupService } from '../services/group.service';
+import LocationPicker from "location-picker";
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
   public publications: Publication;
   public group: Group;
   public groups: Group;
+  lp: LocationPicker;
 
   constructor(
     private _router: Router,
@@ -60,7 +62,6 @@ export class HomeComponent implements OnInit {
         if (response.publication) {
           this.publication = response.publication;
           this.status = 'success';
-          console.log(response);
           form.reset();
         } else {
           this.status = 'error';
@@ -95,7 +96,6 @@ export class HomeComponent implements OnInit {
           if (page > this.pages) {
             this._router.navigate(['/home']);
           }
-          console.log(response);
         } else {
           this.status = "error";
         }
@@ -140,8 +140,17 @@ export class HomeComponent implements OnInit {
           if (page > this.pages) {
             this._router.navigate(['/home']);
           }
-          console.log(response);
 
+          for (let key in this.groups) {
+            this.lp = new LocationPicker(this.groups[key].created_at,{
+              setCurrentPosition: false,
+          }, {
+              zoom: 15,
+              center: {lat:this.groups[key].lat, lng: this.groups[key].lng}
+          });
+            console.log(this.groups[key].created_at);
+          }
+          
         } else {
           this.status = "error";
         }

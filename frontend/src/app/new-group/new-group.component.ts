@@ -42,7 +42,6 @@ export class NewGroupComponent implements OnInit {
       zoom: 15,
       center: {lat:39.47018073020985, lng: -0.3770092068236952}
   });
-  
   }
 
   setLocation() {

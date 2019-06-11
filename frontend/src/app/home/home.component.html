@@ -1,8 +1,16 @@
 <app-logged-navbar></app-logged-navbar>
-<div class="container-fluid gedf-wrapper">
+<div class="container-fluid mt-4">
   <div class="row">
     <div class="col-md-3">
-      <div class="card gedf-card mb-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="200" />
+          <div class="h5">{{ identity.nickname }}</div>
+          <div class="h7 text-muted">Nombre : {{ identity.name + " " + identity.lastname }}</div>
+          <div class="h7">Descripción: {{ identity.description }}</div>
+        </div>
+      </div>
+      <div class="card">
         <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm)" class="p-3">
           <p>
             <label>¿Que estas pensando hoy?</label>
@@ -21,7 +29,7 @@
       </div>
     </div>
     <div class="col-md-5">
-      <div class="card" *ngFor="let publication of publications">
+      <div class="card mb-4" *ngFor="let publication of publications">
         <div class="card-header">
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex justify-content-between align-items-center">
@@ -60,13 +68,9 @@
             {{ publication.text }}
           </p>
         </div>
-        <div class="card-footer">
-          <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-          <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-          <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
-        </div>
       </div>
-      <button class="btn btn-success" (click)="viewMorePublications()" *ngIf="!noMorePublications && total > items_per_page">Ver más
+      <button class="btn btn-success" (click)="viewMorePublications()"
+        *ngIf="!noMorePublications && total > items_per_page">Ver más
         publicaciones</button>
     </div>
 
@@ -90,7 +94,7 @@
           <p class="card-text">
             {{ group.description }}
           </p>
-          <div id="map"></div>
+          <div id="{{ group.created_at }}" class="mapa" style="width: 100px; height: 100px"></div>
         </div>
       </div>
     </div>
