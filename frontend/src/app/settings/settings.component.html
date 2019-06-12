@@ -84,8 +84,11 @@
             <div class="card-header bg-info ">
               Intereses
             </div>
-            <div class="card-body">
-              <p class="card-text">[Intereses]</p>
+            <div class="card-body"> 
+              {{ user.interests }}
+
+              <div *ngFor="let int of interests">
+              </div>
             </div>
           </div>
         </div>

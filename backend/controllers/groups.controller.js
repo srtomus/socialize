@@ -45,7 +45,7 @@ function getGroups(req, res) {
         page = req.params.page;
     }
 
-    var itemsPerPage = 4;
+    var itemsPerPage = 3;
 
     Follow.find({
         user: req.user.sub

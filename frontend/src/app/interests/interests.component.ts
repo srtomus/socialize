@@ -37,13 +37,20 @@ export class InterestsComponent implements OnInit {
   }
 
   onSubmit() {
+    var intArr = [];
     this.getInterests().forEach(i => {
-      console.log(i);
-      this.user.interests.push(i);
-    })
+      intArr.push(i);
+    });
+    this.user.interests = intArr;
     this._userService.updateUser(this.user).subscribe(
       response => {
-        console.log(response);
+        if(!response.user) {
+          this.status = 'error';
+        } else {
+          this.status = 'success';
+          sessionStorage.setItem('identity', JSON.stringify(this.user));
+          this.identity = this.user;
+        }
       },
       error => {
         var errorMessage = <any>error;

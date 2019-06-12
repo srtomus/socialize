@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit {
   public status: string;
   public identity;
   public token;
+  public interests;
 
   constructor(
     private _route: ActivatedRoute,
@@ -32,6 +33,8 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.interests = this.user.interests;
+    console.log(this.interests);
   }
 
   onSubmit() {
