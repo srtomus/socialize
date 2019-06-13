@@ -19,7 +19,7 @@
         <div class="card-text"> {{ user.description }} </div>
       </div>
       <div class="col-12 col-md-2">
-        <button class="btn btn-success" *ngIf="!following" (click)="followUser(user._id)">Seguir</button>
+        <button class="btn btn-success" *ngIf="!following && user._id != identity._id" (click)="followUser(user._id)">Seguir</button>
         <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(user._id)" (mouseleave)="mouseLeave()"
           (mouseenter)="mouseEnter(user._id)" [class.btn-danger]="user._id == followUserOver"><span
             *ngIf="user._id == followUserOver; else following">Dejar de seguir</span>

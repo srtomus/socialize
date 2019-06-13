@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   public group: Group;
   public groups: Group;
   lp: LocationPicker;
+  public loading: boolean;
 
   constructor(
     private _router: Router,
@@ -42,6 +43,7 @@ export class HomeComponent implements OnInit {
     this.stats = this._userService.getStats();
     this.page = 1;
     this.publication = new Publication("", "", "", "", this.identity._id);
+    this.loading = true;
   }
 
   ngOnInit() {
@@ -96,6 +98,7 @@ export class HomeComponent implements OnInit {
           if (page > this.pages) {
             this._router.navigate(['/home']);
           }
+          this.loading = false;
         } else {
           this.status = "error";
         }
@@ -140,7 +143,7 @@ export class HomeComponent implements OnInit {
           if (page > this.pages) {
             this._router.navigate(['/home']);
           }
-
+/*
           for (let key in this.groups) {
             this.lp = new LocationPicker(this.groups[key].created_at,{
               setCurrentPosition: false,
@@ -149,7 +152,7 @@ export class HomeComponent implements OnInit {
               center: {lat:this.groups[key].lat, lng: this.groups[key].lng}
           });
             console.log(this.groups[key].created_at);
-          }
+          }*/
           
         } else {
           this.status = "error";

@@ -2,11 +2,11 @@
 <form #interestsForm="ngForm" (ngSubmit)="onSubmit(interestsForm)">
   <p>
     <label>Selecciona tus intereses</label>
-    <input type="checkbox" name="Arte" #Arte="ngModel" [(ngModel)]="interests['arte']">
+    <input type="checkbox" name="Arte" #Arte="ngModel" [(ngModel)]="interests['Arte']">
     <label class="form-check-label">Arte</label>
-    <input type="checkbox" name="Tecnologia" #Tecnologia="ngModel" [(ngModel)]="interests['tecnologia']">
+    <input type="checkbox" name="Tecnologia" #Tecnologia="ngModel" [(ngModel)]="interests['Tecnología']">
     <label class="form-check-label">Tecnología</label>
-    <input type="checkbox" name="Naturaleza" #Naturaleza="ngModel" [(ngModel)]="interests['naturaleza']">
+    <input type="checkbox" name="Naturaleza" #Naturaleza="ngModel" [(ngModel)]="interests['Naturaleza']">
     <label class="form-check-label">Naturaleza</label>
   </p>
   <input type="submit" value="Enviar" class="btn btn-success" (click)="getInterests()">
