@@ -49,4 +49,10 @@ export class GroupService {
     
         return this._http.get(this.url+'getgroup/'+id, {headers: headers});
     }
+
+    deleteGroup(id): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+    
+        return this._http.delete(this.url+'deletegroup/'+id, {headers: headers});
+    }
 }

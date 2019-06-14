@@ -16,5 +16,6 @@ router.put('/updateuser/:id', md_auth.ensureAuth, UserController.updateUser);
 router.post('/uploadimage/:id', [md_auth.ensureAuth, md_upload], UserController.uploadImage);
 router.get('/getimageuser/:imageFile', UserController.getUserImg);
 router.get('/counters/:id?', md_auth.ensureAuth, UserController.getCounters);
+router.delete('/deleteuser/:id?', md_auth.ensureAuth, UserController.deleteUser);
 
 module.exports = router;

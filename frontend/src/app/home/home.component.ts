@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   public groups: Group;
   lp: LocationPicker;
   public loading: boolean;
+  public imAdmin: boolean;
 
   constructor(
     private _router: Router,
@@ -55,6 +56,11 @@ export class HomeComponent implements OnInit {
     this.stats = this._userService.getStats();
     this.getPublications(this.page);
     this.getGroups(this.page);
+    if (this.identity.role == "ROLE_ADMIN") {
+      this.imAdmin = true;
+    } else {
+      this.imAdmin = false;
+    }
   }
 
   ngDoCheck() {
@@ -170,5 +176,16 @@ export class HomeComponent implements OnInit {
     } 
 
     this.getGroups(this.page, true);
+  }
+
+  deletePublication(id) {
+    this._publicationService.deletePublication(id).subscribe(
+      response => {
+        window.location.reload();
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 }

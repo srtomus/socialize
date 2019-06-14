@@ -26,6 +26,9 @@ export class GroupComponent implements OnInit {
   public followed;
   public following;
   lp: LocationPicker;
+  public user: User;
+  public userId: any;
+  public imAdmin: boolean;
 
   constructor(
     private _route: ActivatedRoute,
@@ -68,22 +71,46 @@ export class GroupComponent implements OnInit {
             zoomControl: true,
             center: { lat: Number(this.group.lat), lng: Number(this.group.lng) }
           });
-  
+          this.userId = this.group.author;
+          this.getUser(this.userId._id);
 
-        /*
-          for (let key in this.groups) {
-            this.lp = new LocationPicker(this.groups[key].created_at,{
-              setCurrentPosition: false,
-          }, {
-              zoom: 15,
-              center: {lat:this.groups[key].lat, lng: this.groups[key].lng}
-          });
-            console.log(this.groups[key].created_at);
-          }*/
+          if (this.identity.role == "ROLE_ADMIN") {
+            this.imAdmin = true;
+          } else {
+            this.imAdmin = false;
+          }
       },
       error => {
         console.log(<any>error);
         this._router.navigate(['/home']);
+      }
+    )
+  }
+
+  getUser(id) {
+    this._userService.getUser(id).subscribe(
+      response => {
+        if (response.user) {
+          this.user = response.user;
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        console.log(<any>error);
+        this._router.navigate(['/profile', this.identity._id]);
+      }
+    )
+  }
+
+  deleteGroup(id) {
+    this._groupService.deleteGroup(id).subscribe(
+      response => {
+        console.log(response);
+        this._router.navigate(['/home']);
+      },
+      error => {
+        console.log(<any>error);
       }
     )
   }
