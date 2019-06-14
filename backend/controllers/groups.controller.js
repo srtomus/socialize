@@ -85,79 +85,10 @@ function getGroups(req, res) {
     });
 }
 
-function getFollowedGroups(req, res) {
-    var page = 1;
-    if (req.params.page) {
-        page = req.params.page;
-    }
-
-    var itemsPerPage = 9;
-
-    Follow.find({
-        user: req.user.sub
-    }).populate('followed').exec((err, follows) => {
-        if (err) return res.status(500).send({
-            message: 'Error al devolver el seguimiento'
-        });
-
-        var follows_clean = [];
-
-        follows.forEach((follow) => {
-            follows_clean.push(follow.followed);
-        });
-        follows_clean.push(req.user.sub);
-
-        Group.find({
-            author: {
-                "$in": follows_clean
-            }
-        }).sort('-created_at').populate('author').paginate(page, itemsPerPage, (err, groups, total) => {
-            if (err) return res.status(500).send({
-                message: 'Error al devolver el grupo'
-            });
-
-            if (!groups) return res.status(404).send({
-                message: 'No hay grupos'
-            });
-
-            return res.status(200).send({
-                total_items: total,
-                pages: Math.ceil(total / itemsPerPage),
-                page: page,
-                items_per_page: itemsPerPage,
-                groups
-            })
-        });
-    });
-}
-
-// HACER ESTO LO PRIMERO EN POSTMAN EN CASA
-function getInterestedGroups(req, res) {
-    var page = 1;
-    if (req.params.page) {
-        page = req.params.page;
-    }
-
-    var itemsPerPage = 9;
-
-    User.find({
-        user: req.user.sub
-    }).populate('interests').exec((err, follows) => {
-        if (err) return res.status(500).send({
-            message: 'Error al devolver el seguimiento'
-        });
-
-        return res.status(200).send({
-            interests
-        })
-
-    });
-}
-
 function getGroup(req, res) {
     var groupId = req.params.id;
 
-    Group.findById(groupId, (err, group) => {
+    Group.findById(groupId).populate('author').exec((err, group) => {
         if (err) return res.status(500).send({
             message: 'Error al devolver el grupo'
         });
@@ -168,6 +99,56 @@ function getGroup(req, res) {
 
         return res.status(200).send({
             group
+        });
+    })
+}
+
+function getAllGroups(req, res) {
+    var groupId = req.params.id;
+    var page = 1;
+    if (req.params.page) {
+        page = req.params.page;
+    }
+
+    var itemsPerPage = 9;
+
+    Group.find(groupId).sort('-created_at').populate("author").paginate(page, itemsPerPage, (err, groups, total) => {
+        if (err) return res.status(500).send({
+            message: 'Error al devolver el grupo'
+        });
+
+        if (!groups) return res.status(404).send({
+            message: 'No existe el grupo'
+        });
+
+        return res.status(200).send({
+            groups,
+            total,
+            pages: Math.ceil(total / itemsPerPage)
+        });
+    })
+}
+
+function getThreeItems(req, res) {
+    var groupId = req.params.id;
+    var page = 1;
+    if (req.params.page) {
+        page = req.params.page;
+    }
+
+    var itemsPerPage = 3;
+
+    Group.find(groupId).sort('-created_at').populate("author").paginate(page, itemsPerPage, (err, groups, total) => {
+        if (err) return res.status(500).send({
+            message: 'Error al devolver el grupo'
+        });
+
+        if (!groups) return res.status(404).send({
+            message: 'No existe el grupo'
+        });
+
+        return res.status(200).send({
+            groups
         });
     })
 }
@@ -271,6 +252,6 @@ module.exports = {
     deleteGroup,
     groupImage,
     getGroupImg,
-    getFollowedGroups,
-    getInterestedGroups
+    getAllGroups,
+    getThreeItems
 }

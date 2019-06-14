@@ -1,3 +1,28 @@
-<p>
-  groups works!
-</p>
+<app-logged-navbar></app-logged-navbar>
+<div class="container-fluid mt-4">
+  <div class="col-md-3">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-4" *ngFor="let group of groups">
+        <div class="card mb-4">
+          <div class="card-body d-flex align-items-center">
+            <div>
+              <a routerLink="/group/{{ group._id }}">
+                <p>{{ group.name }}</p>
+              </a>
+              <p>{{ group.author.nickname + ' ' + group.date_at }}</p>
+              <p>{{ group.category }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <ul class="pagination">
+      <li *ngIf="page > 1"><a [routerLink]="['/groups', prev_page]">Anterior</a></li>
+      <li *ngIf="pages != page && pages > 1"><a [routerLink]="['/groups', next_page]">Siguiente</a></li>
+    </ul>
+  </div>
+</div>

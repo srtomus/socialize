@@ -14,6 +14,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { InterestsComponent } from './interests/interests.component';
 import { NewGroupComponent } from './new-group/new-group.component';
 import { GroupsComponent } from './groups/groups.component';
+import { GroupComponent } from './group/group.component';
+
 
 // Importar servicios
 import { UserGuard } from './services/user.guard';
@@ -30,7 +32,9 @@ const appRoutes: Routes = [
     {path: 'discover', component: UsersComponent, canActivate:[UserGuard]},
     {path: 'interests', component: InterestsComponent, canActivate:[UserGuard]},
     {path: 'profile/:id', component: ProfileComponent, canActivate:[UserGuard]},
+    {path: 'group/:id', component: GroupComponent, canActivate:[UserGuard]},
     {path: 'new-group', component: NewGroupComponent, canActivate:[UserGuard]},
+    {path: 'groups/:page', component: GroupsComponent, canActivate:[UserGuard]},
     {path: 'groups', component: GroupsComponent, canActivate:[UserGuard]},
     {path: '**', component: NotFoundComponent}
 ];

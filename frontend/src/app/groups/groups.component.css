@@ -1,0 +1,31 @@
+img {
+    border-radius: 100%;
+}
+
+.image_user {
+    width: 100px;
+}
+
+.user_name {
+    width: 200px;
+    vertical-align: auto;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+a:hover {
+    color: darkslategrey;
+}
+
+.container-fluid {
+    display: flex;
+}
+
+.container {
+    width: 900px;
+    margin-left: 50px;
+}

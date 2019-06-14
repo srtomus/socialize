@@ -25,6 +25,7 @@ import { InterestsComponent } from './interests/interests.component';
 import { ChatComponent } from './chat/chat.component';
 import { NewGroupComponent } from './new-group/new-group.component';
 import { GroupsComponent } from './groups/groups.component';
+import { GroupComponent } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { GroupsComponent } from './groups/groups.component';
     InterestsComponent,
     ChatComponent,
     NewGroupComponent,
-    GroupsComponent
+    GroupsComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+<app-logged-navbar></app-logged-navbar>
+<div class="container fluid">
+  <div class="row">
+    <div class="col-4">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-8">
+      <div class="card">
+        <div class="card-title">
+          {{ group.name }}
+        </div>
+        <div class="card-text">
+          <p class="text-muted">{{ group.author.nickname + ' ' + group.category }}</p>
+        </div>
+        <div class="card-body">
+          {{ group.description }}
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

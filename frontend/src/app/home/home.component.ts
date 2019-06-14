@@ -5,13 +5,16 @@ import { Publication } from '../models/publication.model';
 import { PublicationService } from '../services/publication.service';
 import { Group } from '../models/group.model';
 import { GroupService } from '../services/group.service';
+import { GroupFollowService } from '../services/groupFollow.service';
+import { GroupFollow } from '../models/groupFollow.model';
+import { User } from '../models/user.model';
 import LocationPicker from "location-picker";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [PublicationService, GroupService, UserService]
+  providers: [PublicationService, GroupService, UserService, GroupFollowService]
 })
 export class HomeComponent implements OnInit {
   public title: string;
@@ -35,7 +38,8 @@ export class HomeComponent implements OnInit {
     private _router: Router,
     private _userService: UserService,
     private _publicationService: PublicationService,
-    private _groupService: GroupService
+    private _groupService: GroupService,
+    private _groupFollowService: GroupFollowService
   ) {
     this.url = "http://localhost:3000/api/";
     this.identity = this._userService.getIdentity();
@@ -125,7 +129,7 @@ export class HomeComponent implements OnInit {
 
 
   getGroups(page, adding = false) {
-    this._groupService.getGroups(this.token, page).subscribe(
+    this._groupService.getThreeItems(this.token).subscribe(
       response => {
         if (response.groups) {
           this.total = response.total_items;
@@ -143,16 +147,6 @@ export class HomeComponent implements OnInit {
           if (page > this.pages) {
             this._router.navigate(['/home']);
           }
-/*
-          for (let key in this.groups) {
-            this.lp = new LocationPicker(this.groups[key].created_at,{
-              setCurrentPosition: false,
-          }, {
-              zoom: 15,
-              center: {lat:this.groups[key].lat, lng: this.groups[key].lng}
-          });
-            console.log(this.groups[key].created_at);
-          }*/
           
         } else {
           this.status = "error";

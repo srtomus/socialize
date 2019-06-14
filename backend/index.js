@@ -31,10 +31,12 @@ const user_routes = require('./routes/user.routes');
 const follow_routes = require('./routes/follow.routes');
 const group_routes = require('./routes/groups.routes');
 const publication_routes = require('./routes/publication.route');
+const group_follows_routes = require('./routes/groupFollows.routes');
 app.use('/api', user_routes);
 app.use('/api', follow_routes);
 app.use('/api', group_routes);
 app.use('/api', publication_routes);
+app.use('/api', group_follows_routes);
 
 
 var server = http.createServer(app);
