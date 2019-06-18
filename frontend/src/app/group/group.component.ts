@@ -71,8 +71,6 @@ export class GroupComponent implements OnInit {
             zoomControl: true,
             center: { lat: Number(this.group.lat), lng: Number(this.group.lng) }
           });
-<<<<<<< HEAD
-=======
           this.userId = this.group.author;
           this.getUser(this.userId._id);
 
@@ -81,7 +79,6 @@ export class GroupComponent implements OnInit {
           } else {
             this.imAdmin = false;
           }
->>>>>>> 57bde7a8b319f13b52979d7e69be9e7ea9cbbcb4
       },
       error => {
         console.log(<any>error);

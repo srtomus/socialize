@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'angular2-moment';
 
+import { MessagesModule } from './messages/messages.module';
+
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -26,6 +28,10 @@ import { ChatComponent } from './chat/chat.component';
 import { NewGroupComponent } from './new-group/new-group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupComponent } from './group/group.component';
+import { MainMessagesComponent } from './main-messages/main-messages.component';
+import { AddMessagesComponent } from './add-messages/add-messages.component';
+import { ReceivedMessagesComponent } from './received-messages/received-messages.component';
+import { SentMessagesComponent } from './sent-messages/sent-messages.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +58,8 @@ import { GroupComponent } from './group/group.component';
     routing,
     FormsModule,
     HttpClientModule,
-    MomentModule
+    MomentModule,
+    MessagesModule
   ],
   providers: [
     appRoutingProviders,
