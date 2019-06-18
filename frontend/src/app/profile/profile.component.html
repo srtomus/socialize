@@ -40,6 +40,8 @@
             Siguiendo
           </ng-template>
         </button>
+
+        
       </div>
       <div class="col-12 col-md-12">
           <ul class="list-group list-group-flush card w-25 text-center">
@@ -71,4 +73,44 @@
 
   </div>
   <app-sidebar></app-sidebar>
+</div>
+<div class="col-md-5">
+  <div class="card mb-4" *ngFor="let publication of publications">
+    <div>
+    </div>
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="mr-2">
+            <a href="#">
+              <img src="{{ url + 'getimageuser/' + publication.user.image }}" *ngIf="publication.user.image"
+                width="100" class="avatar" height="100" alt="">
+              <img src="../../assets/default-user.png" class="avatar" *ngIf="!publication.user.image" width="100"
+                height="100" alt="">
+            </a>
+          </div>
+          <div class="ml-2">
+            <div class="h5 m-0"> {{ publication.user.nickname }} </div>
+            <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.lastname }}</div>
+          </div>
+        </div>
+        <div>
+          <div class="btn btn-primary" *ngIf="publication.user._id == identity._id || imAdmin"
+            (click)="deletePublication(publication._id)"><i class="fas fa-times"></i></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>
+        {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </div>
+
+      <p class="card-text">
+        {{ publication.text }}
+      </p>
+    </div>
+  </div>
+  <button class="btn btn-success" (click)="viewMorePublications()"
+    *ngIf="!noMorePublications && total > items_per_page">Ver más
+    publicaciones</button>
 </div>

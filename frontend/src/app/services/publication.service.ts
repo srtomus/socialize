@@ -38,6 +38,12 @@ export class PublicationService {
         return this._http.get(this.url + 'getpublications/' + page, { headers: headers });
     }
 
+    getMyPublications(token, page = 1): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+        return this._http.get(this.url + 'getmypublications/' + page, { headers: headers });
+    }
+
     getPublicationsUser(token, page = 1, user_id): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 

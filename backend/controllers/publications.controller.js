@@ -132,6 +132,40 @@ function getPublicationsUser(req, res) {
     });
 }
 
+function getMyPublications(req, res) {
+    var page = 1;
+    if (req.params.page) {
+        page = req.params.page;
+    }
+
+    var itemsPerPage = 4;
+
+    var user_id = req.user.sub;
+    if(req.params.user_id) {
+        user_id = req.params.user_id;
+    }
+
+    Publication.find({
+        user: req.user.sub
+    }).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
+        if (err) return res.status(500).send({
+            message: 'Error en la publicación del grupo'
+        });
+
+        if (!publications) return res.status(404).send({
+            message: 'No hay grupos'
+        });
+
+        return res.status(200).send({
+            total_items: total,
+            pages: Math.ceil(total / itemsPerPage),
+            page: page,
+            items_per_page: itemsPerPage,
+            publications
+        })
+    });
+}
+
 function getPublication(req, res) {
     var publicationId = req.params.id;
 
@@ -248,5 +282,6 @@ module.exports = {
     deletePublication,
     publicationImage,
     getPublicationImg,
-    getPublicationsUser
+    getPublicationsUser,
+    getMyPublications
 }

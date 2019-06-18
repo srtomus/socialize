@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from '../models/messages.model';
 import { Follow } from '../models/follow.model';
 import { FollowService } from '../services/follow.service';
@@ -21,8 +21,15 @@ export class SentMessagesComponent implements OnInit {
   public status;
   public follows;
   public messages: Message[];
+  public page;
+  public items_per_page;
+  public pages;
+  public total;
+  public next_page;
+  public prev_page;
 
   constructor(
+    private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
     private _followService: FollowService,
@@ -34,17 +41,55 @@ export class SentMessagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMessages();
+    this.actualPage();
   }
 
-  getMessages() {
-    this._messagesService.getSentMessages(this.token, 1).subscribe(
+  actualPage() {
+    this._route.params.subscribe(params => {
+      let page = +params['page'];
+      this.page = page;
+
+      if(!params['page']) {
+        page = 1;
+      }
+
+      if(!page) {
+        page = 1;
+      } else {
+        this.next_page = page + 1;
+        this.prev_page = page - 1;
+
+        if(this.prev_page <= 0) {
+          this.prev_page = 1;
+        }
+      }
+
+      this.getMessages(page);
+    });
+  }
+
+  getMessages(page) {
+    this._messagesService.getSentMessages(this.token, page).subscribe(
       response => {
+        if(response.messages) {
           console.log(response);
-        
+          this.total = response.total;
+          this.pages = response.pages;
+          this.items_per_page = response.itemsPerPage;
+
+          this.messages = response.messages;
+
+          if(page > this.pages) {
+            this._router.navigate(['/mensajes/enviados', 1]);
+          }
+        }
       },
       error => {
-        console.log(<any>error);
+        var errorMessage = <any>error;
+        console.log(errorMessage);
+        if (errorMessage != null) {
+          this.status = 'error';
+        }
       }
     )
   }

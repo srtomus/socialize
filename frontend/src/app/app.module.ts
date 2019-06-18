@@ -32,6 +32,7 @@ import { MainMessagesComponent } from './main-messages/main-messages.component';
 import { AddMessagesComponent } from './add-messages/add-messages.component';
 import { ReceivedMessagesComponent } from './received-messages/received-messages.component';
 import { SentMessagesComponent } from './sent-messages/sent-messages.component';
+import { FollowingComponent } from './following/following.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { SentMessagesComponent } from './sent-messages/sent-messages.component';
     ChatComponent,
     NewGroupComponent,
     GroupsComponent,
-    GroupComponent
+    GroupComponent,
+    FollowingComponent
   ],
   imports: [
     BrowserModule,

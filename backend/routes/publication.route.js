@@ -13,6 +13,7 @@ router.delete('/deletepublication/:id', md_auth.ensureAuth, PublicationControlle
 router.post('/publicationimg/:id', [md_auth.ensureAuth, md_upload], PublicationController.publicationImage);
 router.get('/getpublicationimg/:imageFile', PublicationController.getPublicationImg);
 router.get('/getPublicationsuser/:user/:page?', md_auth.ensureAuth, PublicationController.getPublicationsUser);
+router.get('/getmypublications/:page?', md_auth.ensureAuth, PublicationController.getMyPublications);
 
 
 module.exports = router;
