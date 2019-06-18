@@ -17,7 +17,7 @@
               </div>
               <div>
                 <a routerLink="/profile/{{ user._id }}">
-                  <p>{{ user.nickname }}</p>
+                  <span class="pr-2">{{ user.nickname }}</span><div class="badge badge-secondary" *ngIf="user.role == 'ROLE_ADMIN'">Admin</div>
                 </a>
                 <p>{{ user.name + ' ' + user.lastname }}</p>
 

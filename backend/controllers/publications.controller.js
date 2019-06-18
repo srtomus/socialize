@@ -154,7 +154,6 @@ function deletePublication(req, res) {
     var publicationId = req.params.id;
 
     Publication.find({
-        'user': req.user.sub,
         '_id': publicationId
     }).remove(err => {
         if (err) return res.status(500).send({

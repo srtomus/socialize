@@ -22,6 +22,9 @@ export class ProfileComponent implements OnInit {
   public follow;
   public followed;
   public following;
+  public admin: boolean;
+  public imAdmin: boolean;
+  public userId;
 
   constructor(
     private _route: ActivatedRoute,
@@ -52,12 +55,7 @@ export class ProfileComponent implements OnInit {
   getUser(id) {
     this._userService.getUser(id).subscribe(
       response => {
-        console.log(response);
-        if (response.user) {
-          this.user = response.user;
-        } else {
-          this.status = 'error';
-        }
+        this.user = response.user;
 
         if (response.value.following != null) {
           this.following = true;
@@ -65,12 +63,79 @@ export class ProfileComponent implements OnInit {
           this.following = false;
         }
 
-
         if (response.value.followed != null) {
           this.followed = true;
         } else {
           this.followed = false;
         }
+
+        if (response.user.role == "ROLE_ADMIN") {
+          this.admin = true;
+        } else {
+          this.admin = false;
+        }
+
+        if (this.identity.role == "ROLE_ADMIN") {
+          this.imAdmin = true;
+        } else {
+          this.imAdmin = false;
+        }
+
+        this.userId = response.user._id;
+      },
+      error => {
+        console.log(<any>error);
+        this._router.navigate(['/profile', this.identity._id]);
+      }
+    )
+  }
+
+  deleteUser(id) {
+    this._userService.deleteUser(id).subscribe(
+      response => {
+        console.log(response);
+        this._router.navigate(['/home']);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  makeAdmin(id) {
+    this._userService.getUser(id).subscribe(
+      response => {
+        this.user = response.user;
+        this.user.role = "ROLE_ADMIN"
+        console.log(this.user);
+        this._userService.updateUser(this.user).subscribe(
+          response => {
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )
+      },
+      error => {
+        console.log(<any>error);
+        this._router.navigate(['/profile', this.identity._id]);
+      }
+    )
+  }
+
+  makeUser(id) {
+    this._userService.getUser(id).subscribe(
+      response => {
+        this.user = response.user;
+        this.user.role = "ROLE_USER"
+        console.log(this.user);
+        this._userService.updateUser(this.user).subscribe(
+          response => {
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )
       },
       error => {
         console.log(<any>error);

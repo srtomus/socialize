@@ -12,6 +12,19 @@
         <div class="badge badge-secondary" *ngIf="followed">
           Te sigue
         </div>
+        <div class="badge badge-secondary" *ngIf="admin">
+          Admin
+        </div>
+        <div class="btn btn-primary" *ngIf="imAdmin && user._id != identity._id && user.role != 'ROLE_ADMIN'" (click)="deleteUser(userId)">
+          Eliminar usuario
+        </div>
+        <div class="btn btn-success" *ngIf="imAdmin && user._id != identity._id && user.role != 'ROLE_ADMIN'" (click)="makeAdmin(userId)">
+          Hacer admin a este usuario
+        </div>
+        <div class="btn btn-warning" *ngIf="imAdmin && user._id != identity._id && user.role == 'ROLE_ADMIN'" (click)="makeUser(userId)">
+          Quitar permisos de administrador
+        </div>
+        
         <div class="card-title">
           <h1>{{ user.nickname }}</h1>
           <h5>{{ user.name }} {{ user.lastname }}</h5>

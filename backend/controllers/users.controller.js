@@ -343,7 +343,7 @@ function updateUser(req, res) {
     // Borrar propiedad password
     delete update.password;
 
-    if (userId != req.user.sub) {
+    if (userId != req.user.sub && req.params.role == "ROLE_USER") {
         return res.status(500).send({
             message: 'No tienes permiso para actualizar los datos del usuario'
         });
@@ -363,6 +363,46 @@ function updateUser(req, res) {
         return res.status(200).send({
             user: userUpdated
         });
+    })
+}
+
+function deleteUser(req, res) {
+    var userId = req.params.id;
+
+    User.find({
+        '_id': userId
+    }).remove(err => {
+        if (err) return res.status(500).send({
+            message: 'Error al borrar el usuario (User)'
+        });
+
+        Publication.find({
+            user: userId
+        }).remove(err => {
+            if (err) return res.status(500).send({
+                message: 'Error al borrar el usuario (Publication)'
+            });
+
+            Group.find({
+                author: userId
+            }).remove(err => {
+                if (err) return res.status(500).send({
+                    message: 'Error al borrar el usuario (Group)'
+                });
+
+                Follow.find({
+                    followed: userId
+                }).remove(err => {
+                    if (err) return res.status(500).send({
+                        message: 'Error al borrar el usuario (Follow)'
+                    });
+
+                    return res.status(200).send({
+                        message: "Usuario eliminado"
+                    });
+                })
+            })
+        })
     })
 }
 
@@ -444,5 +484,6 @@ module.exports = {
     updateUser,
     uploadImage,
     getUserImg,
-    getCounters
+    getCounters,
+    deleteUser
 }

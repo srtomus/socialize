@@ -7,9 +7,22 @@ import { Publication } from '../models/publication.model';
 export class PublicationService {
     public url: string;
     public identity;
+    public token;
 
     constructor(public _http: HttpClient) {
         this.url = "http://localhost:3000/api/";
+    }
+
+    getToken() {
+        let token = sessionStorage.getItem('token');
+
+        if (token != "undefined") {
+            this.token = token;
+        } else {
+            this.token = null;
+        }
+
+        return this.token;
     }
 
     addPublication(token, publication: Publication): Observable<any> {
@@ -31,8 +44,8 @@ export class PublicationService {
         return this._http.get(this.url + 'getpublicationsuser/'+ user_id + '/' + page, { headers: headers });
     }
 
-    deletePublication(token, id): Observable<any> {
-        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+    deletePublication(id): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
 
         return this._http.delete(this.url + 'deletepublication/' + id, { headers: headers });
     }

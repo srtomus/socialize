@@ -157,7 +157,6 @@ function deleteGroup(req, res) {
     var groupId = req.params.id;
 
     Group.find({
-        author: req.user.sub,
         '_id': groupId
     }).remove(err => {
         if (err) return res.status(500).send({
@@ -165,7 +164,7 @@ function deleteGroup(req, res) {
         });
 
         return res.status(200).send({
-            message: "Publicación eliminada"
+            message: "Grupo eliminado"
         });
     })
 }
