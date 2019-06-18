@@ -3,6 +3,7 @@ const fs = require('fs');
 const mongoosePaginate = require('mongoose-pagination');
 
 const User = require('../models/users.schema');
+const Group = require('../models/groups.schema');
 const GroupFollow = require('../models/groupFollows.schema');
 
 function saveFollow(req, res) {

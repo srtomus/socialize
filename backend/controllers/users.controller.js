@@ -8,19 +8,6 @@ const mongoosePaginate = require('mongoose-pagination');
 const fs = require('fs');
 const path = require('path');
 
-// Funciones de prueba
-function home(req, res) {
-    res.status(200).send({
-        message: 'Hola mundo home'
-    })
-}
-
-function pruebas(req, res) {
-    res.status(200).send({
-        message: 'Hola mundo pruebas'
-    })
-}
-
 // Registro
 function saveUser(req, res) {
     var params = req.body;
@@ -450,8 +437,6 @@ function removeFilesOfUploads(res, file_path, message) {
 }
 
 module.exports = {
-    home,
-    pruebas,
     saveUser,
     loginUser,
     getUser,

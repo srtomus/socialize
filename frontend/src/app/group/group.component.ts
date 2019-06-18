@@ -68,18 +68,6 @@ export class GroupComponent implements OnInit {
             zoomControl: true,
             center: { lat: Number(this.group.lat), lng: Number(this.group.lng) }
           });
-  
-
-        /*
-          for (let key in this.groups) {
-            this.lp = new LocationPicker(this.groups[key].created_at,{
-              setCurrentPosition: false,
-          }, {
-              zoom: 15,
-              center: {lat:this.groups[key].lat, lng: this.groups[key].lng}
-          });
-            console.log(this.groups[key].created_at);
-          }*/
       },
       error => {
         console.log(<any>error);

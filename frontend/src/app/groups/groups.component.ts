@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupService } from '../services/group.service';
-import { Group } from '../models/group.model';
-import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { GroupService } from '../services/group.service';
+import { GroupFollowService } from '../services/groupFollow.service';
+import { Group } from '../models/group.model';
 
 @Component({
   selector: 'app-groups',
@@ -73,8 +74,6 @@ export class GroupsComponent implements OnInit {
           this.groups = response.groups;
           this.total = response.total;
           this.pages = response.pages;
-          this.follows = response.users_following;
-          console.log(response);
           if(page > this.pages) {
             this._router.navigate(['/groups', 1]);
           }
@@ -89,5 +88,4 @@ export class GroupsComponent implements OnInit {
       }
     )
   }
-
 }
