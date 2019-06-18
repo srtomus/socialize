@@ -1,3 +1,35 @@
-<p>
-  add-messages works!
-</p>
+<div class="container">
+  <h1>Enviar mensaje</h1>
+
+  <div class="alert alert-success" *ngIf="status == 'success'">
+    Mensaje enviado correctamente, puedes verlo en tus <a routerLink="/mensajes/enviados">mensajes enviados</a>
+  </div>
+  <div class="alert alert-danger" *ngIf="status == 'error'">
+    Ha habido un error al enviar el mensaje
+  </div>
+
+  <form #formAdd="ngForm" (ngSubmit)="onSubmit(formAdd)">
+    <p>
+      <label>Para:</label>
+      <!-- Listado de seguidores -->
+      <select name="receiver" *ngIf="follows" #receiver="ngModel" [(ngModel)]="message.receiver" class="form-control"
+        required>
+        <option *ngFor="let follow of follows" value="{{ follow.user._id }}">
+          {{ follow.user.name }} {{ follow.user.lastname }} ({{ follow.user.nickname }})
+        </option>
+      </select>
+    </p>
+
+    <p>
+      <label>Mensaje</label>
+      <textarea name="text" #text="ngModel" [(ngModel)]="message.text" required class="form-control">
+    </textarea>
+
+      <span *ngIf="!text.valid && text.touched">
+        El mensaje es obligatorio
+      </span>
+    </p>
+
+    <input type="submit" value="Enviar mensaje" class="btn btn-primary">
+  </form>
+</div>
