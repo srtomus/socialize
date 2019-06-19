@@ -22,7 +22,7 @@ export class AnonNavbarComponent implements OnInit {
     private _userService: UserService
   ) { 
     this.title = 'Iniciar sesión';
-    this.user = new User("", "", "", "", null, "", "", "", "",  [""]);
+    this.user = new User("", "", "", "", "", "", null, "", "", "", "",  [""]);
   }
 
   ngOnInit() {

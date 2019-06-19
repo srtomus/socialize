@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit {
     private _userService: UserService
   ) { 
     this.title = 'Iniciar sesión';
-    this.user = new User("", "", "", "", null, "", "", "", "",  [""]);
+    this.user = new User("", "", "", "", "", "", null, "", "", "", "",  [""]);
   }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class LandingComponent implements OnInit {
     this._userService.signin(this.user).subscribe(
       response => {
         this.identity = response.user;
-
+        console.log(response);
         if (!this.identity || !this.identity._id) {
           this.status = 'error';
         } else {

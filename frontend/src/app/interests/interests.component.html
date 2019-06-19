@@ -1,5 +1,5 @@
 <app-logged-navbar></app-logged-navbar>
-<form #interestsForm="ngForm" (ngSubmit)="onSubmit(interestsForm)">
+<form #interestsForm="ngForm" (ngSubmit)="onSubmit()">
   <p>
     <label>Selecciona tus intereses</label>
     <input type="checkbox" name="Arte" #Arte="ngModel" [(ngModel)]="interests['Arte']">

@@ -58,6 +58,7 @@ export class GroupComponent implements OnInit {
   getGroup(id) {
     this._groupService.getGroup(id).subscribe(
       response => {
+        console.log(response.group.author.nickname);
         if (response.group) {
           this.group = response.group;
         } else {
