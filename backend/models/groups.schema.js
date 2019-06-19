@@ -15,6 +15,9 @@ const GroupsSchema = new Schema({
     nr_members: {
         type: Number
     },
+    members: {
+        type: Number
+    },
     created_at: {
         type: String
     },

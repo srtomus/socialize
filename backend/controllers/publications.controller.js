@@ -106,7 +106,7 @@ function getPublicationsUser(req, res) {
 
     var itemsPerPage = 4;
 
-    var user_id = req.user.sub;
+    var user_id = req.params.id;
     if(req.params.user_id) {
         user_id = req.params.user_id;
     }

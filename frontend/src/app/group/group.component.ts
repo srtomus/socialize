@@ -4,15 +4,16 @@ import { User } from '../models/user.model';
 import { Follow } from '../models/follow.model';
 import { Group } from '../models/group.model';
 import { UserService } from '../services/user.service';
-import { FollowService } from '../services/follow.service';
+import { GroupFollowService } from '../services/groupFollow.service';
 import { GroupService } from '../services/group.service';
 import LocationPicker from 'location-picker';
+import { GroupFollow } from '../models/groupFollow.model';
 
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.css'],
-  providers: [UserService, GroupService]
+  providers: [UserService, GroupService, GroupFollowService]
 })
 export class GroupComponent implements OnInit {
   public title: string;
@@ -29,12 +30,14 @@ export class GroupComponent implements OnInit {
   public user: User;
   public userId: any;
   public imAdmin: boolean;
+  public groupFollows: boolean;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
     private _groupService: GroupService,
+    private _groupFollowService: GroupFollowService
   ) {
     this.url = "http://localhost:3000/api/";
     this.identity = this._userService.getIdentity();
@@ -114,6 +117,54 @@ export class GroupComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  groupFollow() {
+    var follow = new GroupFollow('', this.identity._id, this.group._id);
+
+    this._groupFollowService.addFollow(this.token, follow).subscribe(
+      response => {
+        this.groupFollows = true;
+        this.group.members = this.group.members + 1;
+        console.log(this.group);
+        this._groupService.updateGroup(this.group).subscribe(
+          response => {
+            if(!response.user) {
+              this.status = 'error';
+            } else {
+              this.status = 'success';
+              console.log(response);
+            }
+          },
+          error => {
+            console.log(<any>error)
+          }
+        )
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  groupUnfollow() {
+    this._groupFollowService.deleteFollow(this.token, this.group._id).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  public followGroupOver;
+  mouseEnter(group_id) {
+    this.followGroupOver = group_id;
+  }
+
+  mouseLeave(group_id) {
+    this.followGroupOver = 0;
   }
 
 }

@@ -13,12 +13,17 @@
           Eliminar grupo
         </div>
         <div class="card-text">
-          <p class="text-muted">   {{ group.category }}</p>
+          <p class="text-muted">{{ group.author.nickname }} {{ group.category }}</p>
+          <p>{{ group.members }}</p>
         </div>
         <div class="card-body">
           {{ group.description }}
           <div id="map"></div>
         </div>
+      </div>
+      <div *ngIf="group.members < group.nr_members">
+        <button class="btn btn-success" (click)="groupFollow()">Unete al grupo</button>
+        <button class="btn btn-danger" (click)="groupUnfollow()">Dejar de seguir al grupo</button>
       </div>
     </div>
   </div>

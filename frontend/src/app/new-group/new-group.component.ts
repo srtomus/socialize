@@ -32,7 +32,7 @@ export class NewGroupComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.stats = this._userService.getStats();
-    this.group = new Group("", "", this.identity._id, "", "" ,null, "", "" , "", "");
+    this.group = new Group("", "", this.identity._id, "", "" ,null, null, "", "" , "", "");
 }
 
   ngOnInit() {

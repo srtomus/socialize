@@ -4,10 +4,10 @@ const md_auth = require('../middlewares/authenticated');
 
 const router = express.Router();
 
-router.post('/groupfollow', md_auth.ensureAuth, GroupFollowController.saveFollow);
-router.delete('/groupfollowdelete/:id', md_auth.ensureAuth, GroupFollowController.unFollow);
+router.post('/groupfollow', md_auth.ensureAuth, GroupFollowController.groupFollow);
+router.delete('/groupUnfollow/:id', md_auth.ensureAuth, GroupFollowController.groupUnfollow);
 router.get('/groupfollowing/:id/:page?', md_auth.ensureAuth, GroupFollowController.getFollowingGroups);
 router.get('/groupfollowed/:id/:page?', md_auth.ensureAuth, GroupFollowController.getFollowedGroups);
-router.get('/getmygroupfollows/:followed?', md_auth.ensureAuth, GroupFollowController.getMyGroupFollows);
+router.get('/getmygroupfollows/:id/:followed?', md_auth.ensureAuth, GroupFollowController.getMyGroupFollows);
 
 module.exports = router;

@@ -9,6 +9,7 @@ export class Group{
         public description: string,
         public category: string,
         public nr_members: number,
+        public members: number,
         public created_at: string,
         public date_at: string,
         public lat: string,

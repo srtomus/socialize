@@ -18,6 +18,7 @@ function saveGroup(req, res) {
     group.name = params.name;
     group.author = req.user.sub;
     group.nr_members = params.nr_members;
+    group.members = 0;
     group.category = params.category;
     group.created_at = moment().unix();
     group.date_at = params.date_at;
@@ -221,6 +222,27 @@ function groupImage(req, res) {
     }
 }
 
+function updateGroup(req, res) {
+    var groupId = req.params.id;
+    var update = req.body;
+
+    Group.findByIdAndUpdate(groupId, update, {
+        new: true
+    }, (err, groupUpdated) => {
+        if (err) return res.status(500).send({
+            message: 'Error en la petición'
+        });
+
+        if (!groupUpdated) return res.status(404).send({
+            message: 'No se ha podido actualizar el usuario'
+        });
+
+        return res.status(200).send({
+            group: groupUpdated
+        });
+    })
+}
+
 function getGroupImg(req, res) {
     var imageFile = req.params.imageFile;
     var pathFile = './uploads/groups/' + imageFile;
@@ -252,5 +274,6 @@ module.exports = {
     groupImage,
     getGroupImg,
     getAllGroups,
-    getThreeItems
+    getThreeItems,
+    updateGroup
 }

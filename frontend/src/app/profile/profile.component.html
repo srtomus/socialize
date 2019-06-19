@@ -113,4 +113,19 @@
   <button class="btn btn-success" (click)="viewMorePublications()"
     *ngIf="!noMorePublications && total > items_per_page">Ver más
     publicaciones</button>
+ 
+    <div class="col-4" *ngFor="let group of groups">
+      <div class="card mb-4">
+        <div class="card-body d-flex align-items-center">
+          <div>
+            <a routerLink="/group/{{ group._id }}">
+              <p>{{ group.grfollowed.name }}</p>
+            </a>
+            <p>{{ group.grfollowed.author.nickname + ' ' + group.grfollowed.date_at }}</p>
+            <p>{{ group.grfollowed.category }}</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

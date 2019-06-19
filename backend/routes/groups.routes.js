@@ -14,5 +14,6 @@ router.get('/getthreeitems/:page?', md_auth.ensureAuth, GroupController.getThree
 router.delete('/deletegroup/:id', md_auth.ensureAuth, GroupController.deleteGroup);
 router.post('/groupimg/:id', [md_auth.ensureAuth, md_upload], GroupController.groupImage);
 router.get('/getgroupimg/:imageFile', GroupController.getGroupImg);
+router.put('/updategroup/:id', md_auth.ensureAuth, GroupController.updateGroup);
 
 module.exports = router;

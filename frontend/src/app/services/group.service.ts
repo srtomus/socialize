@@ -55,4 +55,11 @@ export class GroupService {
     
         return this._http.delete(this.url+'deletegroup/'+id, {headers: headers});
     }
+
+    updateGroup(group: Group): Observable<any> {
+        let params = JSON.stringify(group);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+
+        return this._http.put(this.url+'updategroup/'+ group._id, params, {headers: headers});
+    }
 }

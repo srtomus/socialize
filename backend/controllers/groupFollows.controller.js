@@ -6,12 +6,12 @@ const User = require('../models/users.schema');
 const Group = require('../models/groups.schema');
 const GroupFollow = require('../models/groupFollows.schema');
 
-function saveFollow(req, res) {
+function groupFollow(req, res) {
     var params = req.body;
     
     var groupFollow = new GroupFollow();
     groupFollow.user = req.user.sub;
-    groupFollow.followed = params.followed;
+    groupFollow.grfollowed = params.grfollowed;
 
     groupFollow.save((err, followStored) => {
         if(err) return res.status(500).send({message: 'Error al guardar el seguimiento'});
@@ -22,7 +22,7 @@ function saveFollow(req, res) {
     })
 }
 
-function unFollow(req, res) {
+function groupUnfollow(req, res) {
     var followId = req.params.id;
     var userId = req.user.sub;
 
@@ -61,7 +61,7 @@ function getFollowingGroups(req, res) {
 }
 
 function getFollowedGroups(req, res) {
-    var userId = req.user.sub;
+    var userId = req.params.id;
     
     if (req.params.id && req.params.page) {
         userId = req.params.id;
@@ -87,11 +87,11 @@ function getFollowedGroups(req, res) {
     })
 }
 
-// Devolver listado de usuarios
 function getMyGroupFollows(req, res) {
-    var userId = req.user.sub;
+    var userId = req.params.id;
 
     var find = GroupFollow.find({user: userId});
+
     if (req.params.followed) {
         find = GroupFollow.find({grfollowed: userId});
     }
@@ -106,8 +106,8 @@ function getMyGroupFollows(req, res) {
 }
 
 module.exports = {
-    saveFollow,
-    unFollow,
+    groupFollow,
+    groupUnfollow,
     getFollowingGroups,
     getFollowedGroups,
     getMyGroupFollows

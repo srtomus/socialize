@@ -15,12 +15,24 @@ export class GroupFollowService {
         let params = JSON.stringify(follow);
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 
-        return this._http.post(this.url+'groupfollow', params, {headers: headers});
+        return this._http.post(this.url+'groupFollow', params, {headers: headers});
     }
 
     deleteFollow(token, id): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 
-        return this._http.delete(this.url+'groupfollowdelete/'+ id, {headers: headers});
+        return this._http.delete(this.url+'groupUnfollow/'+ id, {headers: headers});
+    }
+
+    getMyFollowingGroups(token, id):Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+        return this._http.get(this.url + 'getmygroupfollows/' + id, {headers: headers});
+    }
+
+    getFollowedGroups(token, id, page = 1):Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+        return this._http.get(this.url + 'groupfollowed/' + id + '/' + page, {headers: headers});
     }
 }

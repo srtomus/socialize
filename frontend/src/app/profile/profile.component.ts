@@ -4,14 +4,16 @@ import { User } from '../models/user.model';
 import { Follow } from '../models/follow.model';
 import { UserService } from '../services/user.service';
 import { FollowService } from '../services/follow.service';
+import { GroupFollowService } from '../services/groupFollow.service';
 import { Publication } from '../models/publication.model';
 import { PublicationService } from '../services/publication.service';
+import { Group } from '../models/group.model';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [UserService, FollowService, PublicationService]
+  providers: [UserService, FollowService, PublicationService, GroupFollowService]
 })
 export class ProfileComponent implements OnInit {
   public title: string;
@@ -33,6 +35,7 @@ export class ProfileComponent implements OnInit {
   public total;
   public pages;
   public items_per_page;
+  public groups: Group[];
 
   constructor(
     private _route: ActivatedRoute,
@@ -40,6 +43,7 @@ export class ProfileComponent implements OnInit {
     private _userService: UserService,
     private _publicationService: PublicationService,
     private _followService: FollowService,
+    private _groupFollowService: GroupFollowService
   ) {
     this.url = "http://localhost:3000/api/";
     this.identity = this._userService.getIdentity();
@@ -51,7 +55,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadPage();
-    this.getPublications(this.page);
   }
 
   loadPage() {
@@ -92,6 +95,8 @@ export class ProfileComponent implements OnInit {
         }
 
         this.userId = response.user._id;
+        this.getPublications(this.page, this.userId);
+        this.getFollowingGroups(this.userId);
       },
       error => {
         console.log(<any>error);
@@ -103,7 +108,6 @@ export class ProfileComponent implements OnInit {
   deleteUser(id) {
     this._userService.deleteUser(id).subscribe(
       response => {
-        console.log(response);
         this._router.navigate(['/home']);
       },
       error => {
@@ -117,7 +121,6 @@ export class ProfileComponent implements OnInit {
       response => {
         this.user = response.user;
         this.user.role = "ROLE_ADMIN"
-        console.log(this.user);
         this._userService.updateUser(this.user).subscribe(
           response => {
           },
@@ -138,7 +141,6 @@ export class ProfileComponent implements OnInit {
       response => {
         this.user = response.user;
         this.user.role = "ROLE_USER"
-        console.log(this.user);
         this._userService.updateUser(this.user).subscribe(
           response => {
           },
@@ -198,14 +200,15 @@ export class ProfileComponent implements OnInit {
     this.followUserOver = 0;
   }
 
-  getPublications(page, adding = false) {
-    this._publicationService.getMyPublications(this.token, page).subscribe(
+  getPublications(page, userId, adding = false) {
+    console.log(userId);
+    this._publicationService.getPublicationsUser(this.token, page, userId).subscribe(
       response => {
         if (response.publications) {
           this.total = response.total_items;
           this.pages = response.pages;
           this.items_per_page = response.items_per_page;
-          console.log(response);
+
           if (!adding) {
             this.publications = response.publications;
           } else {
@@ -239,5 +242,23 @@ export class ProfileComponent implements OnInit {
     } 
 
     this.getPublications(this.page, true);
+  }
+
+  getFollowingGroups(userId) {
+    this._groupFollowService.getMyFollowingGroups(this.token, userId).subscribe(
+      response => {
+        console.log(response);
+        if(!response) {
+          this.status = 'error';
+        } else {
+          this.groups = response.follows;
+          this.total = response.total;
+          this.pages = response.pages;
+        }
+      },
+      error => {
+        console.log(<any>error)
+      }
+    )
   }
 }
