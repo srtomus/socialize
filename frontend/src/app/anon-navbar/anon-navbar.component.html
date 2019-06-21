@@ -5,12 +5,5 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <form class="form-inline my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="onSubmit()">
-      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control mr-2"
-      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Correo electrónico" required />      
-      <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control mr-2" placeholder="Contraseña"
-      required />      
-      <button class="btn btn-primary my-2 my-sm-0" type="submit">Enviar</button>
-    </form>
   </div>
 </nav>
