@@ -46,7 +46,7 @@ export class AddMessagesComponent implements OnInit {
           this.status = "success";
           form.reset();
         } else {
-          
+          this.status = "error";
         }
       },
       error => {

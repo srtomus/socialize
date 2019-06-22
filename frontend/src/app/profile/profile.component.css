@@ -1,12 +1,3 @@
-.container-fluid {
-    display: flex;
-}
-
-.container {
-    width: 900px;
-    margin-left: 0;
-}
-
 img {
     border-radius: 100%;
 }
@@ -57,4 +48,7 @@ svg:not(:root).svg-inline--fa {
 .svg-inline--fa.fa-w-16 {
     width: 1em;
 }
-                                    
+
+.descripcion {
+    min-height: 160px;
+}

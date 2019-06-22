@@ -11,17 +11,19 @@ const locationPicker = require("location-picker")
 
 // Configuración CORS
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
 });
 
 // Middlewares
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
@@ -45,33 +47,34 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 
-io.on('connection',(socket)=>{
+io.on('connection', (socket) => {
 
-  console.log('new connection made.');
-
-
-  socket.on('join', function(data){
+  socket.on('join', function (data) {
     //joining
+    if (data.room) {
+      socket.leave(socket.room);
+      socket.broadcast.to(data.room).emit('left room', {
+        user: data.user,
+        message: 'ha abandonado la sala.'
+      });
+    }
+
     socket.join(data.room);
 
     console.log(data.user + 'joined the room : ' + data.room);
 
-    socket.broadcast.to(data.room).emit('new user joined', {user:data.user, message:'has joined this room.'});
+    socket.broadcast.to(data.room).emit('new user joined', {
+      user: data.user,
+      message: 'ha entrado en la sala.'
+    });
   });
 
+  socket.on('message', function (data) {
 
-  socket.on('leave', function(data){
-  
-    console.log(data.user + 'left the room : ' + data.room);
-
-    socket.broadcast.to(data.room).emit('left room', {user:data.user, message:'has left this room.'});
-
-    socket.leave(data.room);
-  });
-
-  socket.on('message',function(data){
-
-    io.in(data.room).emit('new message', {user:data.user, message:data.message});
+    io.in(data.room).emit('new message', {
+      user: data.user,
+      message: data.message
+    });
   })
 });
 
@@ -79,7 +82,9 @@ io.on('connection',(socket)=>{
 // Database
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
-mongoose.connect(mongoURI, { useNewUrlParser: true })
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true
+  })
   .then(() => {
     console.log("BD conectada");
 

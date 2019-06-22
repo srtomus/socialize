@@ -16,6 +16,7 @@ export class SidebarComponent implements OnInit {
   public stats;
   public status;
   public publication: Publication;
+  public interests: String[];
 
   constructor(
     private _userService: UserService,
@@ -29,7 +30,7 @@ export class SidebarComponent implements OnInit {
 }
 
 ngOnInit() {
-  console.log(this.stats);
+  this.interests = this.identity.interests;
 }
 
 onSubmit(form) {

@@ -22,6 +22,7 @@ function saveGroup(req, res) {
     group.category = params.category;
     group.created_at = moment().unix();
     group.date_at = params.date_at;
+    group.hour = params.hour;
     group.lat = params.lat;
     group.lng = params.lng;
 

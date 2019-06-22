@@ -1,22 +1,25 @@
 <app-logged-navbar></app-logged-navbar>
 <div class="container-fluid mt-4">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-12 col-md-3">
       <app-sidebar></app-sidebar>
     </div>
     <div class="col-md-9">
       <form #groupForm="ngForm" (ngSubmit)="onSubmit(groupForm)">
+        <div class="alert alert-danger mt-4" *ngIf="status == 'error'">
+          El email o la contaseña es incorrecto
+        </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <p>
               <label>Nombre</label>
               <input type="text" name="name" #name="ngModel" [(ngModel)]="group.name" class="form-control" required />
               <span *ngIf="!name.valid && name.touched">
-                El nombre es obligatorio!
+                El nombre es obligatorio
               </span>
             </p>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <p>
               <label>Categoría</label>
               <select name="category" #category="ngModel" [(ngModel)]="group.category" class="form-control">
@@ -29,41 +32,54 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <p>
               <label>Número de miembros</label>
               <input type="number" name="nr_members" #nr_members="ngModel" [(ngModel)]="group.nr_members"
                 class="form-control" required />
               <span *ngIf="!nr_members.valid && nr_members.touched">
-                El nombre es obligatorio!
+                El número de miembros es obligatorio
               </span>
             </p>
 
           </div>
-          <div class="col-6">
+          <div class="col-12 col-sm-3">
             <p>
               <label>Fecha</label>
-              <input type="number" name="date_at" #date_at="ngModel" [(ngModel)]="group.date_at" class="form-control"
+              <input type="date" name="date_at" #date_at="ngModel" [(ngModel)]="group.date_at" class="form-control"
                 required />
               <span *ngIf="!date_at.valid && date_at.touched">
-                El nombre es obligatorio!
+                La fecha es obligatoria
               </span>
             </p>
           </div>
+          <div class="col-12 col-sm-3">
+              <p>
+                <label>Hora</label>
+                <input type="time" name="hour" #hour="ngModel" [(ngModel)]="group.hour" class="form-control"
+                  required />
+                <span *ngIf="!hour.valid && hour.touched">
+                  La hora es obligatoria
+                </span>
+              </p>
+            </div>
         </div>
         <p>
           <label>Descripción</label>
           <textarea type="text" name="description" #description="ngModel" [(ngModel)]="group.description"
             class="form-control" required></textarea>
           <span *ngIf="!description.valid && description.touched">
-            La descripción es obligatoria!
+            La descripción es obligatoria
           </span>
         </p>
 
 
         <div id="map"></div>
-        <input type="submit" value="Enviar" class="btn btn-primary mt-3 float-right" (click)="setLocation()"
-          [disabled]="!groupForm.form.valid" />
+        <div class="d-flex justify-content-center mt-3 w-100">
+          <input type="submit" value="Enviar" class="btn btn-primary mt-3 float-right w-100" (click)="setLocation()"
+            [disabled]="!groupForm.form.valid" />
+        </div>
+
       </form>
 
     </div>

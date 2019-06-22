@@ -32,39 +32,37 @@ export class NewGroupComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.stats = this._userService.getStats();
-    this.group = new Group("", "", this.identity._id, "", "" ,null, null, "", "" , "", "");
-}
-
-  ngOnInit() {
-    this.lp = new LocationPicker('map',{
-      setCurrentPosition: true, // You can omit this, defaults to true
-  }, {
-      zoom: 15,
-      center: {lat:39.47018073020985, lng: -0.3770092068236952}
-  });
+    this.group = new Group("", "", this.identity._id, "", "", null, null, "", "", "", "", "");
   }
 
-  setLocation() {
-    this.coords = this.lp.getMarkerPosition();
-    this.lat = this.coords.lat;
-    this.lng = this.coords.lng;
-    this.group.lat = this.lat;
-    this.group.lng = this.lng;
- }
+  ngOnInit() { // Se crea el mapa nada más cargar la página
+    this.lp = new LocationPicker('map', {
+      setCurrentPosition: true,
+    }, {
+        // Opciones por defecto establecidas
+        zoom: 15,
+        center: { lat: 39.47018073020985, lng: -0.3770092068236952 }
+      });
+  }
+
+  setLocation() { // Se ejecuta al hacer click en enviar
+    this.coords = this.lp.getMarkerPosition(); // Se obtiene la posición exacta
+    this.lat = this.coords.lat; // Se almacena la latitud en una variable
+    this.lng = this.coords.lng; // Se almacena la longitud en una variable
+    this.group.lat = this.lat; // El parámetro latitud del grupo se cambia por el obtenido
+    this.group.lng = this.lng; // El parámetro longitud del grupo se cambia por el obtenido
+  }
 
   onSubmit(form) {
     this._groupService.addGroup(this.token, this.group).subscribe(
       response => {
-          this.group = response.group;
-          console.log(response);
-          form.reset();
+        this.group = response.group;
+        form.reset();
       },
       error => {
         var errorMessage = <any>error;
         console.log(errorMessage);
-        if (errorMessage != null) {
-          this.status = 'error';
-        }
+        if (errorMessage != null) {this.status = 'error';}
       }
     )
   }

@@ -18,6 +18,7 @@ export class SettingsComponent implements OnInit {
   public identity;
   public token;
   public interests;
+  public userId;
 
   constructor(
     private _route: ActivatedRoute,
@@ -34,6 +35,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.interests = this.user.interests;
+    this.userId = this.user._id;
     console.log(this.interests);
   }
 
@@ -46,11 +48,8 @@ export class SettingsComponent implements OnInit {
           this.status = 'success';
           sessionStorage.setItem('identity', JSON.stringify(this.user));
           this.identity = this.user;
-
           this._uploadService.makeFileRequest(this.url+'uploadimage/'+this.user._id, [], this.filesToUpload, this.token, 'image')
           .then((result: any) => {
-            console.log(result);
-            console.log(result.user);
             this.user.image = result.user.image;
             sessionStorage.setItem('identity', JSON.stringify(this.user));
           })
@@ -73,10 +72,16 @@ export class SettingsComponent implements OnInit {
     console.log(this.filesToUpload);
   }
 
-  logout() {
-    sessionStorage.clear();
-    this.identity = null;
-    this._router.navigate(['/']);
+  deleteUser(id) {
+    this._userService.deleteUser(id).subscribe(
+      response => {
+        sessionStorage.clear();
+        this._router.navigate(['/home']);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
 }

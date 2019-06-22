@@ -340,29 +340,30 @@ function updateUser(req, res) {
     var userId = req.params.id;
     var update = req.body;
 
-    // Borrar propiedad password
-    delete update.password;
-
     if (userId != req.user.sub && req.params.role == "ROLE_USER") {
         return res.status(500).send({
             message: 'No tienes permiso para actualizar los datos del usuario'
         });
     }
+    
+    bcrypt.hash(update.password, null, null, (err, hash) => {
+        update.password = hash
 
-    User.findByIdAndUpdate(userId, update, {
-        new: true
-    }, (err, userUpdated) => {
-        if (err) return res.status(500).send({
-            message: 'Error en la petición'
-        });
-
-        if (!userUpdated) return res.status(404).send({
-            message: 'No se ha podido actualizar el usuario'
-        });
-
-        return res.status(200).send({
-            user: userUpdated
-        });
+        User.findByIdAndUpdate(userId, update, {
+            new: true
+        }, (err, userUpdated) => {
+            if (err) return res.status(500).send({
+                message: 'Error en la petición'
+            });
+    
+            if (!userUpdated) return res.status(404).send({
+                message: 'No se ha podido actualizar el usuario'
+            });
+    
+            return res.status(200).send({
+                user: userUpdated
+            });
+        })
     })
 }
 
@@ -425,7 +426,7 @@ function uploadImage(req, res) {
             return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
         }
 
-        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif' || file_ext == 'JGP' || file_ext == 'PNG' || file_ext == 'JPEG') {
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif' || file_ext == 'JPG' || file_ext == 'PNG' || file_ext == 'JPEG') {
             User.findByIdAndUpdate(userId, {
                 image: file_name
             }, {

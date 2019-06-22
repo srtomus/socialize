@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Importar componentes
 import { LandingComponent } from './landing/landing.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
@@ -36,7 +35,7 @@ const appRoutes: Routes = [
     {path: 'new-group', component: NewGroupComponent, canActivate:[UserGuard]},
     {path: 'groups/:page', component: GroupsComponent, canActivate:[UserGuard]},
     {path: 'groups', component: GroupsComponent, canActivate:[UserGuard]},
-    {path: '**', component: NotFoundComponent}
+    {path: '**', component: LandingComponent}
 ];
 
 export const appRoutingProviders: any[] = [];

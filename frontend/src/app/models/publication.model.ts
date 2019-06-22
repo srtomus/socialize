@@ -1,4 +1,7 @@
 export class Publication{
+  length(length: any) {
+    throw new Error("Method not implemented.");
+  }
   concat(arrayB: any): Publication {
     throw new Error("Method not implemented.");
   }

@@ -27,6 +27,7 @@ export class ReceivedMessagesComponent implements OnInit {
   public total;
   public next_page;
   public prev_page;
+  public areMessages: boolean;
 
   constructor(
     private _route: ActivatedRoute,
@@ -78,6 +79,12 @@ export class ReceivedMessagesComponent implements OnInit {
           this.items_per_page = response.itemsPerPage;
 
           this.messages = response.messages;
+
+          if (Object.keys(this.messages).length >= 1) {
+            this.areMessages = true;
+          } else {
+            this.areMessages = false;
+          }
 
           if(page > this.pages) {
             this._router.navigate(['/mensajes/recibidos', 1]);

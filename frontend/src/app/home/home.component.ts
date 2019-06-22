@@ -6,8 +6,6 @@ import { PublicationService } from '../services/publication.service';
 import { Group } from '../models/group.model';
 import { GroupService } from '../services/group.service';
 import { GroupFollowService } from '../services/groupFollow.service';
-import { GroupFollow } from '../models/groupFollow.model';
-import { User } from '../models/user.model';
 import LocationPicker from "location-picker";
 
 @Component({
@@ -34,6 +32,8 @@ export class HomeComponent implements OnInit {
   lp: LocationPicker;
   public loading: boolean;
   public imAdmin: boolean;
+  public interests: String[];
+  public arePublications: boolean;
 
   constructor(
     private _router: Router,
@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.identity = this._userService.getIdentity();
+    this.interests = this.identity.interests;
     this.stats = this._userService.getStats();
     this.getPublications(this.page);
     this.getGroups(this.page);
@@ -109,6 +110,12 @@ export class HomeComponent implements OnInit {
             this._router.navigate(['/home']);
           }
           this.loading = false;
+
+          if (Object.keys(this.publications).length >= 1) {
+            this.arePublications = true;
+          } else {
+            this.arePublications = false;
+          }
         } else {
           this.status = "error";
         }
@@ -128,7 +135,7 @@ export class HomeComponent implements OnInit {
     this.page += 1;
     if (this.page == this.pages || this.items_per_page >= this.total) {
       this.noMorePublications = true;
-    } 
+    }
 
     this.getPublications(this.page, true);
   }
@@ -153,7 +160,7 @@ export class HomeComponent implements OnInit {
           if (page > this.pages) {
             this._router.navigate(['/home']);
           }
-          
+
         } else {
           this.status = "error";
         }
@@ -173,7 +180,7 @@ export class HomeComponent implements OnInit {
     this.page += 1;
     if (this.page == this.pages || this.items_per_page >= this.total) {
       this.noMoreGroups = true;
-    } 
+    }
 
     this.getGroups(this.page, true);
   }

@@ -1,42 +1,62 @@
-<app-anon-navbar></app-anon-navbar>
-<div class="container">
-  <div class="alert alert-danger" *ngIf="status == 'error'">
-    Registro mal
-  </div>
-  
-  <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
-    <p>
-      <label>Nombre</label>
-      <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required/>
-      <span *ngIf="!name.valid && name.touched">
-        El nombre es obligatorio!
-      </span>
-    </p>
-    <p>
-      <label>Apellido</label>
-      <input type="text" name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" class="form-control"/>
-    </p>
-    <p>
-      <label>Descripción</label>
-      <textarea type="text" name="description" #description="ngModel" [(ngModel)]="user.description" class="form-control" required></textarea>
-      <span *ngIf="!name.valid && name.touched">
-        La descripción es obligatoria!
-      </span>
-    </p>
-    <p>
-      <label>Nickname</label>
-      <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="user.nickname" class="form-control" required/>
-      <span *ngIf="!nickname.valid && nickname.touched">
-        El nick es obligatorio!
-      </span>
-    </p>
-    <p>
-      <label>Edad</label>
-      <input type="number" name="age" #age="ngModel" [(ngModel)]="user.age" class="form-control" required/>
-      <span *ngIf="!age.valid && age.touched">
-        La edad no es válida!
-      </span>
-    </p>
+<div class="container mt-5">
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="m-auto border p-5 rounded border-secondary">
+    <h1 class="mb-4">Registro</h1>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <p>
+          <label>Nombre</label>
+          <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required />
+          <span *ngIf="!name.valid && name.touched">
+            El nombre no es válido
+          </span>
+        </p>
+
+      </div>
+      <div class="col-12 col-md-6">
+        <p>
+          <label>Apellido</label>
+          <input type="text" name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" class="form-control" />
+          <span *ngIf="!lastname.valid">
+            El apellido no es válido
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <p>
+          <label>Descripción</label>
+          <textarea type="text" name="description" #description="ngModel" [(ngModel)]="user.description"
+            class="form-control" required></textarea>
+          <span *ngIf="!description.valid && description.touched">
+            La descripción no es válido
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <p>
+          <label>Nickname</label>
+          <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="user.nickname" class="form-control"
+            required />
+          <span *ngIf="!nickname.valid && nickname.touched">
+            El nickname no es válido
+          </span>
+        </p>
+      </div>
+      <div class="col-12 col-md-6">
+        <p>
+          <label>Edad</label>
+          <input type="number" name="age" #age="ngModel" [(ngModel)]="user.age" class="form-control" required />
+          <span *ngIf="!age.valid && age.touched">
+            La edad no es válida
+          </span>
+        </p>
+      </div>
+    </div>
     <p>
       <label>Género</label>
       <select name="gender" #gender="ngModel" [(ngModel)]="user.gender" class="form-control">
@@ -46,18 +66,24 @@
     </p>
     <p>
       <label>Email</label>
-      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
       <span *ngIf="!email.valid && email.touched">
         El correo no es válido!
       </span>
     </p>
     <p>
       <label>Password</label>
-      <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control" required/>
+      <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control"
+        required />
       <span *ngIf="!password.valid && password.touched">
         La contraseña es obligatoria!
       </span>
     </p>
+    <p>¿Ya tienes una cuenta?, <a routerLink="/login">inicia sesión</a></p>
     <input type="submit" value="Enviar" class="btn btn-primary" [disabled]="!registerForm.form.valid" />
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+      El registro no se ha podido completar
+    </div>
   </form>
 </div>

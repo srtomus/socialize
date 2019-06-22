@@ -24,6 +24,9 @@ const GroupsSchema = new Schema({
     date_at: {
         type: String
     },
+    hour: {
+        type: String
+    },
     lat: {
         type: String
     },

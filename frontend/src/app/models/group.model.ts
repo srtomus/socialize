@@ -12,6 +12,7 @@ export class Group{
         public members: number,
         public created_at: string,
         public date_at: string,
+        public hour: string,
         public lat: string,
         public lng: string
     ) {}

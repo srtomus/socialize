@@ -1,131 +1,148 @@
 <app-logged-navbar></app-logged-navbar>
-<div class="container-fluid" *ngIf="user">
-  <div class="container">
-    <h2>Perfil</h2>
-    <hr>
-    <div class="row">
-      <div class="col-12 col-md-3 card-img-top">
-        <img src="{{ url + 'getimageuser/' + user.image }}" *ngIf="user.image" width="200" height="200" alt="">
-        <img src="../../assets/default-user.png" *ngIf="!user.image" width="200" height="200" alt="">
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="badge badge-secondary" *ngIf="followed">
-          Te sigue
+<div class="container mt-4" *ngIf="user">
+  <div class="row border rounded p-3">
+    <div class="col-12 col-md-3 p-0 mt-3 card-img-top text-center">
+      <img src="{{ url + 'getimageuser/' + user.image }}" *ngIf="user.image" width="200" height="200" alt="">
+      <img src="../../assets/default-user.png" *ngIf="!user.image" width="200" height="200" alt="">
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card-text">
+        <h1 class="d-inline mr-2">{{ user.nickname }}</h1> <span class="badge badge-secondary"
+          *ngIf="admin">Admin</span>
+        <span class="badge badge-secondary mb-2 ml-1" *ngIf="followed">Te sigue</span>
+        <h5 class="mt-3">Nombre: {{ user.name }} {{ user.lastname }}</h5>
+        <h5 class="mt-3">Edad: {{ user.age }}</h5>
+        <div class="col-12 col-md-5 mt-4 p-0">
+          <button class="btn btn-success" *ngIf="!following && user._id != identity._id"
+            (click)="followUser(user._id)">Seguir</button>
+          <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(user._id)" (mouseleave)="mouseLeave()"
+            (mouseenter)="mouseEnter(user._id)" [class.btn-danger]="user._id == followUserOver"><span
+              *ngIf="user._id == followUserOver; else following">Dejar de seguir</span>
+            <ng-template #following>
+              Siguiendo
+            </ng-template>
+          </button>
         </div>
-        <div class="badge badge-secondary" *ngIf="admin">
-          Admin
-        </div>
-        <div class="btn btn-primary" *ngIf="imAdmin && user._id != identity._id && user.role != 'ROLE_ADMIN'" (click)="deleteUser(userId)">
-          Eliminar usuario
-        </div>
-        <div class="btn btn-success" *ngIf="imAdmin && user._id != identity._id && user.role != 'ROLE_ADMIN'" (click)="makeAdmin(userId)">
-          Hacer admin a este usuario
-        </div>
-        <div class="btn btn-warning" *ngIf="imAdmin && user._id != identity._id && user.role == 'ROLE_ADMIN'" (click)="makeUser(userId)">
-          Quitar permisos de administrador
-        </div>
-        
-        <div class="card-title">
-          <h1>{{ user.nickname }}</h1>
-          <h5>{{ user.name }} {{ user.lastname }}</h5>
-        </div>
-        <div class="card-text"> {{ user.description }} </div>
-      </div>
-      <div class="col-12 col-md-2">
-        <button class="btn btn-success" *ngIf="!following && user._id != identity._id" (click)="followUser(user._id)">Seguir</button>
-        <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(user._id)" (mouseleave)="mouseLeave()"
-          (mouseenter)="mouseEnter(user._id)" [class.btn-danger]="user._id == followUserOver"><span
-            *ngIf="user._id == followUserOver; else following">Dejar de seguir</span>
-          <ng-template #following>
-            Siguiendo
-          </ng-template>
-        </button>
-
-        
-      </div>
-      <div class="col-12 col-md-12">
-          <ul class="list-group list-group-flush card w-25 text-center">
-              <li class="list-group-item">
-                <div class="h6 text-muted">Seguidores</div>
-                <div class="h5" *ngIf="stats.followed">{{ stats.followed }}</div>
-                <div class="h5" *ngIf="!stats.followed">0</div>
-              </li>
-              <li class="list-group-item">
-                <div class="h6 text-muted">Siguiendo</div>
-                <div class="h5" *ngIf="stats.following">{{ stats.following }}</div>
-                <div class="h5" *ngIf="!stats.following">0</div>
-              </li>
-              <li class="list-group-item">
-                <div class="h6 text-muted">Publicaciones</div>
-                <div class="h5" *ngIf="stats.publication">{{ stats.publication }}</div>
-                <div class="h5" *ngIf="!stats.publication">0</div>
-                <div class="h5"> </div>
-              </li>
-              <li class="list-group-item">
-                <div class="h6 text-muted">Grupos</div>
-                <div class="h5" *ngIf="stats.groups">{{ stats.groups }}</div>
-                <div class="h5" *ngIf="!stats.groups">0</div>
-              </li>
-            </ul>
       </div>
     </div>
-
-
+    <div class="col-md-5">
+      <h5>Sobre {{ user.nickname }}:</h5>
+      <div class="card-text border rounded border-secondary descripcion p-2"> {{ user.description }} </div>
+      <div class="btn btn-primary mt-2" *ngIf="imAdmin && user._id != identity._id && user.role != 'ROLE_ADMIN'"
+        (click)="deleteUser(userId)">
+        Eliminar usuario
+      </div>
+      <div class="btn btn-success mt-2" *ngIf="imAdmin && user._id != identity._id && user.role != 'ROLE_ADMIN'"
+        (click)="makeAdmin(userId)">
+        Hacer administrador
+      </div>
+      <div class="btn btn-warning mt-2" *ngIf="imAdmin && user._id != identity._id && user.role == 'ROLE_ADMIN'"
+        (click)="makeUser(userId)">
+        Quitar administrador
+      </div>
+    </div>
   </div>
-  <app-sidebar></app-sidebar>
-</div>
-<div class="col-md-5">
-  <div class="card mb-4" *ngFor="let publication of publications">
-    <div>
+
+  <div class="row mt-2 border rounded">
+    <div class="col-12 col-md-7 mt-4">
+      <ul class="list-group list-group-flush d-flex flex-md-row flex-column justify-content-around card text-center">
+        <li class="list-group-item border-top-0">
+          <div class="h6 text-muted">Seguidores</div>
+          <div class="h5" *ngIf="stats.followed">{{ stats.followed }}</div>
+          <div class="h5" *ngIf="!stats.followed">0</div>
+        </li>
+        <li class="list-group-item border-top-0">
+          <div class="h6 text-muted">Siguiendo</div>
+          <div class="h5" *ngIf="stats.following">{{ stats.following }}</div>
+          <div class="h5" *ngIf="!stats.following">0</div>
+        </li>
+        <li class="list-group-item border-top-0">
+          <div class="h6 text-muted">Publicaciones</div>
+          <div class="h5" *ngIf="stats.publication">{{ stats.publication }}</div>
+          <div class="h5" *ngIf="!stats.publication">0</div>
+        </li>
+        <li class="list-group-item border-top-0">
+          <div class="h6 text-muted">Grupos</div>
+          <div class="h5" *ngIf="stats.groups">{{ stats.groups }}</div>
+          <div class="h5" *ngIf="!stats.groups">0</div>
+        </li>
+      </ul>
     </div>
-    <div class="card-header">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="mr-2">
-            <a href="#">
-              <img src="{{ url + 'getimageuser/' + publication.user.image }}" *ngIf="publication.user.image"
-                width="100" class="avatar" height="100" alt="">
-              <img src="../../assets/default-user.png" class="avatar" *ngIf="!publication.user.image" width="100"
-                height="100" alt="">
-            </a>
-          </div>
-          <div class="ml-2">
-            <div class="h5 m-0"> {{ publication.user.nickname }} </div>
-            <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.lastname }}</div>
-          </div>
-        </div>
+    <div class="col-md-5 mt-4">
+      <h5>Intereses:</h5>
+      {{ user.interests }}
+    </div>
+  </div>
+
+  <div class="row mt-2 border rounded">
+    <div class="col-md-6 mt-4">
+      <div *ngIf="!arePublications" class="p-0">
+        <h4 class="text-center m-3 alert alert-danger">No se han encontrado publicaciones</h4>
+      </div>
+      <div class="card mb-4" *ngFor="let publication of publications">
         <div>
-          <div class="btn btn-primary" *ngIf="publication.user._id == identity._id || imAdmin"
-            (click)="deletePublication(publication._id)"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="mr-2">
+                <a href="#">
+                  <img src="{{ url + 'getimageuser/' + publication.user.image }}" *ngIf="publication.user.image"
+                    width="100" class="avatar" height="100" alt="">
+                  <img src="../../assets/default-user.png" class="avatar" *ngIf="!publication.user.image" width="100"
+                    height="100" alt="">
+                </a>
+              </div>
+              <div class="ml-2">
+                <div class="h5 m-0"> {{ publication.user.nickname }} </div>
+                <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.lastname }}</div>
+              </div>
+            </div>
+            <div>
+              <div class="btn btn-primary" *ngIf="publication.user._id == identity._id || imAdmin"
+                (click)="deletePublication(publication._id)"><i class="fas fa-times"></i></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>
+            {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </div>
+
+          <p class="card-text">
+            {{ publication.text }}
+          </p>
         </div>
       </div>
-
     </div>
-    <div class="card-body">
-      <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>
-        {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </div>
-
-      <p class="card-text">
-        {{ publication.text }}
-      </p>
-    </div>
-  </div>
-  <button class="btn btn-success" (click)="viewMorePublications()"
-    *ngIf="!noMorePublications && total > items_per_page">Ver más
-    publicaciones</button>
- 
-    <div class="col-4" *ngFor="let group of groups">
-      <div class="card mb-4">
-        <div class="card-body d-flex align-items-center">
-          <div>
-            <a routerLink="/group/{{ group._id }}">
-              <p>{{ group.grfollowed.name }}</p>
-            </a>
-            <p>{{ group.grfollowed.author.nickname + ' ' + group.grfollowed.date_at }}</p>
-            <p>{{ group.grfollowed.category }}</p>
-
+    <div class="col-md-6 mt-4">
+      <div *ngIf="!areGroups" class="p-0">
+        <h4 class="text-center m-3 alert alert-danger">No se han encontrado grupos</h4>
+      </div>
+      <div *ngFor="let group of groups">
+        <div class="card mb-4 p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="card-body pb-0 pt-0 d-flex align-items-center">
+                <div>
+                  <a routerLink="/group/{{ group.grfollowed._id }}">
+                    <span class="mr-2">{{ group.grfollowed.name }}</span>
+                    <span class="text-muted"><small>{{ group.grfollowed.category }}</small></span>
+                  </a>
+                  <p><small>Fecha: {{ (group.grfollowed.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }}</small>
+                  </p>
+                  <p>{{ group.grfollowed.description }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <p><small>Límite de miembros: {{ group.grfollowed.nr_members }}</small></p>
+              <p><small>Miembros: {{ group.grfollowed.members }}</small></p>
+              <p><small>Fecha: {{ group.grfollowed.date_at }} </small><small>{{ group.grfollowed.hour }}</small></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>

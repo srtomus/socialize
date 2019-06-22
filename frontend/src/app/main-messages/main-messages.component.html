@@ -13,9 +13,9 @@
         <a class="nav-link" routerLink="/discover">Gente</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/mensajes">Mensajes</a>
+        <a class="nav-link" routerLink="/chat">Chat</a>
       </li>
-      <a routerLink="/profile/{{ identity._id }}"> 
+      <a routerLink="/profile/{{ identity._id }}">
         <img src="{{ url + 'getimageuser/' + identity.image }}" *ngIf="identity.image" width="40" height="40" />
         <img src="../../assets/default-user.png" *ngIf="!identity.image" width="40" height="40">
       </a>
@@ -23,6 +23,7 @@
         <a class="nav-link active dropdown-toggle nav-elements" href="#" data-toggle="dropdown"> {{ nickname }} </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" routerLink="/profile/{{ identity._id }}">Mi perfil</a>
+          <a class="dropdown-item" routerLink="/mensajes">Mensajes</a>
           <a class="dropdown-item" routerLink="/settings">Ajustes</a>
           <a class="dropdown-item" href="" (click)="logout()">Cerrar sesión</a>
         </div>
@@ -30,4 +31,20 @@
     </ul>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+          aria-controls="v-pills-home" aria-selected="true">Mensajes recibidos</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false">Mensajes enviados</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+          aria-controls="v-pills-messages" aria-selected="false">Enviar mensaje</a>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -36,6 +36,8 @@ export class ProfileComponent implements OnInit {
   public pages;
   public items_per_page;
   public groups: Group[];
+  public arePublications: boolean;
+  public areGroups: boolean;
 
   constructor(
     private _route: ActivatedRoute,
@@ -217,9 +219,16 @@ export class ProfileComponent implements OnInit {
             this.publications = arrayA.concat(arrayB);
           }
 
+          if (Object.keys(this.publications).length >= 1) {
+            this.arePublications = true;
+          } else {
+            this.arePublications = false;
+          }
+
           if (page > this.pages) {
             this._router.navigate(['/home']);
           }
+          
         } else {
           this.status = "error";
         }
@@ -255,9 +264,26 @@ export class ProfileComponent implements OnInit {
           this.total = response.total;
           this.pages = response.pages;
         }
+
+        if (Object.keys(this.groups).length >= 1) {
+          this.areGroups = true;
+        } else {
+          this.areGroups = false;
+        }
       },
       error => {
         console.log(<any>error)
+      }
+    )
+  }
+
+  deletePublication(id) {
+    this._publicationService.deletePublication(id).subscribe(
+      response => {
+        window.location.reload();
+      },
+      error => {
+        console.log(<any>error);
       }
     )
   }

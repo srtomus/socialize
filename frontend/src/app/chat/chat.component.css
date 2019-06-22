@@ -1,0 +1,13 @@
+.cont-textos {
+    overflow-y: scroll;
+    height: 60vh;
+    width: 80%;
+}
+
+.fondo-user {
+    background: lightcyan;
+}
+
+.fondo-otroUser {
+    background: lightgray;
+}

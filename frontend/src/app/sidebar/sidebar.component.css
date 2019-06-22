@@ -2,3 +2,7 @@
     width: 300px;
     margin-left: 50px;
 }
+
+.border-radius {
+    border-radius: 100%;
+}

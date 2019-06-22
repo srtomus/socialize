@@ -4,12 +4,12 @@ import { routing, appRoutingProviders } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'angular2-moment';
+import * as $ from 'jquery';
 
 import { MessagesModule } from './messages/messages.module';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AnonNavbarComponent } from './anon-navbar/anon-navbar.component';
@@ -38,7 +38,6 @@ import { FollowingComponent } from './following/following.component';
   declarations: [
     AppComponent,
     LandingComponent,
-    NotFoundComponent,
     LoginComponent,
     RegisterComponent,
     AnonNavbarComponent,

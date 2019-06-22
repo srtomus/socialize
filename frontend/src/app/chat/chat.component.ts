@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as socketIo from 'socket.io-client';
 import { ChatService } from './chat.service';
 import { UserService } from '../services/user.service';
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-chat',
@@ -23,7 +24,6 @@ export class ChatComponent {
     this._chatService.newUserJoined()
       .subscribe(data => this.messageArray.push(data));
 
-
     this._chatService.userLeftRoom()
       .subscribe(data => this.messageArray.push(data));
 
@@ -39,8 +39,9 @@ export class ChatComponent {
     this._chatService.leaveRoom({ user: this.identity.nickname, room: this.room });
   }
 
-  sendMessage() {
+  sendMessage(form) {
     this._chatService.sendMessage({ user: this.identity.nickname, room: this.room, message: this.messageText });
+    form.reset();
   }
 
 }
