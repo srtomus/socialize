@@ -10,7 +10,7 @@ export class PublicationService {
     public token;
 
     constructor(public _http: HttpClient) {
-        this.url = "http://localhost:3000/api/";
+        this.url =  "http://" + window.location.hostname + ":3000/api/";
     }
 
     getToken() {

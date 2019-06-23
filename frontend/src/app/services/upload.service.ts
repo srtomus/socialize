@@ -5,7 +5,7 @@ export class UploadService {
     public url: string;
 
     constructor() {
-        this.url = "http://localhost:3000/api/";
+        this.url =  "http://" + window.location.hostname + ":3000/api/";
     }
 
     makeFileRequest(url: string, params: Array<string>, files: Array<File>, token: string, name: string) {

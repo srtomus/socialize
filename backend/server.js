@@ -87,7 +87,7 @@ mongoose.connect(mongoURI, {
   })
   .then(() => {
     console.log("BD conectada");
-
+    console.log("Node running on " + port)
     // Creación del servidor
     server.listen(port);
 
