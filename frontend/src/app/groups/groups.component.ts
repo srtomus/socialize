@@ -24,6 +24,7 @@ export class GroupsComponent implements OnInit {
   public pages;
   public groups: Group[];
   public follows;
+  public loading: boolean;
 
   constructor(
     private _route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class GroupsComponent implements OnInit {
     this.url = "http://localhost:3000/api/";
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.loading = true;
   }
 
   ngOnInit() {
@@ -74,6 +76,8 @@ export class GroupsComponent implements OnInit {
           this.groups = response.groups;
           this.total = response.total;
           this.pages = response.pages;
+
+          this.loading = false;
           if(page > this.pages) {
             this._router.navigate(['/groups', 1]);
           }

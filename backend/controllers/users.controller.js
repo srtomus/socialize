@@ -1,6 +1,7 @@
 const User = require('../models/users.schema');
 const Follow = require('../models/follows.schema');
 const Group = require('../models/groups.schema');
+const GroupFollow = require('../models/groupFollows.schema');
 const Publication = require('../models/publications.schema');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
@@ -304,8 +305,8 @@ async function getCountFollow(user_id) {
             return handleError(err);
         });
 
-    var groups = await Group.countDocuments({
-            author: user_id
+    var groups = await GroupFollow.countDocuments({
+            user: user_id
         })
         .exec()
         .then((count) => {
@@ -339,6 +340,10 @@ async function getCountFollow(user_id) {
 function updateUser(req, res) {
     var userId = req.params.id;
     var update = req.body;
+
+    if (!update.password) {
+        delete update.password;
+    }
 
     if (userId != req.user.sub && req.params.role == "ROLE_USER") {
         return res.status(500).send({

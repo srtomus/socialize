@@ -9,5 +9,5 @@
     <input type="checkbox" name="Naturaleza" #Naturaleza="ngModel" [(ngModel)]="interests['Naturaleza']">
     <label class="form-check-label">Naturaleza</label>
   </p>
-  <input type="submit" value="Enviar" class="btn btn-success" (click)="getInterests()">
+  <input type="submit" value="Enviar" class="btn btn-success" routerLink="/home" (click)="getInterests()">
 </form>

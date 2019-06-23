@@ -75,6 +75,7 @@ export class HomeComponent implements OnInit {
         if (response.publication) {
           this.publication = response.publication;
           this.status = 'success';
+          this.getCounters();
           form.reset();
         } else {
           this.status = 'error';
@@ -192,6 +193,18 @@ export class HomeComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
+      }
+    )
+  }
+
+  getCounters() {
+    this._userService.getCounters().subscribe(
+      response => {
+        sessionStorage.setItem('stats', JSON.stringify(response));
+        this.status = 'success';
+      },
+      error => {
+        this.status = 'error';
       }
     )
   }

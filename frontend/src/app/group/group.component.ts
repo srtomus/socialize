@@ -19,6 +19,8 @@ export class GroupComponent implements OnInit {
   public title: string;
   public group: Group;
   public status: string;
+  public statusFollow: string;
+  public statusUn: string;
   public identity;
   public token;
   public stats;
@@ -31,6 +33,7 @@ export class GroupComponent implements OnInit {
   public userId: any;
   public imAdmin: boolean;
   public groupFollows: boolean;
+  public authorId;
 
   constructor(
     private _route: ActivatedRoute,
@@ -48,20 +51,16 @@ export class GroupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadPage();
-  }
-
-  loadPage() {
     this._route.params.subscribe(params => {
       let id = params['id'];
       this.getGroup(id);
     })
+    this.getCounters();
   }
 
   getGroup(id) {
     this._groupService.getGroup(id).subscribe(
       response => {
-        console.log(response.group.author.nickname);
         if (response.group) {
           this.group = response.group;
         } else {
@@ -75,14 +74,15 @@ export class GroupComponent implements OnInit {
             zoomControl: true,
             center: { lat: Number(this.group.lat), lng: Number(this.group.lng) }
           });
-          this.userId = this.group.author;
-          this.getUser(this.userId._id);
+        this.userId = this.group.author;
+        
+        this.getUser(this.userId._id);
 
-          if (this.identity.role == "ROLE_ADMIN") {
-            this.imAdmin = true;
-          } else {
-            this.imAdmin = false;
-          }
+        if (this.identity.role == "ROLE_ADMIN") {
+          this.imAdmin = true;
+        } else {
+          this.imAdmin = false;
+        }
       },
       error => {
         console.log(<any>error);
@@ -129,10 +129,11 @@ export class GroupComponent implements OnInit {
         console.log(this.group);
         this._groupService.updateGroup(this.group).subscribe(
           response => {
-            if(!response.user) {
-              this.status = 'error';
+            if (!response.user) {
+              this.statusFollow = 'error';
             } else {
-              this.status = 'success';
+              this.statusFollow = 'success';
+              this.getCounters();
               console.log(response);
             }
           },
@@ -150,7 +151,28 @@ export class GroupComponent implements OnInit {
   groupUnfollow() {
     this._groupFollowService.deleteFollow(this.token, this.group._id).subscribe(
       response => {
-        console.log(response);
+        if (!response.user) {
+          this.statusUn = 'error';
+        } else {
+          this.statusUn = 'success';
+          console.log(response);
+          this.group.members = this.group.members - 1;
+          console.log(this.group);
+          this._groupService.updateGroup(this.group).subscribe(
+            response => {
+              if (!response.user) {
+                this.statusFollow = 'error';
+              } else {
+                this.statusFollow = 'success';
+                this.getCounters();
+                console.log(response);
+              }
+            },
+            error => {
+              console.log(<any>error)
+            }
+          )
+        }
       },
       error => {
         console.log(<any>error);
@@ -165,6 +187,19 @@ export class GroupComponent implements OnInit {
 
   mouseLeave(group_id) {
     this.followGroupOver = 0;
+  }
+
+  getCounters() {
+    this._userService.getCounters().subscribe(
+      response => {
+        sessionStorage.setItem('stats', JSON.stringify(response));
+        this.status = 'success';
+        console.log(response);
+      },
+      error => {
+        this.status = 'error';
+      }
+    )
   }
 
 }

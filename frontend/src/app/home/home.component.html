@@ -1,16 +1,14 @@
 <app-logged-navbar></app-logged-navbar>
-<div class="overlay position-absolute text-center" *ngIf="loading">
-  <img class="loading m-auto" src="../../assets/loading.gif" alt="">
-</div>
 <div class="container-fluid mt-4">
   <div class="row">
     <div class="col-12 col-sm-3 col-md-4 col-lg-3 mb-5">
       <div class="card mb-4">
         <div class="card-body">
           <div class="text-center w-100">
-            <img src="{{ url + 'getimageuser/' + identity.image }}" class="border border-radius" width="200" height="200"
-              *ngIf="identity.image" />
-            <img src="../../assets/default-user.png" class="border border-radius" width="200" height="200" *ngIf="!identity.image" />
+            <img src="{{ url + 'getimageuser/' + identity.image }}" class="border border-radius" width="200"
+              height="200" *ngIf="identity.image" />
+            <img src="../../assets/default-user.png" class="border border-radius" width="200" height="200"
+              *ngIf="!identity.image" />
           </div>
           <div class="h5 mt-3">{{ identity.nickname }}</div>
           <div class="text-muted mt-2">Nombre : {{ identity.name + " " + identity.lastname }}</div>
@@ -71,11 +69,14 @@
         *ngIf="!noMorePublications && total > items_per_page">Ver más
         publicaciones</button>
     </div>
-    <div *ngIf="!arePublications" class="col-sm-9 col-md-8 col-lg-5 d-flex flex-column p-0">
+    <div class="overlay col-sm-9 col-md-8 col-lg-5 d-flex justify-content-center p-0 bg-white" *ngIf="loading">
+      <img class="loading m-auto" width="200" height="200" src="../../assets/loading.gif" alt="">
+    </div>
+    <div *ngIf="!arePublications && !loading" class="col-sm-9 col-md-8 col-lg-5 d-flex flex-column p-0">
       <h4 class="text-center m-3 alert alert-danger">No se han encontrado publicaciones</h4>
     </div>
 
-    <div class="col-sm-9 col-lg-4 ml-md-auto ml-sm-auto">
+    <div class="col-sm-9 col-lg-4 ml-md-auto ml-sm-auto" *ngIf="!loading">
       <div class="card mb-4" *ngFor="let group of groups">
         <div class="card-header">
           <div class="d-flex justify-content-between align-items-center">

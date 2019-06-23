@@ -16,6 +16,7 @@ export class ChatComponent {
   room: String;
   messageText: String;
   messageArray: Array<{ user: String, message: String }> = [];
+  messageForm;
   constructor(
     private _chatService: ChatService,
     private _userService: UserService,

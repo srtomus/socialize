@@ -6,27 +6,36 @@
     </div>
     <div class="col-8">
       <div class="row border rounded">
-        <div class="col-4 p-3">
+        <div class="col-6 p-3">
           <h5>{{ group.name }}</h5>
           <p class="text-muted">{{ group.category }}</p>
-          <div class="btn btn-primary" *ngIf="imAdmin || group.author._id == identity._id" (click)="deleteGroup(group._id)">
+          <div class="btn btn-primary" *ngIf="imAdmin || userId._id == identity._id" (click)="deleteGroup(group._id)">
             Eliminar grupo
           </div>
         </div>
-        <div class="col-4 p-3">
-          <p>{{ group.description }}</p>
-        </div>
-        <div class="col-4 p-3">
+        <div class="col-6 p-3">
           <p class="mb-1">Fecha: {{ group.date_at }}</p>
           <p class="mb-1">Hora: {{ group.hour }}</p>
           <p class="mb-1">Máximo: {{ group.nr_members }}</p>
           <p class="mb-1">Miembros: {{ group.members }}</p>
         </div>
       </div>
+      <div class="row border rounded mt-3">
+        <div class="col-12 p-3">
+          <h5>Descripción:</h5>
+          <p>{{ group.description }}</p>
+        </div>
+      </div>
       <div id="map" class="mt-4"></div>
       <div class="mt-4" *ngIf="group.members < group.nr_members">
         <button class="btn btn-success" (click)="groupFollow()">Unete al grupo</button>
         <button class="btn btn-danger" (click)="groupUnfollow()">Dejar de seguir al grupo</button>
+      </div>
+      <div class="alert alert-success mt-3" *ngIf="statusFollow">
+        Te has unido correctamente al grupo
+      </div>
+      <div class="alert alert-success mt-3" *ngIf="statusUn">
+        Has abandonado correctamente el grupo
       </div>
     </div>
   </div>

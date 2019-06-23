@@ -25,3 +25,9 @@ a:hover {
     width: 900px;
     margin-left: 50px;
 }
+
+.overlay {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 5;
+}

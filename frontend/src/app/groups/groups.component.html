@@ -5,6 +5,10 @@
   </div>
   <div class="col-md-9">
     <div class="row">
+      <div class="overlay col-sm-9 col-md-8 col-lg-5 d-flex text-center justify-content-center p-0 bg-white"
+        *ngIf="loading">
+        <img class="loading m-auto" width="200" height="200" src="../../assets/loading.gif" alt="">
+      </div>
       <div class="col-4" *ngFor="let group of groups">
         <div class="card mb-4">
           <div class="card-body d-flex align-items-center">

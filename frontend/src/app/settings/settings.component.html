@@ -77,7 +77,7 @@
                     Contraseña
                   </div>
                   <div class="card-body">
-                    <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required>
+                    <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password">
                   </div>
                 </div>
               </div>
@@ -112,10 +112,9 @@
                 Intereses
               </div>
               <div class="card-body">
-                {{ user.interests }}
-
                 <div *ngFor="let int of interests">
                 </div>
+                <button class="btn btn-primary" routerLink="/interests">Cambiar intereses</button>
               </div>
             </div>
 

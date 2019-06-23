@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const mongoURI = "mongodb://localhost:27017/proyecto_daw";
+const mongoURI = "mongodb+srv://vlad:socialize@socialize-vgoeq.mongodb.net/test?retryWrites=true&w=majority";
 const http = require('http');
 const normalizePort = require('normalize-port');
 const locationPicker = require("location-picker")

@@ -24,6 +24,7 @@ export class UsersComponent implements OnInit {
   public pages;
   public users: User[];
   public follows;
+  public loading: boolean;
 
   constructor(
     private _route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class UsersComponent implements OnInit {
     this.url = "http://localhost:3000/api/";
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.loading = true;
   }
 
   ngOnInit() {
@@ -76,6 +78,8 @@ export class UsersComponent implements OnInit {
           this.pages = response.pages;
           this.follows = response.users_following;
           console.log(response);
+          this.loading = false;
+          
           if(page > this.pages) {
             this._router.navigate(['/discover', 1]);
           }
