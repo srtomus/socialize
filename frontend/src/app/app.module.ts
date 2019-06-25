@@ -4,7 +4,6 @@ import { routing, appRoutingProviders } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'angular2-moment';
-import * as $ from 'jquery';
 
 import { MessagesModule } from './messages/messages.module';
 

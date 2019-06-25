@@ -26,16 +26,16 @@ const appRoutes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'home', component: HomeComponent, canActivate:[UserGuard]},
     {path: 'settings', component: SettingsComponent, canActivate:[UserGuard]},
-    {path: 'discover/:page', component: UsersComponent, canActivate:[UserGuard]},
+    {path: 'users/:page', component: UsersComponent, canActivate:[UserGuard]},
     {path: 'chat', component: ChatComponent, canActivate:[UserGuard]},
-    {path: 'discover', component: UsersComponent, canActivate:[UserGuard]},
+    {path: 'users', component: UsersComponent, canActivate:[UserGuard]},
     {path: 'interests', component: InterestsComponent, canActivate:[UserGuard]},
     {path: 'profile/:id', component: ProfileComponent, canActivate:[UserGuard]},
     {path: 'group/:id', component: GroupComponent, canActivate:[UserGuard]},
     {path: 'new-group', component: NewGroupComponent, canActivate:[UserGuard]},
     {path: 'groups/:page', component: GroupsComponent, canActivate:[UserGuard]},
     {path: 'groups', component: GroupsComponent, canActivate:[UserGuard]},
-    {path: '**', component: LandingComponent}
+    {path: '**', component: HomeComponent, canActivate:[UserGuard]}
 ];
 
 export const appRoutingProviders: any[] = [];

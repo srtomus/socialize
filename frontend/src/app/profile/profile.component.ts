@@ -302,13 +302,13 @@ export class ProfileComponent implements OnInit {
   }
 
   getFollowingGroups(userId) {
-    this._groupFollowService.getMyFollowingGroups(this.token, userId).subscribe(
+    this._groupFollowService.getMyFollowingGroupsProfile(this.token, userId).subscribe(
       response => {
-        console.log(response);
         if(!response) {
           this.status = 'error';
         } else {
           this.groups = response.follows;
+          console.log(this.groups);
           this.total = response.total;
           this.pages = response.pages;
         }

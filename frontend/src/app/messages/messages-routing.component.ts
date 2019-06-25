@@ -8,15 +8,15 @@ import { SentMessagesComponent } from "../sent-messages/sent-messages.component"
 
 const messagesRoutes: Routes = [
     {
-        path: 'mensajes',
+        path: 'messages',
         component: MainMessagesComponent,
         children: [
-            { path: '', redirectTo: 'recibidos', pathMatch: 'full'},
-            { path: 'enviar', component: AddMessagesComponent},
-            { path: 'recibidos', component: ReceivedMessagesComponent},
-            { path: 'recibidos/:page', component: ReceivedMessagesComponent},
-            { path: 'enviados', component: SentMessagesComponent},
-            { path: 'enviados/:page', component: SentMessagesComponent}
+            { path: '', redirectTo: 'received', pathMatch: 'full'},
+            { path: 'send', component: AddMessagesComponent},
+            { path: 'received', component: ReceivedMessagesComponent},
+            { path: 'received/:page', component: ReceivedMessagesComponent},
+            { path: 'sent', component: SentMessagesComponent},
+            { path: 'sent/:page', component: SentMessagesComponent}
         ]
     }
 ];

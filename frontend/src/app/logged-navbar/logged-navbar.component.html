@@ -10,7 +10,7 @@
         <a class="nav-link" routerLink="/new-group">Crear un nuevo grupo</a>
       </li>
       <li class="nav-item text-center mr-2">
-        <a class="nav-link" routerLink="/discover">Gente</a>
+        <a class="nav-link" routerLink="/users">Gente</a>
       </li>
       <li class="nav-item text-center mr-3">
         <a class="nav-link" routerLink="/chat">Chat</a>
@@ -23,7 +23,7 @@
         <a class="nav-link active dropdown-toggle nav-elements" href="#" data-toggle="dropdown"> {{ nickname }} </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" routerLink="/profile/{{ identity._id }}">Mi perfil</a>
-          <a class="dropdown-item" routerLink="/mensajes">Mensajes</a>
+          <a class="dropdown-item" routerLink="/messages">Mensajes</a>
           <a class="dropdown-item" routerLink="/settings">Ajustes</a>
           <a class="dropdown-item" href="" (click)="logout()">Cerrar sesión</a>
         </div>

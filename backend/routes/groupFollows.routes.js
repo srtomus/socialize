@@ -9,5 +9,6 @@ router.delete('/groupUnfollow/:id', md_auth.ensureAuth, GroupFollowController.gr
 router.get('/groupfollowing/:id/:page?', md_auth.ensureAuth, GroupFollowController.getFollowingGroups);
 router.get('/groupfollowed/:id/:page?', md_auth.ensureAuth, GroupFollowController.getFollowedGroups);
 router.get('/getmygroupfollows/:id/:followed?', md_auth.ensureAuth, GroupFollowController.getMyGroupFollows);
+router.get('/getmygroupfollowsprofile/:id/:followed?', md_auth.ensureAuth, GroupFollowController.getMyGroupFollowsProfile);
 
 module.exports = router;

@@ -30,6 +30,12 @@ export class GroupFollowService {
         return this._http.get(this.url + 'getMyGroupFollows/' + id, {headers: headers});
     }
 
+    getMyFollowingGroupsProfile(token, id):Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+        return this._http.get(this.url + 'getmygroupfollowsprofile/' + id, {headers: headers});
+}
+
     getFollowedGroups(token, id, page = 1):Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 

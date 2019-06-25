@@ -99,10 +99,29 @@ function getMyGroupFollows(req, res) {
     });
 }
 
+function getMyGroupFollowsProfile(req, res) {
+    var userId = req.params.id;
+
+    var find = GroupFollow.find({user: userId});
+
+    if (req.params.followed) {
+        find = GroupFollow.find({grfollowed: userId});
+    }
+
+    find.populate('user grfollowed').exec((err, follows) => {
+        if(err) return res.status(500).send({message: 'Error en el servidor'});
+
+        if(!follows) return res.status(404).send({message: 'No sigues ningún usuario'});
+
+        return res.status(200).send({follows});
+    });
+}
+
 module.exports = {
     groupFollow,
     groupUnfollow,
     getFollowingGroups,
     getFollowedGroups,
-    getMyGroupFollows
+    getMyGroupFollows,
+    getMyGroupFollowsProfile
 }

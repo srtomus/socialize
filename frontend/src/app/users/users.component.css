@@ -17,10 +17,6 @@ a:hover {
     color: darkslategrey;
 }
 
-.container-fluid {
-    display: flex;
-}
-
 .container {
     width: 900px;
     margin-left: 50px;
