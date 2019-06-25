@@ -5,6 +5,7 @@ import { Message } from '../models/messages.model';
 import { Follow } from '../models/follow.model';
 import { FollowService } from '../services/follow.service';
 import { MessagesService } from '../services/messages.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sent-messages',
@@ -27,8 +28,10 @@ export class SentMessagesComponent implements OnInit {
   public total;
   public next_page;
   public prev_page;
+  public areMessages: boolean;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
@@ -38,10 +41,16 @@ export class SentMessagesComponent implements OnInit {
     this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.title ="Mensajes enviados";
   }
 
   ngOnInit() {
     this.actualPage();
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   actualPage() {
@@ -72,15 +81,20 @@ export class SentMessagesComponent implements OnInit {
     this._messagesService.getSentMessages(this.token, page).subscribe(
       response => {
         if(response.messages) {
-          console.log(response);
           this.total = response.total;
           this.pages = response.pages;
           this.items_per_page = response.itemsPerPage;
 
           this.messages = response.messages;
 
+          if (Object.keys(this.messages).length >= 1) {
+            this.areMessages = true;
+          } else {
+            this.areMessages = false;
+          }
+
           if(page > this.pages) {
-            this._router.navigate(['/mensajes/enviados', 1]);
+            this._router.navigate(['/messages/sent', 1]);
           }
         }
       },

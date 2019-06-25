@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing',
@@ -8,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class LandingComponent implements OnInit {
   public title: string;
 
-  constructor(
-  ) {}
-
+  public constructor(private titleService: Title ) { 
+    this.title = "Socialize";
+  }
+ 
   ngOnInit() {
+    this.setTitle(this.title)
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
 }

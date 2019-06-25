@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Group } from '../models/group.model';
 import { GroupService } from '../services/group.service';
 import { UserService } from '../services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-group',
@@ -13,6 +14,7 @@ import { UserService } from '../services/user.service';
 })
 export class NewGroupComponent implements OnInit {
   lp: LocationPicker;
+  public title;
   public identity;
   public url: string;
   public token;
@@ -24,6 +26,7 @@ export class NewGroupComponent implements OnInit {
   public coords;
 
   constructor(
+    private titleService: Title,
     private _userService: UserService,
     private _groupService: GroupService,
     private _router: Router
@@ -33,9 +36,11 @@ export class NewGroupComponent implements OnInit {
     this.token = this._userService.getToken();
     this.stats = this._userService.getStats();
     this.group = new Group("", "", this.identity._id, "", "", null, null, "", "", "", "", "");
+    this.title = "Crear nuevo grupo";
   }
 
   ngOnInit() { // Se crea el mapa nada más cargar la página
+    this.setTitle(this.title);
     this.lp = new LocationPicker('map', {
       setCurrentPosition: true,
     }, {
@@ -43,6 +48,10 @@ export class NewGroupComponent implements OnInit {
         zoom: 15,
         center: { lat: 39.47018073020985, lng: -0.3770092068236952 }
       });
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   setLocation() { // Se ejecuta al hacer click en enviar

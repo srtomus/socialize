@@ -8,6 +8,7 @@ import { GroupFollowService } from '../services/groupFollow.service';
 import { Publication } from '../models/publication.model';
 import { PublicationService } from '../services/publication.service';
 import { Group } from '../models/group.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -46,6 +47,7 @@ export class ProfileComponent implements OnInit {
   public followsAlt;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
@@ -63,6 +65,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadPage();
+    this.title = this.user.nickname;
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   loadPage() {
@@ -167,7 +175,6 @@ export class ProfileComponent implements OnInit {
   getCounters(id) {
     this._userService.getCounters(id).subscribe(
       response => {
-        console.log(response);
         if (response.followed < 5) {
           this.followsImg = "../../assets/noFollows.png";
           this.followsAlt = "Menos de 5 seguidores"
@@ -251,7 +258,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getPublications(page, userId, adding = false) {
-    console.log(userId);
     this._publicationService.getPublicationsUser(this.token, page, userId).subscribe(
       response => {
         if (response.publications) {
@@ -308,7 +314,6 @@ export class ProfileComponent implements OnInit {
           this.status = 'error';
         } else {
           this.groups = response.follows;
-          console.log(this.groups);
           this.total = response.total;
           this.pages = response.pages;
         }

@@ -5,6 +5,7 @@ import { Message } from '../models/messages.model';
 import { Follow } from '../models/follow.model';
 import { FollowService } from '../services/follow.service';
 import { MessagesService } from '../services/messages.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-received-messages',
@@ -30,6 +31,7 @@ export class ReceivedMessagesComponent implements OnInit {
   public areMessages: boolean;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
@@ -39,10 +41,16 @@ export class ReceivedMessagesComponent implements OnInit {
     this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.title = "Mensajes recibidos";
   }
 
   ngOnInit() {
     this.actualPage();
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   actualPage() {
@@ -73,7 +81,6 @@ export class ReceivedMessagesComponent implements OnInit {
     this._messagesService.getMessages(this.token, page).subscribe(
       response => {
         if(response.messages) {
-          console.log(response);
           this.total = response.total;
           this.pages = response.pages;
           this.items_per_page = response.itemsPerPage;
@@ -87,7 +94,7 @@ export class ReceivedMessagesComponent implements OnInit {
           }
 
           if(page > this.pages) {
-            this._router.navigate(['/mensajes/recibidos', 1]);
+            this._router.navigate(['/messages/received', 1]);
           }
         }
       },

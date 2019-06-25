@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../models/user.model';
 import { UploadService } from '../services/upload.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-settings',
@@ -21,6 +22,7 @@ export class SettingsComponent implements OnInit {
   public userId;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
@@ -36,7 +38,11 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.interests = this.user.interests;
     this.userId = this.user._id;
-    console.log(this.interests);
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   onSubmit() {
@@ -69,7 +75,6 @@ export class SettingsComponent implements OnInit {
   public filesToUpload: Array<File>
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload);
   }
 
   deleteUser(id) {

@@ -5,6 +5,7 @@ import { Message } from '../models/messages.model';
 import { Follow } from '../models/follow.model';
 import { FollowService } from '../services/follow.service';
 import { MessagesService } from '../services/messages.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-messages',
@@ -22,6 +23,7 @@ export class AddMessagesComponent implements OnInit {
   public follows;
 
   constructor(
+    private titleService: Title,
     private _router: Router,
     private _userService: UserService,
     private _followService: FollowService,
@@ -33,10 +35,16 @@ export class AddMessagesComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.message = new Message('', '', '', '', this.identity._id, '');
+    this.title = "Enviar mensajes";
   }
 
   ngOnInit() {
-    this.getMyFollows()
+    this.getMyFollows();
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   onSubmit(form) {
@@ -60,7 +68,6 @@ export class AddMessagesComponent implements OnInit {
     this._followService.getMyFollows(this.token).subscribe(
       response => {
         this.follows = response.follows;
-        console.log(this.follows);
       },
       error => {
         console.log(<any>error);

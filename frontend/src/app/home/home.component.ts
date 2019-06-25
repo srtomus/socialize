@@ -7,6 +7,7 @@ import { Group } from '../models/group.model';
 import { GroupService } from '../services/group.service';
 import { GroupFollowService } from '../services/groupFollow.service';
 import LocationPicker from "location-picker";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
   public arePublications: boolean;
 
   constructor(
+    private titleService: Title,
     private _router: Router,
     private _userService: UserService,
     private _publicationService: PublicationService,
@@ -49,6 +51,7 @@ export class HomeComponent implements OnInit {
     this.page = 1;
     this.publication = new Publication("", "", "", "", this.identity._id);
     this.loading = true;
+    this.title = this.identity.nickname;
   }
 
   ngOnInit() {
@@ -57,11 +60,16 @@ export class HomeComponent implements OnInit {
     this.stats = this._userService.getStats();
     this.getPublications(this.page);
     this.getGroups(this.page);
+    this.setTitle(this.title)
     if (this.identity.role == "ROLE_ADMIN") {
       this.imAdmin = true;
     } else {
       this.imAdmin = false;
     }
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   ngDoCheck() {
@@ -155,7 +163,6 @@ export class HomeComponent implements OnInit {
           } else {
             var arrayA = this.groups;
             var arrayB = response.groups;
-            console.log(this.groups);
             this.groups = arrayA.concat(arrayB);
           }
 

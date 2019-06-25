@@ -8,6 +8,7 @@ import { GroupFollowService } from '../services/groupFollow.service';
 import { GroupService } from '../services/group.service';
 import LocationPicker from 'location-picker';
 import { GroupFollow } from '../models/groupFollow.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-group',
@@ -38,6 +39,7 @@ export class GroupComponent implements OnInit {
   public resultFollow: number;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
@@ -58,6 +60,10 @@ export class GroupComponent implements OnInit {
       this.getGroup(id);
     })
     this.getCounters();
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   getGroup(id) {
@@ -113,7 +119,6 @@ export class GroupComponent implements OnInit {
   deleteGroup(id) {
     this._groupService.deleteGroup(id).subscribe(
       response => {
-        console.log(response);
         this._router.navigate(['/home']);
       },
       error => {
@@ -130,12 +135,10 @@ export class GroupComponent implements OnInit {
         this.statusFollow = 'success';
         this.groupFollows = true;
         this.group.members = this.group.members + 1;
-        console.log(this.group);
         this._groupService.updateGroup(this.group).subscribe(
           response => {
               this.statusFollow = 'success';
               this.reloadWindow();
-              console.log(response);
           },
           error => {
             console.log(<any>error)
@@ -151,13 +154,10 @@ export class GroupComponent implements OnInit {
   groupUnfollow() {
     this._groupFollowService.deleteFollow(this.token, this.group._id).subscribe(
       response => {
-          console.log(response);
           this.group.members = this.group.members - 1;
-          console.log(this.group.members);
           this._groupService.updateGroup(this.group).subscribe(
             response => {
               this.statusUn = 'success';
-              console.log(response);
                 this.reloadWindow();
             },
             error => {
@@ -185,7 +185,6 @@ export class GroupComponent implements OnInit {
       response => {
         sessionStorage.setItem('stats', JSON.stringify(response));
         this.status = 'success';
-        console.log(response);
       },
       error => {
         this.status = 'error';
@@ -199,9 +198,7 @@ export class GroupComponent implements OnInit {
         for (let key of response.follows) {
           this.followingGroups.push(key.grfollowed);
         }
-        console.log(response.follows);
         this.resultFollow = this.followingGroups.indexOf(id);
-        console.log(this.resultFollow);
       },
       error => {
         console.log(<any>error);
@@ -211,7 +208,7 @@ export class GroupComponent implements OnInit {
 
   reloadWindow() {
     this.getCounters();
-    return window.location.reload();
+    this._router.navigate(['/home']);
   }
 
 }

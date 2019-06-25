@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { GroupService } from '../services/group.service';
 import { GroupFollowService } from '../services/groupFollow.service';
 import { Group } from '../models/group.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-groups',
@@ -27,12 +28,13 @@ export class GroupsComponent implements OnInit {
   public loading: boolean;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _groupService: GroupService,
     private _userService: UserService
   ) { 
-    this.title = 'Gente';
+    this.title = 'Grupos';
     this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -41,6 +43,11 @@ export class GroupsComponent implements OnInit {
 
   ngOnInit() {
     this.actualPage();
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   actualPage() {

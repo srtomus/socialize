@@ -39,7 +39,6 @@ onSubmit(form) {
       if (response.publication) {
         this.publication = response.publication;
         this.status = 'success';
-        console.log(this.publication);
         form.reset();
       } else {
         this.status = 'error';

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
   public token;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService
@@ -27,10 +29,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     let identity = this._userService.getIdentity();
+    this.setTitle(this.title);
 
     if (identity) {
       this._router.navigate(['/home']);
     }
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   onSubmit() {
@@ -40,7 +47,6 @@ export class RegisterComponent implements OnInit {
           this._userService.signin(this.user).subscribe(
             response => {
               this.identity = response.user;
-              console.log(this.identity);
               if (!this.identity || !this.identity._id) {
                 this.status = 'error';
               } else {
@@ -73,7 +79,6 @@ export class RegisterComponent implements OnInit {
     this._userService.signin(this.user, 'true').subscribe(
       response => {
         this.token = response.token;
-        console.log(this.token);
         if (this.token.length <= 0) {
           this.status = 'error';
         } else {

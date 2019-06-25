@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   public token;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService
@@ -27,17 +29,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     let identity = this._userService.getIdentity();
-
+    this.setTitle(this.title);
     if (identity) {
       this._router.navigate(['/home']);
     }
   }
 
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
+
   onSubmit() {
-    console.log(this.user);
     this._userService.prueba(this.user).subscribe(
       response => {
-        console.log(response);
       },
       error => {
         console.log(error);
@@ -51,7 +55,6 @@ export class LoginComponent implements OnInit {
           this.status = 'error';
         } else {
           sessionStorage.setItem('identity', JSON.stringify(this.identity));
-          console.log(response);
           this.getToken();
         }
       },

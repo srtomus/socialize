@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { FollowService } from '../services/follow.service';
 import { User } from '../models/user.model';
 import { Follow } from '../models/follow.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
@@ -27,12 +28,13 @@ export class UsersComponent implements OnInit {
   public loading: boolean;
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
     private _followService: FollowService
   ) { 
-    this.title = 'Gente';
+    this.title = 'Usuarios';
     this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -41,6 +43,11 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.actualPage();
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   actualPage() {
@@ -77,7 +84,6 @@ export class UsersComponent implements OnInit {
           this.users = response.users;
           this.pages = response.pages;
           this.follows = response.users_following;
-          console.log(response);
           this.loading = false;
           
           if(page > this.pages) {

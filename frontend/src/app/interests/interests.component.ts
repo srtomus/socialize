@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../models/user.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-interests',
@@ -19,6 +20,7 @@ export class InterestsComponent implements OnInit {
   public interests = {}
 
   constructor(
+    private titleService: Title,
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService
@@ -30,6 +32,11 @@ export class InterestsComponent implements OnInit {
     this.token = this._userService.getToken();
   }
   ngOnInit() {
+    this.setTitle(this.title);
+  }
+
+  setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   getInterests() {
@@ -45,7 +52,6 @@ export class InterestsComponent implements OnInit {
     this._userService.updateInterests(this.user).subscribe(
       response => {
           this.status = true;
-          console.log(response.user);
           sessionStorage.setItem('identity', JSON.stringify(this.user));
           this.identity = this.user;
           this._router.navigate(["home"]);
