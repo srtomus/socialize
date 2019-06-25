@@ -15,3 +15,8 @@ https://medium.com/@ryanchenkie_40935/angular-authentication-using-route-guards-
 
 <br>
 Error: Al crear publicación pasa lo mismo que pasaba con los follows, hay que cerrar sesión y volver a entrar para que se actualice en los stats de localstorage. Cambiarlo de la misma forma que se cambió el error en follows
+
+node server.js
+sudo lsof -t -i:3000
+sudo kill -9 (id del proceso de 3000)
+node server.js
