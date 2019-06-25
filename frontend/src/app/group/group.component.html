@@ -28,13 +28,13 @@
       </div>
       <div id="map" class="mt-4"></div>
       <div class="mt-4" *ngIf="group.members < group.nr_members">
-        <button class="btn btn-success" (click)="groupFollow()">Unete al grupo</button>
-        <button class="btn btn-danger" (click)="groupUnfollow()">Dejar de seguir al grupo</button>
+        <button class="btn btn-success" *ngIf="resultFollow == -1" (click)="groupFollow()">Unete al grupo</button>
+        <button class="btn btn-danger" *ngIf="resultFollow != -1" (click)="groupUnfollow()">Dejar de seguir al grupo</button>
       </div>
-      <div class="alert alert-success mt-3" *ngIf="statusFollow">
+      <div class="alert alert-success mt-3" *ngIf="statusFollow == 'success'">
         Te has unido correctamente al grupo
       </div>
-      <div class="alert alert-success mt-3" *ngIf="statusUn">
+      <div class="alert alert-success mt-3" *ngIf="statusUn == 'success'">
         Has abandonado correctamente el grupo
       </div>
     </div>

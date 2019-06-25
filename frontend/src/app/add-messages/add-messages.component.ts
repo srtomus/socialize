@@ -27,7 +27,7 @@ export class AddMessagesComponent implements OnInit {
     private _followService: FollowService,
     private _messagesService: MessagesService
   ) {
-    this.url = "http://localhost:3000/api/";
+    this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.identity = this._userService.getIdentity();

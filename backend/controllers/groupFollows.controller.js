@@ -88,18 +88,12 @@ function getFollowedGroups(req, res) {
 }
 
 function getMyGroupFollows(req, res) {
-    var userId = req.params.id;
+    var userId = req.user.sub;
 
-    var find = GroupFollow.find({user: userId});
-
-    if (req.params.followed) {
-        find = GroupFollow.find({grfollowed: userId});
-    }
-
-    find.populate('user grfollowed').exec((err, follows) => {
+    GroupFollow.find({user: userId}).exec((err, follows) => {
         if(err) return res.status(500).send({message: 'Error en el servidor'});
 
-        if(!follows) return res.status(404).send({message: 'No sigues ningún usuario'});
+        if(!follows) return res.status(404).send({message: 'No sigues ningún grupo'});
 
         return res.status(200).send({follows});
     });

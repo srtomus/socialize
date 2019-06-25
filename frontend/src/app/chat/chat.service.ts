@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 export class ChatService {
 
-    private socket = io('http://localhost:3000');
+    private socket = io('http://' + window.location.hostname + ':3000');
 
     joinRoom(data) {
         this.socket.emit('join', data);

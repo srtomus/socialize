@@ -3,14 +3,9 @@
     font-size: 28px;
 }
 
-.landing-buttons {
-    text-decoration: none;
-    color: #fff;
-}
-
 #main {
     margin-bottom: 0;
-    background-color: lightblue;
+    background-color: rgb(32, 81, 97);
 }
 
 .display-4 {
@@ -54,4 +49,19 @@ footer .list-inline-item {
 
 hr {
     border: 1px solid rgb(199, 199, 199);
+}
+
+@media all and (max-width:500px) {
+    .display-3 {
+        font-size: 40px !important;
+    }
+
+    .display-4 {
+        font-size: 15px !important;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 }

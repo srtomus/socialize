@@ -63,14 +63,32 @@
         </li>
         <li class="list-group-item border-top-0">
           <div class="h6 text-muted">Grupos</div>
-          <div class="h5" *ngIf="stats.groups">{{ stats.groups }}</div>
-          <div class="h5" *ngIf="!stats.groups">0</div>
+          <div class="h5" *ngIf="stats.group">{{ stats.group }}</div>
+          <div class="h5" *ngIf="!stats.group">0</div>
         </li>
       </ul>
     </div>
     <div class="col-md-5 mt-4">
       <h5>Intereses:</h5>
       {{ user.interests }}
+    </div>
+  </div>
+  <div class="row border rounded mt-2 p-3">
+    <div class="col-12 d-flex justify-content-center mb-3">
+      <h5>Logros</h5>
+    </div>
+    <div class="col-12">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-4 text-center">
+          <img src="{{ followsImg }}" title="{{ followsAlt }}" width="100px" height="100px">
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="{{ groupsImg }}" title="{{ groupsAlt }}" width="100px" height="100px">
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="{{ publicationsImg }}" title="{{ publicationsAlt }}" width="100px" height="100px">
+        </div>
+      </div>
     </div>
   </div>
 

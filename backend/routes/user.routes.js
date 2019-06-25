@@ -6,11 +6,13 @@ const multipart = require('connect-multiparty');
 const router = express.Router();
 const md_upload = multipart({uploadDir: './uploads/users'});
 
+router.post('/prueba', UserController.prueba);
 router.post('/register', UserController.saveUser);
 router.post('/login', UserController.loginUser);
 router.get('/getuser/:id', md_auth.ensureAuth, UserController.getUser);
 router.get('/getusers/:page?', md_auth.ensureAuth, UserController.getUsers);
 router.put('/updateuser/:id', md_auth.ensureAuth, UserController.updateUser);
+router.put('/updateinterests/:id', md_auth.ensureAuth, UserController.updateInterests);
 router.post('/uploadimage/:id', [md_auth.ensureAuth, md_upload], UserController.uploadImage);
 router.get('/getimageuser/:imageFile', UserController.getUserImg);
 router.get('/counters/:id?', md_auth.ensureAuth, UserController.getCounters);

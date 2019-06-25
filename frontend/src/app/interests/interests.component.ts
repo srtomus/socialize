@@ -13,7 +13,7 @@ export class InterestsComponent implements OnInit {
   public title: string;
   public user:User;
   public url: string;
-  public status: string;
+  public status: boolean;
   public identity;
   public token;
   public interests = {}
@@ -24,7 +24,7 @@ export class InterestsComponent implements OnInit {
     private _userService: UserService
     ) { 
     this.title = 'Intereses';
-    this.url = "http://localhost:3000/api/";
+    this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.user = this._userService.getIdentity();
     this.identity = this.user;
     this.token = this._userService.getToken();
@@ -42,22 +42,20 @@ export class InterestsComponent implements OnInit {
       intArr.push(i);
     });
     this.user.interests = intArr;
-    this._userService.updateUser(this.user).subscribe(
+    this._userService.updateInterests(this.user).subscribe(
       response => {
-        if(!response.user) {
-          this.status = 'error';
-        } else {
-          this.status = 'success';
+          this.status = true;
+          console.log(response.user);
           sessionStorage.setItem('identity', JSON.stringify(this.user));
           this.identity = this.user;
-        }
+          this._router.navigate(["home"]);
       },
       error => {
         var errorMessage = <any>error;
         console.log(errorMessage);
 
         if(errorMessage != null) {
-          this.status = 'error';
+          this.status = false;
         }
       }
     )

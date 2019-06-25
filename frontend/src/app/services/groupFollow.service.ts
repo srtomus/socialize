@@ -27,7 +27,7 @@ export class GroupFollowService {
     getMyFollowingGroups(token, id):Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 
-        return this._http.get(this.url + 'getmygroupfollows/' + id, {headers: headers});
+        return this._http.get(this.url + 'getMyGroupFollows/' + id, {headers: headers});
     }
 
     getFollowedGroups(token, id, page = 1):Observable<any> {

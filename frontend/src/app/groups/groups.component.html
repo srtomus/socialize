@@ -1,33 +1,44 @@
 <app-logged-navbar></app-logged-navbar>
 <div class="container-fluid mt-4">
-  <div class="col-md-3">
-    <app-sidebar></app-sidebar>
-  </div>
-  <div class="col-md-9">
-    <div class="row">
-      <div class="overlay col-sm-9 col-md-8 col-lg-5 d-flex text-center justify-content-center p-0 bg-white"
-        *ngIf="loading">
-        <img class="loading m-auto" width="200" height="200" src="../../assets/loading.gif" alt="">
-      </div>
-      <div class="col-4" *ngFor="let group of groups">
-        <div class="card mb-4">
-          <div class="card-body d-flex align-items-center">
-            <div>
-              <a routerLink="/group/{{ group._id }}">
-                <p>{{ group.name }}</p>
-              </a>
-              <p>{{ group.author.nickname + ' ' + group.date_at }}</p>
-              <p>{{ group.category }}</p>
-
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-12 col-md-9">
+      <div class="row">
+        <div class="overlay col-sm-9 col-md-8 col-lg-5 d-flex text-center justify-content-center p-0 bg-white"
+          *ngIf="loading">
+          <img class="loading m-auto" width="200" height="200" src="../../assets/loading.gif" alt="">
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4" *ngFor="let group of groups">
+            <div class="card mb-4 p-3">
+              <div class="row">
+                <div class="col-6">
+                  <div class="card-body p-1 d-flex align-items-center">
+                    <div>
+                      <a routerLink="/group/{{ group._id }}">
+                        <span class="mr-2">{{ group.name }}</span>
+                      </a><br>
+                      <span class="text-muted"><small>{{ group.category }}</small></span>
+                      <p><small class="text-secondary">{{ (group.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }}</small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <p><small>Límite de miembros: {{ group.nr_members }}</small></p>
+                  <p><small>Miembros: {{ group.members }}</small></p>
+                  <p><small>Fecha: {{ group.date_at }} </small><small> {{ group.hour }}</small></p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
+      </div>
+      <ul class="pagination">
+        <li *ngIf="page > 1"><a [routerLink]="['/groups', prev_page]">Anterior</a></li>
+        <li *ngIf="pages != page && pages > 1"><a [routerLink]="['/groups', next_page]">Siguiente</a></li>
+      </ul>
     </div>
-    <ul class="pagination">
-      <li *ngIf="page > 1"><a [routerLink]="['/groups', prev_page]">Anterior</a></li>
-      <li *ngIf="pages != page && pages > 1"><a [routerLink]="['/groups', next_page]">Siguiente</a></li>
-    </ul>
   </div>
 </div>

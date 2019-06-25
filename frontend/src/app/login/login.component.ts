@@ -34,6 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.user);
+    this._userService.prueba(this.user).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
     this._userService.signin(this.user).subscribe(
       response => {
         this.identity = response.user;
@@ -42,7 +51,7 @@ export class LoginComponent implements OnInit {
           this.status = 'error';
         } else {
           sessionStorage.setItem('identity', JSON.stringify(this.identity));
-
+          console.log(response);
           this.getToken();
         }
       },

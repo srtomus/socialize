@@ -1,13 +1,200 @@
 <app-logged-navbar></app-logged-navbar>
-<form #interestsForm="ngForm" (ngSubmit)="onSubmit()">
-  <p>
-    <label>Selecciona tus intereses</label>
-    <input type="checkbox" name="Arte" #Arte="ngModel" [(ngModel)]="interests['Arte']">
-    <label class="form-check-label">Arte</label>
-    <input type="checkbox" name="Tecnologia" #Tecnologia="ngModel" [(ngModel)]="interests['Tecnología']">
-    <label class="form-check-label">Tecnología</label>
-    <input type="checkbox" name="Naturaleza" #Naturaleza="ngModel" [(ngModel)]="interests['Naturaleza']">
-    <label class="form-check-label">Naturaleza</label>
-  </p>
-  <input type="submit" value="Enviar" class="btn btn-success" routerLink="/home" (click)="getInterests()">
+<form #interestsForm="ngForm" (ngSubmit)="onSubmit()" class="mt-4">
+  <div class="container border rounded p-3">
+    <div class="row">
+      <div class="col-12">
+        <label>Selecciona tus intereses</label>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Animales" #Animales="ngModel" [(ngModel)]="interests['Animales']">
+          <label class="form-check-label ml-2">Animales</label>
+        </p>
+      </div>
+      <div class="col-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Arte" #Arte="ngModel" [(ngModel)]="interests['Arte']">
+          <label class="form-check-label ml-2">Arte</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Artesania" #Artesania="ngModel" [(ngModel)]="interests['Artesania']">
+          <label class="form-check-label ml-2">Artesanía</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Ayuda" #Ayuda="ngModel" [(ngModel)]="interests['Ayuda']">
+          <label class="form-check-label ml-2">Ayuda</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Automovilismo" #Automovilismo="ngModel" [(ngModel)]="interests['Automovilismo']">
+          <label class="form-check-label ml-2">Automovilismo</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Baile" #Baile="ngModel" [(ngModel)]="interests['Baile']">
+          <label class="form-check-label ml-2">Baile</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="CienciaFiccion" #CienciaFiccion="ngModel"
+            [(ngModel)]="interests['Ciencia ficcion']">
+          <label class="form-check-label ml-2">Ciencia ficción</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Cine" #Cine="ngModel" [(ngModel)]="interests['Cine']">
+          <label class="form-check-label ml-2">Cine</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Comida" #Comida="ngModel" [(ngModel)]="interests['Comida']">
+          <label class="form-check-label ml-2">Comida</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Decoracion" #Decoracion="ngModel" [(ngModel)]="interests['Decoracion']">
+          <label class="form-check-label ml-2">Decoración</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Deporte" #Deporte="ngModel" [(ngModel)]="interests['Deporte']">
+          <label class="form-check-label ml-2">Deporte</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Diseno" #Diseno="ngModel" [(ngModel)]="interests['Diseno']">
+          <label class="form-check-label ml-2">Diseño</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Ecologia" #Ecologia="ngModel" [(ngModel)]="interests['Ecologia']">
+          <label class="form-check-label ml-2">Ecología</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Economia" #Economia="ngModel" [(ngModel)]="interests['Economia']">
+          <label class="form-check-label ml-2">Economía</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Educacion" #Educacion="ngModel" [(ngModel)]="interests['Educacion']">
+          <label class="form-check-label ml-2">Educación</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Familia" #Familia="ngModel" [(ngModel)]="interests['Familia']">
+          <label class="form-check-label ml-2">Familia</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Fobias" #Fobias="ngModel" [(ngModel)]="interests['Fobias']">
+          <label class="form-check-label ml-2">Fobias</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Jardineria" #Jardineria="ngModel" [(ngModel)]="interests['Jardineria']">
+          <label class="form-check-label ml-2">Jardinería</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Lectura" #Lectura="ngModel" [(ngModel)]="interests['Lectura']">
+          <label class="form-check-label ml-2">Lectura</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Manualidades" #Manualidades="ngModel" [(ngModel)]="interests['Manualidades']">
+          <label class="form-check-label ml-2">Manualidades</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Marketing" #Marketing="ngModel" [(ngModel)]="interests['Marketing']">
+          <label class="form-check-label ml-2">Marketing</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Moda" #Moda="ngModel" [(ngModel)]="interests['Moda']">
+          <label class="form-check-label ml-2">Moda</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Musica" #Musica="ngModel" [(ngModel)]="interests['Musica']">
+          <label class="form-check-label ml-2">Música</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Naturaleza" #Naturaleza="ngModel" [(ngModel)]="interests['Naturaleza']">
+          <label class="form-check-label ml-2">Naturaleza</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Ocio" #Ocio="ngModel" [(ngModel)]="interests['Ocio']">
+          <label class="form-check-label ml-2">Ocio</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Politica" #Politica="ngModel" [(ngModel)]="interests['Politica']">
+          <label class="form-check-label ml-2">Política</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Punto" #Punto="ngModel" [(ngModel)]="interests['Punto']">
+          <label class="form-check-label ml-2">Punto</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Religion" #Religion="ngModel" [(ngModel)]="interests['Religion']">
+          <label class="form-check-label ml-2">Religión</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Salud" #Salud="ngModel" [(ngModel)]="interests['Salud']">
+          <label class="form-check-label ml-2">Salud</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="Tecnologia" #Tecnologia="ngModel" [(ngModel)]="interests['Tecnologia']">
+          <label class="form-check-label ml-2">Tecnología</label>
+        </p>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <p>
+          <input type="checkbox" name="VidaSocial" #VidaSocial="ngModel" [(ngModel)]="interests['Vida social']">
+          <label class="form-check-label ml-2">Vida social</label>
+        </p>
+      </div>
+      <div class="col-12">
+        <input type="submit" value="Enviar" class="btn btn-success" (click)="getInterests()">
+      </div>
+    </div>
+  </div>
 </form>

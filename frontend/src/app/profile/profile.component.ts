@@ -38,6 +38,12 @@ export class ProfileComponent implements OnInit {
   public groups: Group[];
   public arePublications: boolean;
   public areGroups: boolean;
+  public groupsImg;
+  public publicationsImg;
+  public followsImg;
+  public groupsAlt;
+  public publicationsAlt;
+  public followsAlt;
 
   constructor(
     private _route: ActivatedRoute,
@@ -47,7 +53,7 @@ export class ProfileComponent implements OnInit {
     private _followService: FollowService,
     private _groupFollowService: GroupFollowService
   ) {
-    this.url = "http://localhost:3000/api/";
+    this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.stats = this._userService.getStats();
@@ -161,6 +167,48 @@ export class ProfileComponent implements OnInit {
   getCounters(id) {
     this._userService.getCounters(id).subscribe(
       response => {
+        console.log(response);
+        if (response.followed < 5) {
+          this.followsImg = "../../assets/noFollows.png";
+          this.followsAlt = "Menos de 5 seguidores"
+        } else if (response.followed >= 5) {
+          this.followsImg = "../../assets/followsBronze.png";
+          this.followsAlt = "5 o más seguidores";
+        } else if (response.followed >= 20) {
+          this.followsImg = "../../assets/followsSilver.png";
+          this.followsAlt = "20 o más seguidores";
+        } else if (response.followed >= 50) {
+          this.followsImg = "../../assets/followsGold.png";
+          this.followsAlt = "50 o más seguidores";
+        }
+
+        if (response.group < 1) {
+          this.groupsImg = "../../assets/noGroups.png";
+          this.groupsAlt = "No estás unido a ningún grupo";
+        } else if (response.group >= 1) {
+          this.groupsImg = "../../assets/groupsBronze.png";
+          this.groupsAlt = "1 o más grupos";
+        } else if (response.group >= 10) {
+          this.groupsImg = "../../assets/groupsSilver.png";
+          this.groupsAlt = "10 o más grupos";
+        } else if (response.group >= 20) {
+          this.groupsImg = "../../assets/groupsGold.png";
+          this.groupsAlt = "20 o más grupos";
+        }
+
+        if (response.publication < 10) {
+          this.publicationsImg = "../../assets/noPublications.png";
+          this.publicationsAlt = "Menos de 10 publicaciones";
+        } else if (response.publication >= 10) {
+          this.publicationsImg = "../../assets/publicationsBronze.png";
+          this.publicationsAlt = "10 o más publicaciones";
+        } else if (response.publication >= 50) {
+          this.publicationsImg = "../../assets/publicationsSilver.png";
+          this.publicationsAlt = "50 o más publicaciones";
+        } else if (response.publication >= 100) {
+          this.publicationsImg = "../../assets/publicationsGold.png";
+          this.publicationsAlt = "100 o más publicaciones";
+        }
         this.stats = response;
       },
       error => {

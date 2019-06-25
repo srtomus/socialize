@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, DoCheck {
     private _router: Router,
     private _userService: UserService
   ) {
-    this.title = 'front';
+    this.title = 'Socialize';
   }
 
   ngOnInit() {

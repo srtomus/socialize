@@ -34,6 +34,8 @@ export class GroupComponent implements OnInit {
   public imAdmin: boolean;
   public groupFollows: boolean;
   public authorId;
+  public followingGroups = [];
+  public resultFollow: number;
 
   constructor(
     private _route: ActivatedRoute,
@@ -42,7 +44,7 @@ export class GroupComponent implements OnInit {
     private _groupService: GroupService,
     private _groupFollowService: GroupFollowService
   ) {
-    this.url = "http://localhost:3000/api/";
+    this.url = 'http://' + window.location.hostname + ':3000/api/';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.stats = this._userService.getStats();
@@ -77,6 +79,7 @@ export class GroupComponent implements OnInit {
         this.userId = this.group.author;
         
         this.getUser(this.userId._id);
+        this.getMyFollowingGroups(this.group._id);
 
         if (this.identity.role == "ROLE_ADMIN") {
           this.imAdmin = true;
@@ -124,18 +127,15 @@ export class GroupComponent implements OnInit {
 
     this._groupFollowService.addFollow(this.token, follow).subscribe(
       response => {
+        this.statusFollow = 'success';
         this.groupFollows = true;
         this.group.members = this.group.members + 1;
         console.log(this.group);
         this._groupService.updateGroup(this.group).subscribe(
           response => {
-            if (!response.user) {
-              this.statusFollow = 'error';
-            } else {
               this.statusFollow = 'success';
-              this.getCounters();
+              this.reloadWindow();
               console.log(response);
-            }
           },
           error => {
             console.log(<any>error)
@@ -151,28 +151,19 @@ export class GroupComponent implements OnInit {
   groupUnfollow() {
     this._groupFollowService.deleteFollow(this.token, this.group._id).subscribe(
       response => {
-        if (!response.user) {
-          this.statusUn = 'error';
-        } else {
-          this.statusUn = 'success';
           console.log(response);
           this.group.members = this.group.members - 1;
-          console.log(this.group);
+          console.log(this.group.members);
           this._groupService.updateGroup(this.group).subscribe(
             response => {
-              if (!response.user) {
-                this.statusFollow = 'error';
-              } else {
-                this.statusFollow = 'success';
-                this.getCounters();
-                console.log(response);
-              }
+              this.statusUn = 'success';
+              console.log(response);
+                this.reloadWindow();
             },
             error => {
               console.log(<any>error)
             }
           )
-        }
       },
       error => {
         console.log(<any>error);
@@ -200,6 +191,27 @@ export class GroupComponent implements OnInit {
         this.status = 'error';
       }
     )
+  }
+
+  getMyFollowingGroups(id) {
+    this._groupFollowService.getMyFollowingGroups(this.token, id).subscribe(
+      response => {
+        for (let key of response.follows) {
+          this.followingGroups.push(key.grfollowed);
+        }
+        console.log(response.follows);
+        this.resultFollow = this.followingGroups.indexOf(id);
+        console.log(this.resultFollow);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  reloadWindow() {
+    this.getCounters();
+    return window.location.reload();
   }
 
 }

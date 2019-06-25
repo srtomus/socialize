@@ -47,34 +47,33 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 
-io.on('connection', (socket) => {
+io.on('connection',(socket)=>{
 
-  socket.on('join', function (data) {
+  console.log('new connection made.');
+
+
+  socket.on('join', function(data){
     //joining
-    if (data.room) {
-      socket.leave(socket.room);
-      socket.broadcast.to(data.room).emit('left room', {
-        user: data.user,
-        message: 'ha abandonado la sala.'
-      });
-    }
-
     socket.join(data.room);
 
     console.log(data.user + 'joined the room : ' + data.room);
 
-    socket.broadcast.to(data.room).emit('new user joined', {
-      user: data.user,
-      message: 'ha entrado en la sala.'
-    });
+    socket.broadcast.to(data.room).emit('new user joined', {user:data.user, message:'has joined this room.'});
   });
 
-  socket.on('message', function (data) {
 
-    io.in(data.room).emit('new message', {
-      user: data.user,
-      message: data.message
-    });
+  socket.on('leave', function(data){
+  
+    console.log(data.user + 'left the room : ' + data.room);
+
+    socket.broadcast.to(data.room).emit('left room', {user:data.user, message:'has left this room.'});
+
+    socket.leave(data.room);
+  });
+
+  socket.on('message',function(data){
+
+    io.in(data.room).emit('new message', {user:data.user, message:data.message});
   })
 });
 

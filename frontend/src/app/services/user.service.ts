@@ -14,6 +14,13 @@ export class UserService {
         this.url =  "http://" + window.location.hostname + ":3000/api/";
     }
 
+    prueba(user: User):Observable<any> {
+        var params = JSON.stringify(user);
+        var headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+        return this._http.post(this.url + 'prueba', params, {headers: headers});
+    }
+
     register(user: User): Observable<any> {
         var params = JSON.stringify(user);
         var headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -82,6 +89,13 @@ export class UserService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
 
         return this._http.put(this.url+'updateuser/'+ user._id, params, {headers: headers});
+    }
+
+    updateInterests(user: User): Observable<any> {
+        let params = JSON.stringify(user);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+
+        return this._http.put(this.url+'updateinterests/'+ user._id, params, {headers: headers});
     }
 
     getUsers(page = null): Observable<any> {

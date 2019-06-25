@@ -45,7 +45,9 @@
                 </a>
               </div>
               <div class="ml-2">
-                <div class="h5 m-0"> {{ publication.user.nickname }} </div>
+                  <a routerLink="/profile/{{ publication.user._id }}">
+                    <div class="h5 m-0"> {{ publication.user.nickname }} </div>
+                  </a>
                 <div class="h7 text-muted">{{ publication.user.name + ' ' + publication.user.lastname }}</div>
               </div>
             </div>
@@ -54,7 +56,7 @@
                 (click)="deletePublication(publication._id)"><i class="fas fa-times"></i></div>
             </div>
           </div>
-
+          {{ asdas }}
         </div>
         <div class="card-body">
           <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>
@@ -77,31 +79,33 @@
     </div>
 
     <div class="col-sm-9 col-lg-4 ml-md-auto ml-sm-auto" *ngIf="!loading">
-      <div class="card mb-4" *ngFor="let group of groups">
-        <div class="card-header">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="ml-2">
-                <a routerLink="/group/{{ group._id }}" class="h5 m-0"> {{ group.name }} </a>
-                <div class="h7 text-muted">Autor: {{ group.author.nickname }}</div>
-                <p> {{ group.category }}</p>
+      <div *ngFor="let group of groups">
+        <div class="card mb-4 p-3">
+          <div class="row">
+            <div class="col-6">
+              <div class="card-body p-1 d-flex align-items-center">
+                <div>
+                  <a routerLink="/group/{{ group._id }}">
+                    <span class="mr-2">{{ group.name }}</span>
+                  </a><br>
+                  <span class="text-muted"><small>{{ group.category }}</small></span>
+                  <p><small class="text-secondary">{{ (group.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }}</small>
+                  </p>
+                </div>
               </div>
             </div>
+            <div class="col-6">
+              <p><small>Límite de miembros: {{ group.nr_members }}</small></p>
+              <p><small>Miembros: {{ group.members }}</small></p>
+              <p><small>Fecha: {{ group.date_at }} </small><small> {{ group.hour }}</small></p>
+            </div>
+            <div class="col-12">
+              <p class="m-0">Descripción:</p>
+              <small>{{ group.description }}</small>
+            </div>
           </div>
-
-        </div>
-        <div class="card-body">
-          <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>
-            {{ (group.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </div>
-
-          <p class="card-text">
-            {{ group.description }}
-          </p>
-          <p>
-          </p>
         </div>
       </div>
-      <a href="" routerLink="/groups/">Ver todos los grupos</a>
+      <a routerLink="/groups">Ver todos los grupos</a>
     </div>
   </div>
-</div>

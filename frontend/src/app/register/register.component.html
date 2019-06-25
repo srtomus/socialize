@@ -7,7 +7,7 @@
           <label>Nombre</label>
           <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required />
           <span *ngIf="!name.valid && name.touched">
-            El nombre no es válido
+            El nombre no es válido.
           </span>
         </p>
 
@@ -17,7 +17,7 @@
           <label>Apellido</label>
           <input type="text" name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" class="form-control" />
           <span *ngIf="!lastname.valid">
-            El apellido no es válido
+            El apellido no es válido.
           </span>
         </p>
       </div>
@@ -27,10 +27,10 @@
       <div class="col-12">
         <p>
           <label>Descripción</label>
-          <textarea type="text" name="description" #description="ngModel" [(ngModel)]="user.description"
+          <textarea type="text" minlength="10" name="description" #description="ngModel" [(ngModel)]="user.description"
             class="form-control" required></textarea>
           <span *ngIf="!description.valid && description.touched">
-            La descripción no es válido
+            La descripción debe tener mínimo 10 caracteres.
           </span>
         </p>
       </div>
@@ -40,19 +40,19 @@
       <div class="col-12 col-md-6">
         <p>
           <label>Nickname</label>
-          <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="user.nickname" class="form-control"
+          <input type="text" minlength="3" name="nickname" #nickname="ngModel" [(ngModel)]="user.nickname" class="form-control"
             required />
           <span *ngIf="!nickname.valid && nickname.touched">
-            El nickname no es válido
+            El nombre de usuario debe tener mínimo 3 caracteres.
           </span>
         </p>
       </div>
       <div class="col-12 col-md-6">
         <p>
           <label>Edad</label>
-          <input type="number" name="age" #age="ngModel" [(ngModel)]="user.age" class="form-control" required />
+          <input type="number" name="age" #age="ngModel" min="18" max="100" [(ngModel)]="user.age" class="form-control" required />
           <span *ngIf="!age.valid && age.touched">
-            La edad no es válida
+            La edad no es válida.
           </span>
         </p>
       </div>
@@ -69,15 +69,18 @@
       <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control"
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
       <span *ngIf="!email.valid && email.touched">
-        El correo no es válido!
+        El correo no es válido.
       </span>
     </p>
     <p>
       <label>Password</label>
-      <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control"
+      <input type="password" name="password" minlength="8" #password="ngModel" [(ngModel)]="user.password" class="form-control"
         required />
       <span *ngIf="!password.valid && password.touched">
-        La contraseña es obligatoria!
+        La contraseña no es válida.
+      </span><br>
+      <span *ngIf="!password.valid && password.errors.minlength">
+          La contraseña debe tener mínimo 8 caracteres.
       </span>
     </p>
     <p>¿Ya tienes una cuenta?, <a routerLink="/login">inicia sesión</a></p>

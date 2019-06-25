@@ -34,13 +34,11 @@
 
   </div>
   <div class="row mt-4">
-    <form #messageForm="ngForm">
       <div class="col-8 col-sm-6 p-0">
         <input type="text" class="form-control" [(ngModel)]="messageText">
       </div>
       <div class="col-4 col-sm-6">
-        <button type="button" class="btn btn-success pull-right" (click)="sendMessage(messageForm)">Enviar</button>
+        <button type="button" class="btn btn-success pull-right" (click)="sendMessage()">Enviar</button>
       </div>
-    </form>
   </div>
 </div>

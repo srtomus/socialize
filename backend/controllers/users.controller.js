@@ -9,6 +9,13 @@ const mongoosePaginate = require('mongoose-pagination');
 const fs = require('fs');
 const path = require('path');
 
+function prueba(req, res) {
+    var params = req.body;
+    return res.status(200).send({
+        params: params
+    });
+}
+
 // Registro
 function saveUser(req, res) {
     var params = req.body;
@@ -350,7 +357,7 @@ function updateUser(req, res) {
             message: 'No tienes permiso para actualizar los datos del usuario'
         });
     }
-    
+
     bcrypt.hash(update.password, null, null, (err, hash) => {
         update.password = hash
 
@@ -360,11 +367,11 @@ function updateUser(req, res) {
             if (err) return res.status(500).send({
                 message: 'Error en la petición'
             });
-    
+
             if (!userUpdated) return res.status(404).send({
                 message: 'No se ha podido actualizar el usuario'
             });
-    
+
             return res.status(200).send({
                 user: userUpdated
             });
@@ -482,7 +489,37 @@ function removeFilesOfUploads(res, file_path, message) {
     })
 }
 
+function updateInterests(req, res) {
+    var userId = req.params.id;
+    var update = req.body;
+
+    delete update.password;
+
+    if (userId != req.user.sub && req.params.role == "ROLE_USER") {
+        return res.status(500).send({
+            message: 'No tienes permiso para actualizar los datos del usuario'
+        });
+    }
+
+    User.findByIdAndUpdate(userId, update, {
+        new: true
+    }, (err, userUpdated) => {
+        if (err) return res.status(500).send({
+            message: 'Error en la petición'
+        });
+
+        if (!userUpdated) return res.status(404).send({
+            message: 'No se ha podido actualizar el usuario'
+        });
+
+        return res.status(200).send({
+            user: userUpdated
+        });
+    })
+}
+
 module.exports = {
+    prueba,
     saveUser,
     loginUser,
     getUser,
@@ -491,5 +528,6 @@ module.exports = {
     uploadImage,
     getUserImg,
     getCounters,
-    deleteUser
+    deleteUser,
+    updateInterests
 }
